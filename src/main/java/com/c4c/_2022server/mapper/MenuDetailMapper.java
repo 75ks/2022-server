@@ -47,15 +47,15 @@ public interface MenuDetailMapper {
      */
     @Insert({
         "insert into MENU_DETAIL (STORE_ID, MENU_ID, ",
-        "RANK_ID, PRICE, ",
-        "DELETE_FLG, CREATED_DATETIME, ",
-        "CREATED_USER, UPDATE_DATETIME, ",
-        "UPDATE_USER, VERSION_EX_KEY)",
+        "RANK_ID, PRICE, DELETE_FLG, ",
+        "CREATED_DATETIME, CREATED_USER, ",
+        "UPDATE_DATETIME, UPDATE_USER, ",
+        "VERSION_EX_KEY)",
         "values (#{storeId,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}, ",
-        "#{rankId,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, ",
-        "#{deleteFlg,jdbcType=INTEGER}, #{createdDatetime,jdbcType=TIMESTAMP}, ",
-        "#{createdUser,jdbcType=INTEGER}, #{updateDatetime,jdbcType=TIMESTAMP}, ",
-        "#{updateUser,jdbcType=INTEGER}, #{versionExKey,jdbcType=INTEGER})"
+        "#{rankId,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{deleteFlg,jdbcType=INTEGER}, ",
+        "#{createdDatetime,jdbcType=TIMESTAMP}, #{createdUser,jdbcType=INTEGER}, ",
+        "#{updateDatetime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, ",
+        "#{versionExKey,jdbcType=INTEGER})"
     })
     int insert(MenuDetail row);
 

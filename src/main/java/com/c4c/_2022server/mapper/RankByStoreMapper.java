@@ -45,13 +45,13 @@ public interface RankByStoreMapper {
      * @mbg.generated generated automatically, do not modify!
      */
     @Insert({
-        "insert into RANK_BY_STORE (STORE_ID, ",
-        "RANK_ID, `RANK`, DELETE_FLG, ",
+        "insert into RANK_BY_STORE (STORE_ID, RANK_ID, ",
+        "`RANK`, DELETE_FLG, ",
         "CREATED_DATETIME, CREATED_USER, ",
         "UPDATE_DATETIME, UPDATE_USER, ",
         "VERSION_EX_KEY)",
-        "values (#{storeId,jdbcType=INTEGER}, ",
-        "#{rankId,jdbcType=INTEGER}, #{rank,jdbcType=VARCHAR}, #{deleteFlg,jdbcType=INTEGER}, ",
+        "values (#{storeId,jdbcType=INTEGER}, #{rankId,jdbcType=INTEGER}, ",
+        "#{rank,jdbcType=VARCHAR}, #{deleteFlg,jdbcType=INTEGER}, ",
         "#{createdDatetime,jdbcType=TIMESTAMP}, #{createdUser,jdbcType=INTEGER}, ",
         "#{updateDatetime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, ",
         "#{versionExKey,jdbcType=INTEGER})"
@@ -69,8 +69,8 @@ public interface RankByStoreMapper {
      */
     @SelectProvider(type=RankByStoreSqlProvider.class, method="selectByExample")
     @Results({
-        @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER),
-        @Result(column="RANK_ID", property="rankId", jdbcType=JdbcType.INTEGER),
+        @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="RANK_ID", property="rankId", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="RANK", property="rank", jdbcType=JdbcType.VARCHAR),
         @Result(column="DELETE_FLG", property="deleteFlg", jdbcType=JdbcType.INTEGER),
         @Result(column="CREATED_DATETIME", property="createdDatetime", jdbcType=JdbcType.TIMESTAMP),
@@ -86,15 +86,15 @@ public interface RankByStoreMapper {
      */
     @Select({
         "select",
-        "STORE_ID, RANK_ID, `RANK`, DELETE_FLG, CREATED_DATETIME, CREATED_USER, ",
-        "UPDATE_DATETIME, UPDATE_USER, VERSION_EX_KEY",
+        "STORE_ID, RANK_ID, `RANK`, DELETE_FLG, CREATED_DATETIME, CREATED_USER, UPDATE_DATETIME, ",
+        "UPDATE_USER, VERSION_EX_KEY",
         "from RANK_BY_STORE",
         "where STORE_ID = #{storeId,jdbcType=INTEGER}",
           "and RANK_ID = #{rankId,jdbcType=INTEGER}"
     })
     @Results({
-        @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER),
-        @Result(column="RANK_ID", property="rankId", jdbcType=JdbcType.INTEGER),
+        @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="RANK_ID", property="rankId", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="RANK", property="rank", jdbcType=JdbcType.VARCHAR),
         @Result(column="DELETE_FLG", property="deleteFlg", jdbcType=JdbcType.INTEGER),
         @Result(column="CREATED_DATETIME", property="createdDatetime", jdbcType=JdbcType.TIMESTAMP),
@@ -128,9 +128,7 @@ public interface RankByStoreMapper {
      */
     @Update({
         "update RANK_BY_STORE",
-        "set STORE_ID = #{storeId,jdbcType=INTEGER},",
-          "RANK_ID = #{rankId,jdbcType=INTEGER},",
-          "`RANK` = #{rank,jdbcType=VARCHAR},",
+        "set `RANK` = #{rank,jdbcType=VARCHAR},",
           "DELETE_FLG = #{deleteFlg,jdbcType=INTEGER},",
           "CREATED_DATETIME = #{createdDatetime,jdbcType=TIMESTAMP},",
           "CREATED_USER = #{createdUser,jdbcType=INTEGER},",
