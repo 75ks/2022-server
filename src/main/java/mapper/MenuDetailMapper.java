@@ -36,24 +36,24 @@ public interface MenuDetailMapper {
         "delete from MENU_DETAIL",
         "where STORE_ID = #{storeId,jdbcType=INTEGER}",
           "and MENU_ID = #{menuId,jdbcType=INTEGER}",
-          "and RANK_BY_STORE_ID = #{rankByStoreId,jdbcType=INTEGER}"
+          "and RANK_ID = #{rankId,jdbcType=INTEGER}"
     })
-    int deleteByPrimaryKey(@Param("storeId") Integer storeId, @Param("menuId") Integer menuId, @Param("rankByStoreId") Integer rankByStoreId);
+    int deleteByPrimaryKey(@Param("storeId") Integer storeId, @Param("menuId") Integer menuId, @Param("rankId") Integer rankId);
 
     /**
      * @mbg.generated generated automatically, do not modify!
      */
     @Insert({
         "insert into MENU_DETAIL (STORE_ID, MENU_ID, ",
-        "RANK_BY_STORE_ID, PRICE, ",
-        "DELETE_FLG, CREATED_DATETIME, ",
-        "CREATED_USER, UPDATE_DATETIME, ",
-        "UPDATE_USER, VERSION_EX_KEY)",
+        "RANK_ID, PRICE, DELETE_FLG, ",
+        "CREATED_DATETIME, CREATED_USER, ",
+        "UPDATE_DATETIME, UPDATE_USER, ",
+        "VERSION_EX_KEY)",
         "values (#{storeId,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}, ",
-        "#{rankByStoreId,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, ",
-        "#{deleteFlg,jdbcType=INTEGER}, #{createdDatetime,jdbcType=TIMESTAMP}, ",
-        "#{createdUser,jdbcType=INTEGER}, #{updateDatetime,jdbcType=TIMESTAMP}, ",
-        "#{updateUser,jdbcType=INTEGER}, #{versionExKey,jdbcType=INTEGER})"
+        "#{rankId,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{deleteFlg,jdbcType=INTEGER}, ",
+        "#{createdDatetime,jdbcType=TIMESTAMP}, #{createdUser,jdbcType=INTEGER}, ",
+        "#{updateDatetime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, ",
+        "#{versionExKey,jdbcType=INTEGER})"
     })
     int insert(MenuDetail row);
 
@@ -70,7 +70,7 @@ public interface MenuDetailMapper {
     @Results({
         @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="MENU_ID", property="menuId", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="RANK_BY_STORE_ID", property="rankByStoreId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="RANK_ID", property="rankId", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER),
         @Result(column="DELETE_FLG", property="deleteFlg", jdbcType=JdbcType.INTEGER),
         @Result(column="CREATED_DATETIME", property="createdDatetime", jdbcType=JdbcType.TIMESTAMP),
@@ -86,17 +86,17 @@ public interface MenuDetailMapper {
      */
     @Select({
         "select",
-        "STORE_ID, MENU_ID, RANK_BY_STORE_ID, PRICE, DELETE_FLG, CREATED_DATETIME, CREATED_USER, ",
+        "STORE_ID, MENU_ID, RANK_ID, PRICE, DELETE_FLG, CREATED_DATETIME, CREATED_USER, ",
         "UPDATE_DATETIME, UPDATE_USER, VERSION_EX_KEY",
         "from MENU_DETAIL",
         "where STORE_ID = #{storeId,jdbcType=INTEGER}",
           "and MENU_ID = #{menuId,jdbcType=INTEGER}",
-          "and RANK_BY_STORE_ID = #{rankByStoreId,jdbcType=INTEGER}"
+          "and RANK_ID = #{rankId,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="MENU_ID", property="menuId", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="RANK_BY_STORE_ID", property="rankByStoreId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="RANK_ID", property="rankId", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER),
         @Result(column="DELETE_FLG", property="deleteFlg", jdbcType=JdbcType.INTEGER),
         @Result(column="CREATED_DATETIME", property="createdDatetime", jdbcType=JdbcType.TIMESTAMP),
@@ -105,7 +105,7 @@ public interface MenuDetailMapper {
         @Result(column="UPDATE_USER", property="updateUser", jdbcType=JdbcType.INTEGER),
         @Result(column="VERSION_EX_KEY", property="versionExKey", jdbcType=JdbcType.INTEGER)
     })
-    MenuDetail selectByPrimaryKey(@Param("storeId") Integer storeId, @Param("menuId") Integer menuId, @Param("rankByStoreId") Integer rankByStoreId);
+    MenuDetail selectByPrimaryKey(@Param("storeId") Integer storeId, @Param("menuId") Integer menuId, @Param("rankId") Integer rankId);
 
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -139,7 +139,7 @@ public interface MenuDetailMapper {
           "VERSION_EX_KEY = #{versionExKey,jdbcType=INTEGER}",
         "where STORE_ID = #{storeId,jdbcType=INTEGER}",
           "and MENU_ID = #{menuId,jdbcType=INTEGER}",
-          "and RANK_BY_STORE_ID = #{rankByStoreId,jdbcType=INTEGER}"
+          "and RANK_ID = #{rankId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(MenuDetail row);
 }

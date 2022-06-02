@@ -44,8 +44,8 @@ public class MenuDetailSqlProvider {
             sql.VALUES("MENU_ID", "#{menuId,jdbcType=INTEGER}");
         }
         
-        if (row.getRankByStoreId() != null) {
-            sql.VALUES("RANK_BY_STORE_ID", "#{rankByStoreId,jdbcType=INTEGER}");
+        if (row.getRankId() != null) {
+            sql.VALUES("RANK_ID", "#{rankId,jdbcType=INTEGER}");
         }
         
         if (row.getPrice() != null) {
@@ -90,7 +90,7 @@ public class MenuDetailSqlProvider {
             sql.SELECT("STORE_ID");
         }
         sql.SELECT("MENU_ID");
-        sql.SELECT("RANK_BY_STORE_ID");
+        sql.SELECT("RANK_ID");
         sql.SELECT("PRICE");
         sql.SELECT("DELETE_FLG");
         sql.SELECT("CREATED_DATETIME");
@@ -126,8 +126,8 @@ public class MenuDetailSqlProvider {
             sql.SET("MENU_ID = #{row.menuId,jdbcType=INTEGER}");
         }
         
-        if (row.getRankByStoreId() != null) {
-            sql.SET("RANK_BY_STORE_ID = #{row.rankByStoreId,jdbcType=INTEGER}");
+        if (row.getRankId() != null) {
+            sql.SET("RANK_ID = #{row.rankId,jdbcType=INTEGER}");
         }
         
         if (row.getPrice() != null) {
@@ -171,7 +171,7 @@ public class MenuDetailSqlProvider {
         
         sql.SET("STORE_ID = #{row.storeId,jdbcType=INTEGER}");
         sql.SET("MENU_ID = #{row.menuId,jdbcType=INTEGER}");
-        sql.SET("RANK_BY_STORE_ID = #{row.rankByStoreId,jdbcType=INTEGER}");
+        sql.SET("RANK_ID = #{row.rankId,jdbcType=INTEGER}");
         sql.SET("PRICE = #{row.price,jdbcType=INTEGER}");
         sql.SET("DELETE_FLG = #{row.deleteFlg,jdbcType=INTEGER}");
         sql.SET("CREATED_DATETIME = #{row.createdDatetime,jdbcType=TIMESTAMP}");
@@ -222,7 +222,7 @@ public class MenuDetailSqlProvider {
         
         sql.WHERE("STORE_ID = #{storeId,jdbcType=INTEGER}");
         sql.WHERE("MENU_ID = #{menuId,jdbcType=INTEGER}");
-        sql.WHERE("RANK_BY_STORE_ID = #{rankByStoreId,jdbcType=INTEGER}");
+        sql.WHERE("RANK_ID = #{rankId,jdbcType=INTEGER}");
         
         return sql.toString();
     }

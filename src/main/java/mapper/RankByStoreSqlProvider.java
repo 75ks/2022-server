@@ -36,10 +36,6 @@ public class RankByStoreSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("RANK_BY_STORE");
         
-        if (row.getRankByStoreId() != null) {
-            sql.VALUES("RANK_BY_STORE_ID", "#{rankByStoreId,jdbcType=INTEGER}");
-        }
-        
         if (row.getStoreId() != null) {
             sql.VALUES("STORE_ID", "#{storeId,jdbcType=INTEGER}");
         }
@@ -85,11 +81,10 @@ public class RankByStoreSqlProvider {
     public String selectByExample(RankByStoreExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
-            sql.SELECT_DISTINCT("RANK_BY_STORE_ID");
+            sql.SELECT_DISTINCT("STORE_ID");
         } else {
-            sql.SELECT("RANK_BY_STORE_ID");
+            sql.SELECT("STORE_ID");
         }
-        sql.SELECT("STORE_ID");
         sql.SELECT("RANK_ID");
         sql.SELECT("`RANK`");
         sql.SELECT("DELETE_FLG");
@@ -117,10 +112,6 @@ public class RankByStoreSqlProvider {
         
         SQL sql = new SQL();
         sql.UPDATE("RANK_BY_STORE");
-        
-        if (row.getRankByStoreId() != null) {
-            sql.SET("RANK_BY_STORE_ID = #{row.rankByStoreId,jdbcType=INTEGER}");
-        }
         
         if (row.getStoreId() != null) {
             sql.SET("STORE_ID = #{row.storeId,jdbcType=INTEGER}");
@@ -169,7 +160,6 @@ public class RankByStoreSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("RANK_BY_STORE");
         
-        sql.SET("RANK_BY_STORE_ID = #{row.rankByStoreId,jdbcType=INTEGER}");
         sql.SET("STORE_ID = #{row.storeId,jdbcType=INTEGER}");
         sql.SET("RANK_ID = #{row.rankId,jdbcType=INTEGER}");
         sql.SET("`RANK` = #{row.rank,jdbcType=VARCHAR}");
@@ -191,14 +181,6 @@ public class RankByStoreSqlProvider {
     public String updateByPrimaryKeySelective(RankByStore row) {
         SQL sql = new SQL();
         sql.UPDATE("RANK_BY_STORE");
-        
-        if (row.getStoreId() != null) {
-            sql.SET("STORE_ID = #{storeId,jdbcType=INTEGER}");
-        }
-        
-        if (row.getRankId() != null) {
-            sql.SET("RANK_ID = #{rankId,jdbcType=INTEGER}");
-        }
         
         if (row.getRank() != null) {
             sql.SET("`RANK` = #{rank,jdbcType=VARCHAR}");
@@ -228,7 +210,8 @@ public class RankByStoreSqlProvider {
             sql.SET("VERSION_EX_KEY = #{versionExKey,jdbcType=INTEGER}");
         }
         
-        sql.WHERE("RANK_BY_STORE_ID = #{rankByStoreId,jdbcType=INTEGER}");
+        sql.WHERE("STORE_ID = #{storeId,jdbcType=INTEGER}");
+        sql.WHERE("RANK_ID = #{rankId,jdbcType=INTEGER}");
         
         return sql.toString();
     }

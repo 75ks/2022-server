@@ -23,11 +23,11 @@ public class MenuDetail {
     private Integer menuId;
 
     /**
-     * Column: RANK_BY_STORE_ID
+     * Column: RANK_ID
      * Type: INT
-     * Remark: 店舗別ランクID
+     * Remark: ランクID
      */
-    private Integer rankByStoreId;
+    private Integer rankId;
 
     /**
      * Column: PRICE

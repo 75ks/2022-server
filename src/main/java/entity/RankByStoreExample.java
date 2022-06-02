@@ -147,66 +147,6 @@ public class RankByStoreExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andRankByStoreIdIsNull() {
-            addCriterion("RANK_BY_STORE_ID is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRankByStoreIdIsNotNull() {
-            addCriterion("RANK_BY_STORE_ID is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRankByStoreIdEqualTo(Integer value) {
-            addCriterion("RANK_BY_STORE_ID =", value, "rankByStoreId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRankByStoreIdNotEqualTo(Integer value) {
-            addCriterion("RANK_BY_STORE_ID <>", value, "rankByStoreId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRankByStoreIdGreaterThan(Integer value) {
-            addCriterion("RANK_BY_STORE_ID >", value, "rankByStoreId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRankByStoreIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("RANK_BY_STORE_ID >=", value, "rankByStoreId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRankByStoreIdLessThan(Integer value) {
-            addCriterion("RANK_BY_STORE_ID <", value, "rankByStoreId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRankByStoreIdLessThanOrEqualTo(Integer value) {
-            addCriterion("RANK_BY_STORE_ID <=", value, "rankByStoreId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRankByStoreIdIn(List<Integer> values) {
-            addCriterion("RANK_BY_STORE_ID in", values, "rankByStoreId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRankByStoreIdNotIn(List<Integer> values) {
-            addCriterion("RANK_BY_STORE_ID not in", values, "rankByStoreId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRankByStoreIdBetween(Integer value1, Integer value2) {
-            addCriterion("RANK_BY_STORE_ID between", value1, value2, "rankByStoreId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRankByStoreIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("RANK_BY_STORE_ID not between", value1, value2, "rankByStoreId");
-            return (Criteria) this;
-        }
-
         public Criteria andStoreIdIsNull() {
             addCriterion("STORE_ID is null");
             return (Criteria) this;

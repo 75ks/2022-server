@@ -9,13 +9,6 @@ import lombok.Data;
 @Data
 public class RankByStore {
     /**
-     * Column: RANK_BY_STORE_ID
-     * Type: INT
-     * Remark: 店舗別ランクID
-     */
-    private Integer rankByStoreId;
-
-    /**
      * Column: STORE_ID
      * Type: INT
      * Remark: 店舗ID
