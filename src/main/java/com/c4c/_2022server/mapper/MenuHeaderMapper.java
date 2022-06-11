@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -16,8 +17,10 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 import com.c4c._2022server.entity.MenuHeader;
+import com.c4c._2022server.entity.MenuHeader0001;
 import com.c4c._2022server.entity.MenuHeaderExample;
 
+@Mapper
 public interface MenuHeaderMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -139,4 +142,21 @@ public interface MenuHeaderMapper {
           "and MENU_ID = #{menuId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(MenuHeader row);
+
+    /**
+     * SQLID: MenuHeader0001
+     */
+    @Select({
+        "SELECT DISTINCT",
+        "    MENU_HEADER.MENU",
+        "FROM",
+        "    MENU_HEADER",
+        "WHERE",
+        "    MENU_HEADER.DELETE_FLG = 0"
+    })
+    @Results(value = {
+            @Result(column = "MENU", property = "menu", jdbcType=JdbcType.VARCHAR, id=true),
+    })
+    List<MenuHeader0001> select0001();
+
 }

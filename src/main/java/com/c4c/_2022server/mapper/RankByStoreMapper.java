@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -16,8 +17,10 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 import com.c4c._2022server.entity.RankByStore;
+import com.c4c._2022server.entity.RankByStore0001;
 import com.c4c._2022server.entity.RankByStoreExample;
 
+@Mapper
 public interface RankByStoreMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -139,4 +142,21 @@ public interface RankByStoreMapper {
           "and RANK_ID = #{rankId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(RankByStore row);
+
+    /**
+     * SQLID: RankByStore0001
+     */
+    @Select({
+        "SELECT DISTINCT",
+        "    RANK_BY_STORE.RANK",
+        "FROM",
+        "    RANK_BY_STORE",
+        "WHERE",
+        "    RANK_BY_STORE.DELETE_FLG = 0"
+    })
+    @Results(value = {
+            @Result(column = "RANK", property = "rank", jdbcType=JdbcType.VARCHAR, id=true),
+    })
+    List<RankByStore0001> select0001();
+
 }

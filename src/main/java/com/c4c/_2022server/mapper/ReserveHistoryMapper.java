@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -16,8 +17,10 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 import com.c4c._2022server.entity.ReserveHistory;
+import com.c4c._2022server.entity.ReserveHistory0001;
 import com.c4c._2022server.entity.ReserveHistoryExample;
 
+@Mapper
 public interface ReserveHistoryMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -160,4 +163,52 @@ public interface ReserveHistoryMapper {
         "where RESERVE_HISTORY_ID = #{reserveHistoryId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(ReserveHistory row);
+
+    /**
+     * SQLID: ReserveHistory0001
+     */
+    @Select({
+        "SELECT",
+        "    RESERVE_HISTORY.RESERVE_HISTORY_ID",
+        "    , RESERVE_HISTORY.RANK",
+        "    , RESERVE_HISTORY.MENU",
+        "    , RESERVE_HISTORY.PRICE",
+        "    , RESERVE_HISTORY.RESERVE_DATETIME",
+        "    , RESERVE_HISTORY.RESERVE_STATE",
+        "    , CUSTOMER.LAST_NAME AS CUSTOMER_LAST_NAME",
+        "    , CUSTOMER.FIRST_NAME AS CUSTOMER_FIRST_NAME",
+        "    , CUSTOMER.LAST_NAME_KANA AS CUSTOMER_LAST_NAME_KANA",
+        "    , CUSTOMER.FIRST_NAME_KANA AS CUSTOMER_FIRST_NAME_KANA",
+        "    , STUFF.LAST_NAME AS STUFF_LAST_NAME",
+        "    , STUFF.FIRST_NAME AS STUFF_FIRST_NAME",
+        "    , STUFF.LAST_NAME_KANA AS STUFF_LAST_NAME_KANA",
+        "    , STUFF.FIRST_NAME_KANA AS STUFF_FIRST_NAME_KANA",
+        "FROM",
+        "    RESERVE_HISTORY",
+        "INNER JOIN",
+        "    CUSTOMER",
+        "    ON CUSTOMER.CUSTOMER_ID = RESERVE_HISTORY.CUSTOMER_ID",
+        "INNER JOIN",
+        "    STUFF",
+        "    ON STUFF.STUFF_ID = RESERVE_HISTORY.STUFF_ID",
+        "WHERE",
+        "    CUSTOMER.DELETE_FLG = 0"
+    })
+    @Results(value = {
+            @Result(column = "RESERVE_HISTORY_ID", property = "reserveHistoryId", jdbcType=JdbcType.INTEGER, id=true),
+            @Result(column = "RANK", property = "rank", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "MENU", property = "menu", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "PRICE", property = "price", jdbcType=JdbcType.INTEGER),
+            @Result(column = "RESERVE_DATETIME", property = "reserveDatetime", jdbcType=JdbcType.TIMESTAMP),
+            @Result(column = "RESERVE_STATE", property = "reserveState", jdbcType=JdbcType.INTEGER),
+            @Result(column = "CUSTOMER_LAST_NAME", property = "customerLastName", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "CUSTOMER_FIRST_NAME", property = "customerFirstName", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "CUSTOMER_LAST_NAME_KANA", property = "customerLastNameKana", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "CUSTOMER_FIRST_NAME_KANA", property = "customerFirstNameKana", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "STUFF_LAST_NAME", property = "stuffLastName", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "STUFF_FIRST_NAME", property = "stuffFirstName", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "STUFF_LAST_NAME_KANA", property = "stuffLastNameKana", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "STUFF_FIRST_NAME_KANA", property = "stuffFirstNameKana", jdbcType=JdbcType.VARCHAR)
+    })
+    List<ReserveHistory0001> select0001();
 }
