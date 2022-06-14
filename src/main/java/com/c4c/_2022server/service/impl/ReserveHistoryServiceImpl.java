@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.c4c._2022server.constants.ReserveState;
 import com.c4c._2022server.entity.ReserveHistory0001;
 import com.c4c._2022server.form.ReserveHistoryFormRes;
 import com.c4c._2022server.mapper.ReserveHistoryMapper;
@@ -32,7 +33,7 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
             resForm.setMenu(reserveHistory0001.getMenu());
             resForm.setPrice(reserveHistory0001.getPrice());
             resForm.setReserveDatetime(reserveHistory0001.getReserveDatetime());
-            resForm.setReserveState(reserveHistory0001.getReserveState());
+            resForm.setReserveState(ReserveState.MAP.get(reserveHistory0001.getReserveState()));
             resForm.setCustomerLastName(reserveHistory0001.getCustomerLastName());
             resForm.setCustomerFirstName(reserveHistory0001.getCustomerFirstName());
             resForm.setCustomerLastNameKana(reserveHistory0001.getCustomerLastNameKana());

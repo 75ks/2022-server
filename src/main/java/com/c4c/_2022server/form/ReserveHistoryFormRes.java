@@ -51,8 +51,9 @@ public class ReserveHistoryFormRes {
      * Column: RESERVE_STATE
      * Type: INT
      * Remark: 予約状態
+     * 上記を元に予約状態名を保持する
      */
-    private Integer reserveState;
+    private String reserveState;
 
     /**
      * Table: CUSTOMER
