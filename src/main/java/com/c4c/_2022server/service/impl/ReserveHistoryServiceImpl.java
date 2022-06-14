@@ -33,7 +33,7 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
             resForm.setMenu(reserveHistory0001.getMenu());
             resForm.setPrice(reserveHistory0001.getPrice());
             resForm.setReserveDatetime(reserveHistory0001.getReserveDatetime());
-            resForm.setReserveState(ReserveState.LIST.get(reserveHistory0001.getReserveState() - 1));
+            resForm.setReserveState(ReserveState.MAP.get(reserveHistory0001.getReserveState()));
             resForm.setCustomerLastName(reserveHistory0001.getCustomerLastName());
             resForm.setCustomerFirstName(reserveHistory0001.getCustomerFirstName());
             resForm.setCustomerLastNameKana(reserveHistory0001.getCustomerLastNameKana());
