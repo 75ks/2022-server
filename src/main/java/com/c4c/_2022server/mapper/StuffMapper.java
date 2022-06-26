@@ -200,4 +200,47 @@ public interface StuffMapper {
         "where STUFF_ID = #{stuffId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Stuff row);
+
+    /**
+     * SQLID: Stuff0001
+     */
+    @Select({
+        "SELECT",
+        "    STUFF.STUFF_ID",
+        "    , STUFF.STORE_ID",
+        "    , STUFF.LAST_NAME",
+        "    , STUFF.FIRST_NAME",
+        "    , STUFF.LAST_NAME_KANA",
+        "    , STUFF.FIRST_NAME_KANA",
+        "    , STUFF.RANK",
+        "    , STUFF.BIRTHDAY",
+        "    , STUFF.AGE",
+        "    , STUFF.GENDER",
+        "    , STUFF.POSTAL_CODE",
+        "    , STUFF.PREFECTURE_ID",
+        "    , STUFF.ADDRESS1",
+        "    , STUFF.ADDRESS2",
+        "    , STUFF.ADDRESS3",
+        "    , STUFF.PHONE_NUMBER",
+        "    , STUFF.EMAIL",
+        "    , STUFF.PASSWORD",
+        "    , STUFF.DELETE_FLG",
+        "    , STUFF.CREATED_DATETIME",
+        "    , STUFF.CREATED_USER",
+        "    , STUFF.UPDATE_DATETIME",
+        "    , STUFF.UPDATE_USER",
+        "    , STUFF.VERSION_EX_KEY",
+        "FROM",
+        "    STUFF",
+        "WHERE",
+        "    STUFF.EMAIL = #{email}",
+        "    AND STUFF.DELETE_FLG = 0"
+    })
+    @Results({
+        @Result(column="STUFF_ID", property="stuffId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="EMAIL", property="email", jdbcType=JdbcType.VARCHAR),
+        @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="VERSION_EX_KEY", property="versionExKey", jdbcType=JdbcType.INTEGER)
+    })
+    Stuff select0001(String email);
 }

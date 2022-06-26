@@ -17,6 +17,7 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 import com.c4c._2022server.entity.StoreHeader;
+import com.c4c._2022server.entity.StoreHeader0001;
 import com.c4c._2022server.entity.StoreHeaderExample;
 
 @Mapper
@@ -164,4 +165,21 @@ public interface StoreHeaderMapper {
         "where STORE_ID = #{storeId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(StoreHeader row);
+
+    /**
+     * SQLID: StoreHeader0001
+     */
+    @Select({
+        "SELECT DISTINCT",
+        "    STORE_HEADER.STORE_NAME",
+        "FROM",
+        "    STORE_HEADER",
+        "WHERE",
+        "    STORE_HEADER.DELETE_FLG = 0"
+    })
+    @Results(value = {
+            @Result(column = "STORE_NAME", property = "storeName", jdbcType=JdbcType.VARCHAR, id=true),
+    })
+    List<StoreHeader0001> select0001();
+
 }
