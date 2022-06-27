@@ -1,5 +1,6 @@
 package com.c4c._2022server.service.impl;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,14 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         loginRes.setStuffId(stuffId);
         loginRes.setJwt(jwt);
         return loginRes;
+    }
+
+    /**
+     * ログアウト
+     * @param request, response
+     */
+    @Override
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        CookieUtils.deleteCookie(request, response, "jwt");
     }
 }
