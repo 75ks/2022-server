@@ -192,7 +192,8 @@ public interface ReserveHistoryMapper {
         "    STUFF",
         "    ON STUFF.STUFF_ID = RESERVE_HISTORY.STUFF_ID",
         "WHERE",
-        "    CUSTOMER.DELETE_FLG = 0"
+        "    RESERVE_HISTORY.STORE_ID = #{stuffId}",
+        "    AND RESERVE_HISTORY.DELETE_FLG = 0"
     })
     @Results(value = {
             @Result(column = "RESERVE_HISTORY_ID", property = "reserveHistoryId", jdbcType=JdbcType.INTEGER, id=true),
@@ -210,5 +211,5 @@ public interface ReserveHistoryMapper {
             @Result(column = "STUFF_LAST_NAME_KANA", property = "stuffLastNameKana", jdbcType=JdbcType.VARCHAR),
             @Result(column = "STUFF_FIRST_NAME_KANA", property = "stuffFirstNameKana", jdbcType=JdbcType.VARCHAR)
     })
-    List<ReserveHistory0001> select0001();
+    List<ReserveHistory0001> select0001(int stuffId);
 }

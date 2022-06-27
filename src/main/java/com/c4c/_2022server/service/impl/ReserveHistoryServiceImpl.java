@@ -19,12 +19,12 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
 
     /**
      * 予約履歴一覧取得
-     * @return null
+     * @return resFormList
      */
     @Override
-    public List<ReserveHistoryFormRes> index() {
+    public List<ReserveHistoryFormRes> index(int stuffId) {
         // SELECT文を実行し、データを取得する
-        List<ReserveHistory0001> reserveHistoryList = reserveHistoryMapper.select0001();
+        List<ReserveHistory0001> reserveHistoryList = reserveHistoryMapper.select0001(stuffId);
         // Formにデータを詰める
         List<ReserveHistoryFormRes> resFormList = new ArrayList<>();
         for (ReserveHistory0001 reserveHistory0001 : reserveHistoryList) {

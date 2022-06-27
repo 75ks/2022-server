@@ -8,5 +8,5 @@ public interface ReserveHistoryService {
     /**
      * 予約履歴一覧取得
      */
-    public List<ReserveHistoryFormRes> index();
+    public List<ReserveHistoryFormRes> index(int stuffId);
 }
