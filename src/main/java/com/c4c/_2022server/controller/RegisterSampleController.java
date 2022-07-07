@@ -33,7 +33,7 @@ public class RegisterSampleController {
         registerSampleServiceImpl.register(reqForm);
         // メッセージを設定
         RegisterSampleRes resForm = new RegisterSampleRes();
-        resForm.setMessages(messageSource.getMessage("Success", new String[]{"登録"}, Locale.getDefault()));
+        resForm.setMessages(messageSource.getMessage("success", new String[]{"登録"}, Locale.getDefault()));
         return ResponseEntity.ok(resForm);
     }
 }

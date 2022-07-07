@@ -1,12 +1,16 @@
 package com.c4c._2022server.exception;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.security.sasl.AuthenticationException;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -18,6 +22,20 @@ import com.c4c._2022server.form.MessageRes;
  */
 @RestControllerAdvice
 public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
+    /**
+     * 認証エラーの共通処理
+     * @return ResponseEntity
+     */
+    @ExceptionHandler(AuthenticationException.class)
+    protected ResponseEntity<Object> handleAuthenticationException(AuthenticationException ex) {
+        List<String> messageList = Collections.singletonList(ex.getMessage());
+
+        MessageRes resForm = new MessageRes();
+        resForm.setMessageList(messageList);
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(resForm);
+    }
+
     /**
      * バリデーションエラーの共通処理
      * @return ResponseEntity

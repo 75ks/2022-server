@@ -1,5 +1,6 @@
 package com.c4c._2022server.controller;
 
+import javax.security.sasl.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -37,7 +38,7 @@ public class AuthorizationController {
      * @return LoginRes
      */
     @PostMapping("/login")
-    public ResponseEntity<LoginRes> login(HttpServletResponse response, @RequestBody LoginReq reqForm) {
+    public ResponseEntity<LoginRes> login(HttpServletResponse response, @RequestBody LoginReq reqForm) throws AuthenticationException {
         LoginRes resForm = authorizationServiceImpl.signIn(reqForm, response);
         return ResponseEntity.ok(resForm);
     }
