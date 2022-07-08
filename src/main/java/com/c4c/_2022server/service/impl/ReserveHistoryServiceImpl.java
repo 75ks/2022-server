@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.c4c._2022server.constants.ReserveState;
 import com.c4c._2022server.entity.ReserveHistory0001;
-import com.c4c._2022server.form.ReserveHistoryFormRes;
+import com.c4c._2022server.form.ReserveHistoryRes;
 import com.c4c._2022server.mapper.ReserveHistoryMapper;
 import com.c4c._2022server.service.ReserveHistoryService;
 
@@ -20,17 +20,18 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
 
     /**
      * 予約履歴一覧取得
-     * @return null
+     * @return resFormList
      */
     @Override
-    public List<ReserveHistoryFormRes> index() {
+    public List<ReserveHistoryRes> index(int stuffId) {
         // SELECT文を実行し、データを取得する
-        List<ReserveHistory0001> reserveHistoryList = reserveHistoryMapper.select0001();
+        List<ReserveHistory0001> reserveHistoryList = reserveHistoryMapper.select0001(stuffId);
         // Formにデータを詰める
-        List<ReserveHistoryFormRes> resFormList = new ArrayList<>();
+        List<ReserveHistoryRes> resFormList = new ArrayList<>();
         for (ReserveHistory0001 reserveHistory0001 : reserveHistoryList) {
-            ReserveHistoryFormRes resForm = new ReserveHistoryFormRes();
+            ReserveHistoryRes resForm = new ReserveHistoryRes();
             BeanUtils.copyProperties(reserveHistory0001, resForm);
+            resForm.setReserveState(ReserveState.MAP.get(reserveHistory0001.getReserveState()));
             resFormList.add(resForm);
         }
         return resFormList;

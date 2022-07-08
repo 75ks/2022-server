@@ -1,8 +1,13 @@
 package com.c4c._2022server.service.impl;
 
+import java.util.Locale;
+
+import javax.security.sasl.AuthenticationException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +22,8 @@ import com.c4c._2022server.utils.JWTUtils;
 @Service
 public class AuthorizationServiceImpl implements AuthorizationService {
     @Autowired
+    MessageSource messageSource;
+    @Autowired
     StuffMapper stuffMapper;
 
     /**
@@ -25,30 +32,39 @@ public class AuthorizationServiceImpl implements AuthorizationService {
      * @return stuffId
      */
     @Override
-    public LoginRes signIn(LoginReq reqForm, HttpServletResponse response) {
+    public LoginRes signIn(LoginReq reqForm, HttpServletResponse response) throws AuthenticationException {
         Integer stuffId = null;
         String jwt = null;
         // メールアドレスをキーにユーザーを取得
         Stuff stuff = stuffMapper.select0001(reqForm.getEmail());
-        // ユーザーが存在する場合
-        if (stuff != null) {
-            // 入力されたパスワードとDBのパスワード(ハッシュ化済み)を比較
-            BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
-            if (bcpe.matches(reqForm.getPassword(), stuff.getPassword())) {
-                stuffId = stuff.getStuffId();
-            }
+        if (stuff == null) {
+            throw new AuthenticationException(messageSource.getMessage("error.email.not.registered", new String[]{}, Locale.getDefault()));
         }
-        // パスワードが一致した場合
-        if (stuffId != null) {
-            // JWTを生成&検証
-            jwt = JWTUtils.createJWT(stuffId);
-            // Cookieを設定
-            CookieUtils.setCookie(response, "jwt", jwt);
+        // 入力されたパスワードとDBのパスワード(ハッシュ化済み)を比較
+        BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
+        if (bcpe.matches(reqForm.getPassword(), stuff.getPassword())) {
+            stuffId = stuff.getStuffId();
+        } else {
+            throw new AuthenticationException(messageSource.getMessage("error.password.not.match", new String[]{}, Locale.getDefault()));
         }
+        // JWTを生成&検証
+        jwt = JWTUtils.createJWT(stuffId);
+        // Cookieを設定
+        CookieUtils.setCookie(response, "jwt", jwt);
+
         // レスポンスを作成
         LoginRes loginRes = new LoginRes();
         loginRes.setStuffId(stuffId);
         loginRes.setJwt(jwt);
         return loginRes;
+    }
+
+    /**
+     * ログアウト
+     * @param request, response
+     */
+    @Override
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        CookieUtils.deleteCookie(request, response, "jwt");
     }
 }

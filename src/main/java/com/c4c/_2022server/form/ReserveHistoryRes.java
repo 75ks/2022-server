@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class ReserveHistoryFormRes {
+public class ReserveHistoryRes {
     /**
      * Table: RESERVE_HISTORY
      * Column: RESERVE_HISTORY_ID
