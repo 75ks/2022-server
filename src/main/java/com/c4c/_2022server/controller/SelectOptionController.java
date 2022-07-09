@@ -2,7 +2,6 @@ package com.c4c._2022server.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -113,7 +112,7 @@ public class SelectOptionController {
     @GetMapping("/reserveStates")
     public ResponseEntity<List<SelectOption>> getReserveStatesOptions() {
         // 予約状態取得
-        Map<Integer, String> reserveStateMap = ReserveState.MAP;
+        ReserveState[] reserveStates = ReserveState.values();
         List<SelectOption> selectOptionList = new ArrayList<>();
         
         // 初期値の選択肢を追加
@@ -124,12 +123,12 @@ public class SelectOptionController {
         
         int count = 1;
         // 検索結果全件に対しての処理
-        for (String reserveState : reserveStateMap.values()) {
+        for (ReserveState reserveState : reserveStates) {
             SelectOption tempSelectOption = new SelectOption();
             // selectOptionFormに以下の値を設定
             String code = String.valueOf(count);
             tempSelectOption.setCode(code);
-            tempSelectOption.setName(reserveState);
+            tempSelectOption.setName(reserveState.getName());
             // selectOptionListに追加
             selectOptionList.add(tempSelectOption);
             count++;

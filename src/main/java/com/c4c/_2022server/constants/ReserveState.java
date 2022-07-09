@@ -1,22 +1,33 @@
 package com.c4c._2022server.constants;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+public enum ReserveState {
+    RESERVED(1, "予約済"),
+    VISITED(2, "来店済"),
+    CHANGE(3, "予約日時変更"),
+    CANCEL(4, "キャンセル");
 
-public class ReserveState {
-    /**
-     * 予約状態
-     */
-    public static final Map<Integer, String> MAP;
-        static {
-            Map<Integer, String> reserveStateMap = new HashMap<>();
-            reserveStateMap.put(1, "予約済");
-            reserveStateMap.put(2, "来店済");
-            reserveStateMap.put(3, "予約日時変更");
-            reserveStateMap.put(4, "キャンセル");
-            // オブジェクトに対してfinalを付ける場合、別のオブジェクトの参照を代入することができなくなるが、
-            // 要素の追加や変更が可能なため、下記で無効化する
-            MAP = Collections.unmodifiableMap(reserveStateMap);
+    private final Integer code;
+    private final String name;
+
+    ReserveState(Integer code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public Integer getCode() {
+        return this.code;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public static ReserveState getByCode(Integer code) {
+        for (ReserveState reserveState : ReserveState.values()) {
+            if (reserveState.getCode().equals(code)) {
+                return reserveState;
+            }
         }
+        return null;
+    }
 }

@@ -31,7 +31,7 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
         for (ReserveHistory0001 reserveHistory0001 : reserveHistoryList) {
             ReserveHistoryRes resForm = new ReserveHistoryRes();
             BeanUtils.copyProperties(reserveHistory0001, resForm);
-            resForm.setReserveState(ReserveState.MAP.get(reserveHistory0001.getReserveState()));
+            resForm.setReserveState(ReserveState.getByCode(reserveHistory0001.getReserveState()).getName());
             resFormList.add(resForm);
         }
         return resFormList;
