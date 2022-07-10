@@ -3,6 +3,7 @@ package com.c4c._2022server.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.c4c._2022server.form.ReserveHistoryReq;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +24,9 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
      * @return resFormList
      */
     @Override
-    public List<ReserveHistoryRes> index(int stuffId) {
+    public List<ReserveHistoryRes> index(int stuffId, ReserveHistoryReq reqForm) {
         // SELECT文を実行し、データを取得する
-        List<ReserveHistory0001> reserveHistoryList = reserveHistoryMapper.select0001(stuffId);
+        List<ReserveHistory0001> reserveHistoryList = reserveHistoryMapper.select0001(stuffId, reqForm);
         // Formにデータを詰める
         List<ReserveHistoryRes> resFormList = new ArrayList<>();
         for (ReserveHistory0001 reserveHistory0001 : reserveHistoryList) {

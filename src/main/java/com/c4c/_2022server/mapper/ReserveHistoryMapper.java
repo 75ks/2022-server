@@ -19,6 +19,7 @@ import org.apache.ibatis.type.JdbcType;
 import com.c4c._2022server.entity.ReserveHistory;
 import com.c4c._2022server.entity.ReserveHistory0001;
 import com.c4c._2022server.entity.ReserveHistoryExample;
+import com.c4c._2022server.form.ReserveHistoryReq;
 
 @Mapper
 public interface ReserveHistoryMapper {
@@ -167,34 +168,7 @@ public interface ReserveHistoryMapper {
     /**
      * SQLID: ReserveHistory0001
      */
-    @Select({
-        "SELECT",
-        "    RESERVE_HISTORY.RESERVE_HISTORY_ID",
-        "    , RESERVE_HISTORY.RANK",
-        "    , RESERVE_HISTORY.MENU",
-        "    , RESERVE_HISTORY.PRICE",
-        "    , RESERVE_HISTORY.RESERVE_DATETIME",
-        "    , RESERVE_HISTORY.RESERVE_STATE",
-        "    , CUSTOMER.LAST_NAME AS CUSTOMER_LAST_NAME",
-        "    , CUSTOMER.FIRST_NAME AS CUSTOMER_FIRST_NAME",
-        "    , CUSTOMER.LAST_NAME_KANA AS CUSTOMER_LAST_NAME_KANA",
-        "    , CUSTOMER.FIRST_NAME_KANA AS CUSTOMER_FIRST_NAME_KANA",
-        "    , STUFF.LAST_NAME AS STUFF_LAST_NAME",
-        "    , STUFF.FIRST_NAME AS STUFF_FIRST_NAME",
-        "    , STUFF.LAST_NAME_KANA AS STUFF_LAST_NAME_KANA",
-        "    , STUFF.FIRST_NAME_KANA AS STUFF_FIRST_NAME_KANA",
-        "FROM",
-        "    RESERVE_HISTORY",
-        "INNER JOIN",
-        "    CUSTOMER",
-        "    ON CUSTOMER.CUSTOMER_ID = RESERVE_HISTORY.CUSTOMER_ID",
-        "INNER JOIN",
-        "    STUFF",
-        "    ON STUFF.STUFF_ID = RESERVE_HISTORY.STUFF_ID",
-        "WHERE",
-        "    RESERVE_HISTORY.STORE_ID = #{stuffId}",
-        "    AND RESERVE_HISTORY.DELETE_FLG = 0"
-    })
+    @SelectProvider(type = ReserveHistorySqlProvider.class, method = "select0001")
     @Results(value = {
             @Result(column = "RESERVE_HISTORY_ID", property = "reserveHistoryId", jdbcType=JdbcType.INTEGER, id=true),
             @Result(column = "RANK", property = "rank", jdbcType=JdbcType.VARCHAR),
@@ -211,5 +185,5 @@ public interface ReserveHistoryMapper {
             @Result(column = "STUFF_LAST_NAME_KANA", property = "stuffLastNameKana", jdbcType=JdbcType.VARCHAR),
             @Result(column = "STUFF_FIRST_NAME_KANA", property = "stuffFirstNameKana", jdbcType=JdbcType.VARCHAR)
     })
-    List<ReserveHistory0001> select0001(int stuffId);
+    List<ReserveHistory0001> select0001(@Param("stuffId") int stuffId, @Param("reqForm")ReserveHistoryReq reqForm);
 }

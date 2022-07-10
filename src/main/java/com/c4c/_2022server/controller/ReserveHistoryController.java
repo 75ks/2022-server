@@ -2,12 +2,10 @@ package com.c4c._2022server.controller;
 
 import java.util.List;
 
+import com.c4c._2022server.form.ReserveHistoryReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.c4c._2022server.form.ReserveHistoryRes;
 import com.c4c._2022server.service.impl.ReserveHistoryServiceImpl;
@@ -24,9 +22,9 @@ public class ReserveHistoryController {
      * @return List{@literal<ReserveHistoryRes>}
      */
     @GetMapping("/")
-    public ResponseEntity<List<ReserveHistoryRes>> index(@RequestHeader("Authorization") String jwt) {
+    public ResponseEntity<List<ReserveHistoryRes>> index(@RequestHeader("Authorization") String jwt, ReserveHistoryReq reqForm) {
         int stuffId = JWTUtils.getStuff(jwt);
-        List<ReserveHistoryRes> resFormList = reserveHistoryServiceImpl.index(stuffId);
+        List<ReserveHistoryRes> resFormList = reserveHistoryServiceImpl.index(stuffId, reqForm);
         return ResponseEntity.ok(resFormList);
     }
 }
