@@ -211,7 +211,7 @@ public interface StuffMapper {
         "    , STUFF.FIRST_NAME",
         "    , STUFF.LAST_NAME_KANA",
         "    , STUFF.FIRST_NAME_KANA",
-        "    , STUFF.RANK",
+        "    , STUFF.RANK_ID",
         "    , STUFF.BIRTHDAY",
         "    , STUFF.AGE",
         "    , STUFF.GENDER",

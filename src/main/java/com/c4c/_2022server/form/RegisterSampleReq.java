@@ -35,9 +35,9 @@ public class RegisterSampleReq {
      * ランク
      */
     @NotEmpty(message = "{rank}{NotEmpty}")
-    private String rank;
+    private Integer rankId;
     /**
-     * 性別 
+     * 性別
      */
     @NotEmpty(message = "{gender}{NotEmpty}")
     private String gender;
