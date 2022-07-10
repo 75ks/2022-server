@@ -440,6 +440,22 @@ public class ReserveHistorySqlProvider {
                     "CUSTOMER.FIRST_NAME LIKE '%' #{reqForm.customerName} '%'");
         }
 
+        // スタッフ名(姓 or 名)
+
+        // ランク名
+
+        // メニュー
+
+        // 料金(下限)
+
+        // 料金(上限)
+
+        // 日時(下限)
+
+        // 日時(上限)
+
+        // 予約状態
+
         return sql.toString();
     }
 }
