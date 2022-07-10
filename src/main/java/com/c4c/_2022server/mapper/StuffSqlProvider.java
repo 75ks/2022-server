@@ -1,14 +1,12 @@
 package com.c4c._2022server.mapper;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.jdbc.SQL;
-
 import com.c4c._2022server.entity.Stuff;
-import com.c4c._2022server.entity.StuffExample;
 import com.c4c._2022server.entity.StuffExample.Criteria;
 import com.c4c._2022server.entity.StuffExample.Criterion;
+import com.c4c._2022server.entity.StuffExample;
+import java.util.List;
+import java.util.Map;
+import org.apache.ibatis.jdbc.SQL;
 
 public class StuffSqlProvider {
     /**
@@ -62,8 +60,8 @@ public class StuffSqlProvider {
             sql.VALUES("FIRST_NAME_KANA", "#{firstNameKana,jdbcType=VARCHAR}");
         }
         
-        if (row.getRank() != null) {
-            sql.VALUES("`RANK`", "#{rank,jdbcType=VARCHAR}");
+        if (row.getRankId() != null) {
+            sql.VALUES("RANK_ID", "#{rankId,jdbcType=INTEGER}");
         }
         
         if (row.getBirthday() != null) {
@@ -152,7 +150,7 @@ public class StuffSqlProvider {
         sql.SELECT("FIRST_NAME");
         sql.SELECT("LAST_NAME_KANA");
         sql.SELECT("FIRST_NAME_KANA");
-        sql.SELECT("`RANK`");
+        sql.SELECT("RANK_ID");
         sql.SELECT("BIRTHDAY");
         sql.SELECT("AGE");
         sql.SELECT("GENDER");
@@ -214,8 +212,8 @@ public class StuffSqlProvider {
             sql.SET("FIRST_NAME_KANA = #{row.firstNameKana,jdbcType=VARCHAR}");
         }
         
-        if (row.getRank() != null) {
-            sql.SET("`RANK` = #{row.rank,jdbcType=VARCHAR}");
+        if (row.getRankId() != null) {
+            sql.SET("RANK_ID = #{row.rankId,jdbcType=INTEGER}");
         }
         
         if (row.getBirthday() != null) {
@@ -303,7 +301,7 @@ public class StuffSqlProvider {
         sql.SET("FIRST_NAME = #{row.firstName,jdbcType=VARCHAR}");
         sql.SET("LAST_NAME_KANA = #{row.lastNameKana,jdbcType=VARCHAR}");
         sql.SET("FIRST_NAME_KANA = #{row.firstNameKana,jdbcType=VARCHAR}");
-        sql.SET("`RANK` = #{row.rank,jdbcType=VARCHAR}");
+        sql.SET("RANK_ID = #{row.rankId,jdbcType=INTEGER}");
         sql.SET("BIRTHDAY = #{row.birthday,jdbcType=DATE}");
         sql.SET("AGE = #{row.age,jdbcType=INTEGER}");
         sql.SET("GENDER = #{row.gender,jdbcType=INTEGER}");
@@ -354,8 +352,8 @@ public class StuffSqlProvider {
             sql.SET("FIRST_NAME_KANA = #{firstNameKana,jdbcType=VARCHAR}");
         }
         
-        if (row.getRank() != null) {
-            sql.SET("`RANK` = #{rank,jdbcType=VARCHAR}");
+        if (row.getRankId() != null) {
+            sql.SET("RANK_ID = #{rankId,jdbcType=INTEGER}");
         }
         
         if (row.getBirthday() != null) {

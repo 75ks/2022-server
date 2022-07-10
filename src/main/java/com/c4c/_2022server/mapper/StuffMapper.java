@@ -1,7 +1,7 @@
 package com.c4c._2022server.mapper;
 
-import java.util.List;
-
+import com.c4c._2022server.entity.Stuff;
+import com.c4c._2022server.entity.StuffExample;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -16,8 +16,7 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
-import com.c4c._2022server.entity.Stuff;
-import com.c4c._2022server.entity.StuffExample;
+import java.util.List;
 
 @Mapper
 public interface StuffMapper {
@@ -49,7 +48,7 @@ public interface StuffMapper {
         "insert into STUFF (STUFF_ID, STORE_ID, ",
         "LAST_NAME, FIRST_NAME, ",
         "LAST_NAME_KANA, FIRST_NAME_KANA, ",
-        "`RANK`, BIRTHDAY, AGE, ",
+        "RANK_ID, BIRTHDAY, AGE, ",
         "GENDER, POSTAL_CODE, ",
         "PREFECTURE_ID, ADDRESS1, ",
         "ADDRESS2, ADDRESS3, ",
@@ -61,7 +60,7 @@ public interface StuffMapper {
         "values (#{stuffId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, ",
         "#{lastName,jdbcType=VARCHAR}, #{firstName,jdbcType=VARCHAR}, ",
         "#{lastNameKana,jdbcType=VARCHAR}, #{firstNameKana,jdbcType=VARCHAR}, ",
-        "#{rank,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{age,jdbcType=INTEGER}, ",
+        "#{rankId,jdbcType=INTEGER}, #{birthday,jdbcType=DATE}, #{age,jdbcType=INTEGER}, ",
         "#{gender,jdbcType=INTEGER}, #{postalCode,jdbcType=VARCHAR}, ",
         "#{prefectureId,jdbcType=INTEGER}, #{address1,jdbcType=VARCHAR}, ",
         "#{address2,jdbcType=VARCHAR}, #{address3,jdbcType=VARCHAR}, ",
@@ -90,7 +89,7 @@ public interface StuffMapper {
         @Result(column="FIRST_NAME", property="firstName", jdbcType=JdbcType.VARCHAR),
         @Result(column="LAST_NAME_KANA", property="lastNameKana", jdbcType=JdbcType.VARCHAR),
         @Result(column="FIRST_NAME_KANA", property="firstNameKana", jdbcType=JdbcType.VARCHAR),
-        @Result(column="RANK", property="rank", jdbcType=JdbcType.VARCHAR),
+        @Result(column="RANK_ID", property="rankId", jdbcType=JdbcType.INTEGER),
         @Result(column="BIRTHDAY", property="birthday", jdbcType=JdbcType.DATE),
         @Result(column="AGE", property="age", jdbcType=JdbcType.INTEGER),
         @Result(column="GENDER", property="gender", jdbcType=JdbcType.INTEGER),
@@ -117,7 +116,7 @@ public interface StuffMapper {
     @Select({
         "select",
         "STUFF_ID, STORE_ID, LAST_NAME, FIRST_NAME, LAST_NAME_KANA, FIRST_NAME_KANA, ",
-        "`RANK`, BIRTHDAY, AGE, GENDER, POSTAL_CODE, PREFECTURE_ID, ADDRESS1, ADDRESS2, ",
+        "RANK_ID, BIRTHDAY, AGE, GENDER, POSTAL_CODE, PREFECTURE_ID, ADDRESS1, ADDRESS2, ",
         "ADDRESS3, PHONE_NUMBER, EMAIL, `PASSWORD`, DELETE_FLG, CREATED_DATETIME, CREATED_USER, ",
         "UPDATE_DATETIME, UPDATE_USER, VERSION_EX_KEY",
         "from STUFF",
@@ -130,7 +129,7 @@ public interface StuffMapper {
         @Result(column="FIRST_NAME", property="firstName", jdbcType=JdbcType.VARCHAR),
         @Result(column="LAST_NAME_KANA", property="lastNameKana", jdbcType=JdbcType.VARCHAR),
         @Result(column="FIRST_NAME_KANA", property="firstNameKana", jdbcType=JdbcType.VARCHAR),
-        @Result(column="RANK", property="rank", jdbcType=JdbcType.VARCHAR),
+        @Result(column="RANK_ID", property="rankId", jdbcType=JdbcType.INTEGER),
         @Result(column="BIRTHDAY", property="birthday", jdbcType=JdbcType.DATE),
         @Result(column="AGE", property="age", jdbcType=JdbcType.INTEGER),
         @Result(column="GENDER", property="gender", jdbcType=JdbcType.INTEGER),
@@ -179,7 +178,7 @@ public interface StuffMapper {
           "FIRST_NAME = #{firstName,jdbcType=VARCHAR},",
           "LAST_NAME_KANA = #{lastNameKana,jdbcType=VARCHAR},",
           "FIRST_NAME_KANA = #{firstNameKana,jdbcType=VARCHAR},",
-          "`RANK` = #{rank,jdbcType=VARCHAR},",
+          "RANK_ID = #{rankId,jdbcType=INTEGER},",
           "BIRTHDAY = #{birthday,jdbcType=DATE},",
           "AGE = #{age,jdbcType=INTEGER},",
           "GENDER = #{gender,jdbcType=INTEGER},",

@@ -574,73 +574,63 @@ public class StuffExample {
             return (Criteria) this;
         }
 
-        public Criteria andRankIsNull() {
-            addCriterion("`RANK` is null");
+        public Criteria andRankIdIsNull() {
+            addCriterion("RANK_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andRankIsNotNull() {
-            addCriterion("`RANK` is not null");
+        public Criteria andRankIdIsNotNull() {
+            addCriterion("RANK_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRankEqualTo(String value) {
-            addCriterion("`RANK` =", value, "rank");
+        public Criteria andRankIdEqualTo(Integer value) {
+            addCriterion("RANK_ID =", value, "rankId");
             return (Criteria) this;
         }
 
-        public Criteria andRankNotEqualTo(String value) {
-            addCriterion("`RANK` <>", value, "rank");
+        public Criteria andRankIdNotEqualTo(Integer value) {
+            addCriterion("RANK_ID <>", value, "rankId");
             return (Criteria) this;
         }
 
-        public Criteria andRankGreaterThan(String value) {
-            addCriterion("`RANK` >", value, "rank");
+        public Criteria andRankIdGreaterThan(Integer value) {
+            addCriterion("RANK_ID >", value, "rankId");
             return (Criteria) this;
         }
 
-        public Criteria andRankGreaterThanOrEqualTo(String value) {
-            addCriterion("`RANK` >=", value, "rank");
+        public Criteria andRankIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("RANK_ID >=", value, "rankId");
             return (Criteria) this;
         }
 
-        public Criteria andRankLessThan(String value) {
-            addCriterion("`RANK` <", value, "rank");
+        public Criteria andRankIdLessThan(Integer value) {
+            addCriterion("RANK_ID <", value, "rankId");
             return (Criteria) this;
         }
 
-        public Criteria andRankLessThanOrEqualTo(String value) {
-            addCriterion("`RANK` <=", value, "rank");
+        public Criteria andRankIdLessThanOrEqualTo(Integer value) {
+            addCriterion("RANK_ID <=", value, "rankId");
             return (Criteria) this;
         }
 
-        public Criteria andRankLike(String value) {
-            addCriterion("`RANK` like", value, "rank");
+        public Criteria andRankIdIn(List<Integer> values) {
+            addCriterion("RANK_ID in", values, "rankId");
             return (Criteria) this;
         }
 
-        public Criteria andRankNotLike(String value) {
-            addCriterion("`RANK` not like", value, "rank");
+        public Criteria andRankIdNotIn(List<Integer> values) {
+            addCriterion("RANK_ID not in", values, "rankId");
             return (Criteria) this;
         }
 
-        public Criteria andRankIn(List<String> values) {
-            addCriterion("`RANK` in", values, "rank");
+        public Criteria andRankIdBetween(Integer value1, Integer value2) {
+            addCriterion("RANK_ID between", value1, value2, "rankId");
             return (Criteria) this;
         }
 
-        public Criteria andRankNotIn(List<String> values) {
-            addCriterion("`RANK` not in", values, "rank");
-            return (Criteria) this;
-        }
-
-        public Criteria andRankBetween(String value1, String value2) {
-            addCriterion("`RANK` between", value1, value2, "rank");
-            return (Criteria) this;
-        }
-
-        public Criteria andRankNotBetween(String value1, String value2) {
-            addCriterion("`RANK` not between", value1, value2, "rank");
+        public Criteria andRankIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("RANK_ID not between", value1, value2, "rankId");
             return (Criteria) this;
         }
 
