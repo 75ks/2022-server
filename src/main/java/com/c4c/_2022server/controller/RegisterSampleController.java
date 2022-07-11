@@ -28,7 +28,7 @@ public class RegisterSampleController {
      * スタッフ登録サンプル
      * @param reqForm
      */
-    @PostMapping("/")
+    @PostMapping("/sample")
     public ResponseEntity<RegisterSampleRes> register(@RequestBody @Valid RegisterSampleReq reqForm) {
         registerSampleServiceImpl.register(reqForm);
         // メッセージを設定
