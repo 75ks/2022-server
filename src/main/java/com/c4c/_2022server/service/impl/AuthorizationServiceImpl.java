@@ -33,7 +33,6 @@ public class AuthorizationServiceImpl implements AuthorizationService {
      */
     @Override
     public LoginRes signIn(LoginReq reqForm, HttpServletResponse response) throws AuthenticationException {
-        Integer stuffId = null;
         String jwt = null;
         // メールアドレスをキーにユーザーを取得
         Stuff stuff = stuffMapper.select0001(reqForm.getEmail());
@@ -42,19 +41,17 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         }
         // 入力されたパスワードとDBのパスワード(ハッシュ化済み)を比較
         BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
-        if (bcpe.matches(reqForm.getPassword(), stuff.getPassword())) {
-            stuffId = stuff.getStuffId();
-        } else {
+        if (!bcpe.matches(reqForm.getPassword(), stuff.getPassword())) {
             throw new AuthenticationException(messageSource.getMessage("error.password.not.match", new String[]{}, Locale.getDefault()));
         }
         // JWTを生成&検証
-        jwt = JWTUtils.createJWT(stuffId);
+        jwt = JWTUtils.createJWT(stuff);
         // Cookieを設定
         CookieUtils.setCookie(response, "jwt", jwt);
 
         // レスポンスを作成
         LoginRes loginRes = new LoginRes();
-        loginRes.setStuffId(stuffId);
+        loginRes.setStuffId(stuff.getStuffId());
         loginRes.setJwt(jwt);
         return loginRes;
     }

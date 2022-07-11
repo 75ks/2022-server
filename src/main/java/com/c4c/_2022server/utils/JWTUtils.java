@@ -15,6 +15,7 @@ import java.util.Map;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.c4c._2022server.entity.Stuff;
 import com.c4c._2022server.mapper.StuffMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,7 +58,7 @@ public class JWTUtils {
      * @param stuffId
      * @return jwt
      */
-    public static String createJWT(Integer stuffId) {
+    public static String createJWT(Stuff stuff) {
         try {
             // JSONとJavaオブジェクト相互変換用オブジェクトを作成
             final ObjectMapper objectMapper = new ObjectMapper();
@@ -66,7 +67,7 @@ public class JWTUtils {
             // ヘッダー作成
             String jwtHeaderStr = createHeader(objectMapper);
             // ペイロード作成
-            String jwtPayloadStr = createPayload(stuffId, objectMapper);
+            String jwtPayloadStr = createPayload(stuff, objectMapper);
             // 署名作成
             final String jwtSignatureStr = createSignature(jwtHeaderStr, jwtPayloadStr);
             // JWT(ヘッダー.ペイロード.署名データ)を作成
@@ -109,15 +110,46 @@ public class JWTUtils {
      * @param jwt
      * @return stuffId
      */
-    public static Integer getStuff(String jwt) {
+    public static Integer getStuffId(String jwt) {
+        try {
+            JsonNode json = decodeJwtPayload(jwt);
+            return Integer.parseInt(json.get("sub").asText()); //JSONからスタッフID(sub)を取得
+        } catch (Exception e) {
+            System.out.println("JWTからスタッフID取得中にエラーが発生しました");
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            return null;
+        }
+    }
+    
+    /**
+     * JWTから店舗IDを取得する
+     * @param jwt
+     * @return storeId
+     */
+    public static Integer getStoreId(String jwt) {
+        try {
+            JsonNode json = decodeJwtPayload(jwt);
+            return Integer.parseInt(json.get("storeId").asText()); //JSONから店舗ID(storeId)を取得
+        } catch (Exception e) {
+            System.out.println("JWTから店舗ID取得中にエラーが発生しました");
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * JWTのペイロードをデコードする
+     * @param jwt
+     * @return json
+     */
+    private static JsonNode decodeJwtPayload(String jwt) {
         try {
             final String[] splitJwt = jwt.split("\\."); //JWTをヘッダー、ペイロード、署名に分割
             final String jwtPayloadStr = splitJwt[1]; //ペイロードを取得
             byte[] jwtPayloadBytes = Base64.decodeBase64(jwtPayloadStr); //ペイロードをデコード
-            JsonNode json = new ObjectMapper().readTree(jwtPayloadBytes); //デコードしたペイロードをJSONに変換
-            return Integer.parseInt(json.get("sub").asText()); //JSONからスタッフID(sub)を取得
+            return new ObjectMapper().readTree(jwtPayloadBytes); //デコードしたペイロードをJSONに変換
         } catch (Exception e) {
-            System.out.println("JWTからスタッフ取得中にエラーが発生しました");
+            System.out.println("JWTのペイロードのデコード中にエラーが発生しました");
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
             return null;
         }
@@ -166,13 +198,14 @@ public class JWTUtils {
      * @param stuffId, objectMapper
      * @return ペイロード
      */
-    private static String createPayload(Integer stuffId, ObjectMapper objectMapper) {
+    private static String createPayload(Stuff stuff, ObjectMapper objectMapper) {
         try {
             // ペイロード部設定
             final Map<String, Object> jwtPayload = new LinkedHashMap<>(); //ペイロードオブジェクトを作成
-            jwtPayload.put("sub", stuffId); //JWT発行者のユーザ識別子
+            jwtPayload.put("sub", stuff.getStuffId()); //JWT発行者のユーザ識別子
             jwtPayload.put("iat", jwtIat()); //JWT発行時刻
             jwtPayload.put("exp", jwtExp()); //JWT有効期限
+            jwtPayload.put("storeId", stuff.getStoreId()); //店舗ID
             return Base64.encodeBase64URLSafeString(objectMapper.writeValueAsBytes(jwtPayload)); //ペイロードオブジェクトをBase64でエンコード
         } catch (Exception e) {
             System.out.println("JWTのペイロード作成中にエラーが発生しました");
