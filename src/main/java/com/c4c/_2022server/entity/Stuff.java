@@ -1,7 +1,6 @@
 package com.c4c._2022server.entity;
 
 import java.util.Date;
-
 import lombok.Data;
 
 /**
@@ -52,11 +51,11 @@ public class Stuff {
     private String firstNameKana;
 
     /**
-     * Column: RANK
-     * Type: VARCHAR(255)
-     * Remark: ランク
+     * Column: RANK_ID
+     * Type: INT
+     * Remark: ランクID
      */
-    private String rank;
+    private Integer rankId;
 
     /**
      * Column: BIRTHDAY

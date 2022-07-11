@@ -22,7 +22,7 @@ public class RegisterSampleServiceImpl implements RegisterSampleService {
         stuff.setFirstName(reqForm.getFirstName());
         stuff.setLastNameKana(reqForm.getLastNameKana());
         stuff.setFirstNameKana(reqForm.getFirstNameKana());
-        stuff.setRank(reqForm.getRank());
+        stuff.setRankId(reqForm.getRankId());
         stuff.setGender(Integer.parseInt(reqForm.getGender()));
         stuff.setEmail(reqForm.getEmail());
         // パスワードを暗号化(エンコード)
