@@ -30,4 +30,13 @@ public enum ReserveState {
         }
         return null;
     }
+
+    public static ReserveState getByName(String name) {
+        for (ReserveState reserveState : ReserveState.values()) {
+            if (reserveState.getName().equals(name)) {
+                return reserveState;
+            }
+        }
+        return null;
+    }
 }
