@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ReserveHistoryReq {
     /** 予約履歴ID */
-    private Integer reserveHistoryId;
+    private String reserveHistoryId;
 
     /** 顧客名 */
     private String customerName;
@@ -32,5 +32,5 @@ public class ReserveHistoryReq {
     private String reserveDateTimeMax;
 
     /** 予約状態 */
-    private Integer reserveState;
+    private String reserveState;
 }
