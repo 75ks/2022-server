@@ -1,6 +1,7 @@
 package com.c4c._2022server.form;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -34,7 +35,7 @@ public class RegisterSampleReq {
     /**
      * ランク
      */
-    @NotEmpty(message = "{rank}{NotEmpty}")
+    @NotNull(message = "{rank}{NotNull}")
     private Integer rankId;
     /**
      * 性別
