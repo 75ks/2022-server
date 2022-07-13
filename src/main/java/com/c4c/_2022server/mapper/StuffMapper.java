@@ -1,7 +1,7 @@
 package com.c4c._2022server.mapper;
 
-import com.c4c._2022server.entity.Stuff;
-import com.c4c._2022server.entity.StuffExample;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -16,7 +16,8 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
-import java.util.List;
+import com.c4c._2022server.entity.Stuff;
+import com.c4c._2022server.entity.StuffExample;
 
 @Mapper
 public interface StuffMapper {
@@ -237,8 +238,28 @@ public interface StuffMapper {
     })
     @Results({
         @Result(column="STUFF_ID", property="stuffId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER),
+        @Result(column="LAST_NAME", property="lastName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FIRST_NAME", property="firstName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="LAST_NAME_KANA", property="lastNameKana", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FIRST_NAME_KANA", property="firstNameKana", jdbcType=JdbcType.VARCHAR),
+        @Result(column="RANK_ID", property="rankId", jdbcType=JdbcType.INTEGER),
+        @Result(column="BIRTHDAY", property="birthday", jdbcType=JdbcType.DATE),
+        @Result(column="AGE", property="age", jdbcType=JdbcType.INTEGER),
+        @Result(column="GENDER", property="gender", jdbcType=JdbcType.INTEGER),
+        @Result(column="POSTAL_CODE", property="postalCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="PREFECTURE_ID", property="prefectureId", jdbcType=JdbcType.INTEGER),
+        @Result(column="ADDRESS1", property="address1", jdbcType=JdbcType.VARCHAR),
+        @Result(column="ADDRESS2", property="address2", jdbcType=JdbcType.VARCHAR),
+        @Result(column="ADDRESS3", property="address3", jdbcType=JdbcType.VARCHAR),
+        @Result(column="PHONE_NUMBER", property="phoneNumber", jdbcType=JdbcType.VARCHAR),
         @Result(column="EMAIL", property="email", jdbcType=JdbcType.VARCHAR),
         @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="DELETE_FLG", property="deleteFlg", jdbcType=JdbcType.INTEGER),
+        @Result(column="CREATED_DATETIME", property="createdDatetime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="CREATED_USER", property="createdUser", jdbcType=JdbcType.INTEGER),
+        @Result(column="UPDATE_DATETIME", property="updateDatetime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="UPDATE_USER", property="updateUser", jdbcType=JdbcType.INTEGER),
         @Result(column="VERSION_EX_KEY", property="versionExKey", jdbcType=JdbcType.INTEGER)
     })
     Stuff select0001(String email);

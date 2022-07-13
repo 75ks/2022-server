@@ -36,21 +36,18 @@ public class SelectOptionController {
 
         // 初期値の選択肢を追加
         SelectOption selectOption = new SelectOption();
-        selectOption.setCode("0");
+        selectOption.setCode("指定なし");
         selectOption.setName("指定なし");
         selectOptionList.add(selectOption);
 
-        int count = 1;
         // 検索結果全件に対しての処理
         for (RankByStore0001 rank : rankList) {
             SelectOption tempSelectOption = new SelectOption();
             // selectOptionFormに以下の値を設定
-            String code = String.valueOf(count);
-            tempSelectOption.setCode(code);
+            tempSelectOption.setCode(rank.getRank());
             tempSelectOption.setName(rank.getRank());
             // selectOptionListに追加
             selectOptionList.add(tempSelectOption);
-            count++;
         }
         return ResponseEntity.ok(selectOptionList);
     }
@@ -60,24 +57,21 @@ public class SelectOptionController {
         // メニュー取得
         List<MenuHeader0001> menuList = menuHeaderMapper.select0001();
         List<SelectOption> selectOptionList = new ArrayList<>();
-        
+
         // 初期値の選択肢を追加
         SelectOption selectOption = new SelectOption();
-        selectOption.setCode("0");
+        selectOption.setCode("指定なし");
         selectOption.setName("指定なし");
         selectOptionList.add(selectOption);
-        
-        int count = 1;
+
         // 検索結果全件に対しての処理
         for (MenuHeader0001 menu : menuList) {
             SelectOption tempSelectOption = new SelectOption();
             // selectOptionFormに以下の値を設定
-            String code = String.valueOf(count);
-            tempSelectOption.setCode(code);
+            tempSelectOption.setCode(menu.getMenu());
             tempSelectOption.setName(menu.getMenu());
             // selectOptionListに追加
             selectOptionList.add(tempSelectOption);
-            count++;
         }
         return ResponseEntity.ok(selectOptionList);
     }
@@ -114,24 +108,21 @@ public class SelectOptionController {
         // 予約状態取得
         ReserveState[] reserveStates = ReserveState.values();
         List<SelectOption> selectOptionList = new ArrayList<>();
-        
+
         // 初期値の選択肢を追加
         SelectOption selectOption = new SelectOption();
-        selectOption.setCode("0");
+        selectOption.setCode("指定なし");
         selectOption.setName("指定なし");
         selectOptionList.add(selectOption);
-        
-        int count = 1;
+
         // 検索結果全件に対しての処理
         for (ReserveState reserveState : reserveStates) {
             SelectOption tempSelectOption = new SelectOption();
             // selectOptionFormに以下の値を設定
-            String code = String.valueOf(count);
-            tempSelectOption.setCode(code);
+            tempSelectOption.setCode(reserveState.getName());
             tempSelectOption.setName(reserveState.getName());
             // selectOptionListに追加
             selectOptionList.add(tempSelectOption);
-            count++;
         }
         return ResponseEntity.ok(selectOptionList);
     }

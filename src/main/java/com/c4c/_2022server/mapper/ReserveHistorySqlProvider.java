@@ -3,13 +3,13 @@ package com.c4c._2022server.mapper;
 import java.util.List;
 import java.util.Map;
 
-import com.c4c._2022server.form.ReserveHistoryReq;
 import org.apache.ibatis.jdbc.SQL;
 
 import com.c4c._2022server.entity.ReserveHistory;
 import com.c4c._2022server.entity.ReserveHistoryExample;
 import com.c4c._2022server.entity.ReserveHistoryExample.Criteria;
 import com.c4c._2022server.entity.ReserveHistoryExample.Criterion;
+import com.c4c._2022server.form.ReserveHistoryReq;
 
 public class ReserveHistorySqlProvider {
     /**
@@ -406,6 +406,7 @@ public class ReserveHistorySqlProvider {
         SQL sql = new SQL();
         sql.SELECT(
                 "RESERVE_HISTORY.RESERVE_HISTORY_ID",
+                "RESERVE_HISTORY.RANK",
                 "RESERVE_HISTORY.MENU",
                 "RESERVE_HISTORY.PRICE",
                 "RESERVE_HISTORY.RESERVE_DATETIME",
@@ -424,11 +425,11 @@ public class ReserveHistorySqlProvider {
                 "CUSTOMER ON CUSTOMER.CUSTOMER_ID = RESERVE_HISTORY.CUSTOMER_ID"
                 , "STUFF ON STUFF.STUFF_ID = RESERVE_HISTORY.STUFF_ID"
         );
-        sql.WHERE("RESERVE_HISTORY.STORE_ID = #{stuffId}");
+        sql.WHERE("RESERVE_HISTORY.STORE_ID = #{storeId}");
         sql.WHERE("RESERVE_HISTORY.DELETE_FLG = 0");
 
         // 予約履歴ID
-        if (reqForm.getReserveHistoryId() != null) {
+        if (!(reqForm.getReserveHistoryId() == null || reqForm.getReserveHistoryId().isEmpty())) {
             sql.AND();
             sql.WHERE("RESERVE_HISTORY.RESERVE_HISTORY_ID = #{reqForm.reserveHistoryId}");
         }
@@ -441,20 +442,53 @@ public class ReserveHistorySqlProvider {
         }
 
         // スタッフ名(姓 or 名)
+        if (!(reqForm.getStuffName() == null || reqForm.getStuffName().isEmpty())) {
+            sql.AND();
+            sql.WHERE("STUFF.LAST_NAME LIKE '%' #{reqForm.stuffName} '%' OR " +
+                    "STUFF.FIRST_NAME LIKE '%' #{reqForm.stuffName} '%'");
+        }
 
         // ランク名
+        if (!(reqForm.getRankName() == null || reqForm.getRankName().isEmpty() || reqForm.getRankName().equals("指定なし"))) {
+            sql.AND();
+            sql.WHERE("RESERVE_HISTORY.RANK = #{reqForm.rankName}");
+        }
 
         // メニュー
+        if (!(reqForm.getMenu() == null || reqForm.getMenu().isEmpty() || reqForm.getMenu().equals("指定なし"))) {
+            sql.AND();
+            sql.WHERE("RESERVE_HISTORY.MENU = #{reqForm.menu}");
+        }
 
         // 料金(下限)
+        if (reqForm.getPriceMin() != null) {
+            sql.AND();
+            sql.WHERE("RESERVE_HISTORY.PRICE >= #{reqForm.priceMin}");
+        }
 
         // 料金(上限)
+        if (reqForm.getPriceMax() != null) {
+            sql.AND();
+            sql.WHERE("RESERVE_HISTORY.PRICE <= #{reqForm.priceMax}");
+        }
 
         // 日時(下限)
+        if (!(reqForm.getReserveDateTimeMin() == null || reqForm.getReserveDateTimeMin().isEmpty())) {
+            sql.AND();
+            sql.WHERE("RESERVE_HISTORY.RESERVE_DATETIME >= #{reqForm.reserveDateTimeMin}");
+        }
 
         // 日時(上限)
+        if (!(reqForm.getReserveDateTimeMax() == null || reqForm.getReserveDateTimeMax().isEmpty())) {
+            sql.AND();
+            sql.WHERE("RESERVE_HISTORY.RESERVE_DATETIME <= #{reqForm.reserveDateTimeMax}");
+        }
 
         // 予約状態
+        if (!(reqForm.getReserveState() == null || reqForm.getReserveState().isEmpty() || reqForm.getReserveState().equals("指定なし"))) {
+            sql.AND();
+            sql.WHERE("RESERVE_HISTORY.RESERVE_STATE = #{reqForm.reserveState}");
+        }
 
         return sql.toString();
     }
