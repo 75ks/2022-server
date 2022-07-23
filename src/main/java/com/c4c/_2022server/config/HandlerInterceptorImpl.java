@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.c4c._2022server.utils.CookieUtils;
+import com.c4c._2022server.utils.JWTUtils;
 
 @Component
 public class HandlerInterceptorImpl implements HandlerInterceptor {
@@ -18,8 +19,7 @@ public class HandlerInterceptorImpl implements HandlerInterceptor {
         // Cookieに保存されているJWTを取得する
         String jwt = CookieUtils.getCookie(request, "jwt");
         // JWTを検証
-//        if (JWTUtils.verifyJWT(jwt)) {
-        if (true) {
+        if (JWTUtils.verifyJWT(jwt)) {
             // true:コントローラーを実行する
             return true;
         } else {
