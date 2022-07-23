@@ -10,19 +10,28 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
+
+import javax.security.sasl.AuthenticationException;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Configuration;
 
 import com.c4c._2022server.entity.Stuff;
 import com.c4c._2022server.mapper.StuffMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Configuration
 public class JWTUtils {
     @Autowired
     StuffMapper stuffMapper;
+    @Autowired
+    MessageSource messageSource;
+
     /**
      * 楕円曲線暗号の公開鍵
      */
@@ -110,14 +119,14 @@ public class JWTUtils {
      * @param jwt
      * @return stuffId
      */
-    public static Integer getStuffId(String jwt) {
+    public Integer getStuffId(String jwt) throws AuthenticationException {
         try {
             JsonNode json = decodeJwtPayload(jwt);
             return Integer.parseInt(json.get("sub").asText()); //JSONからスタッフID(sub)を取得
         } catch (Exception e) {
             System.out.println("JWTからスタッフID取得中にエラーが発生しました");
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
-            return null;
+            throw new AuthenticationException(messageSource.getMessage("error.authentication", new String[]{}, Locale.getDefault()));
         }
     }
     
@@ -126,14 +135,14 @@ public class JWTUtils {
      * @param jwt
      * @return storeId
      */
-    public static Integer getStoreId(String jwt) {
+    public Integer getStoreId(String jwt) throws AuthenticationException {
         try {
             JsonNode json = decodeJwtPayload(jwt);
             return Integer.parseInt(json.get("storeId").asText()); //JSONから店舗ID(storeId)を取得
         } catch (Exception e) {
             System.out.println("JWTから店舗ID取得中にエラーが発生しました");
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
-            return null;
+            throw new AuthenticationException(messageSource.getMessage("error.authentication", new String[]{}, Locale.getDefault()));
         }
     }
 
