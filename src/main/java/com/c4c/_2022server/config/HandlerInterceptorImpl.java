@@ -11,7 +11,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.c4c._2022server.utils.CookieUtils;
 import com.c4c._2022server.utils.JWTUtils;
 
 @Component
@@ -24,10 +23,13 @@ public class HandlerInterceptorImpl implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // Cookieに保存されているJWTを取得する
-        String jwt = CookieUtils.getCookie(request, "jwt");
+        // リクエストヘッダーに保存されているJWTを取得する
+        String jwt = request.getHeader("authorization");
+        // 「Bearer 」を除去する
+        jwt = jwt.split(" ")[1];
         // JWTを検証
-        if (JWTUtils.verifyJWT(jwt)) {
+        JWTUtils instance = JWTUtils.getInstance();
+        if (instance.verifyJWT(jwt)) {
             // コントローラーを実行する
             return true;
         } else {

@@ -21,8 +21,6 @@ import com.c4c._2022server.utils.JWTUtils;
 public class ReserveHistoryController {
     @Autowired
     ReserveHistoryServiceImpl reserveHistoryServiceImpl;
-    @Autowired
-    JWTUtils jwtUtils;
 
     /**
      * 予約履歴一覧取得
@@ -30,7 +28,8 @@ public class ReserveHistoryController {
      */
     @GetMapping("/")
     public ResponseEntity<List<ReserveHistoryRes>> index(@RequestHeader("Authorization") String jwt, ReserveHistoryReq reqForm) throws AuthenticationException {
-        int storeId = jwtUtils.getStoreId(jwt);
+        JWTUtils instance = JWTUtils.getInstance();
+        int storeId = instance.getStoreId(jwt);
         List<ReserveHistoryRes> resFormList = reserveHistoryServiceImpl.index(storeId, reqForm);
         return ResponseEntity.ok(resFormList);
     }

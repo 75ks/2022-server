@@ -18,35 +18,64 @@ import javax.security.sasl.AuthenticationException;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Configuration;
 
 import com.c4c._2022server.entity.Stuff;
-import com.c4c._2022server.mapper.StuffMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Configuration
 public class JWTUtils {
-    @Autowired
-    StuffMapper stuffMapper;
     @Autowired
     MessageSource messageSource;
 
     /**
      * 楕円曲線暗号の公開鍵
      */
-    private static ECPublicKey PUBLIC_KEY;
+    private ECPublicKey PUBLIC_KEY;
 
     /**
      * 楕円曲線暗号の秘密鍵
      */
-    private static ECPrivateKey PRIVATE_KEY;
+    private ECPrivateKey PRIVATE_KEY;
+
+    /**
+     * 単一のインスタンス
+     */
+    private static JWTUtils instance = new JWTUtils();
+
+    /**
+     * 外部からインスタンスが生成できないようにprivateスコープにする<br>
+     * 単一のインスタンス生成時に公開鍵と秘密鍵を取得する
+     */
+    private JWTUtils() {
+        try {
+            final KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("EC"); //楕円曲線暗号の鍵に設定
+            keyPairGenerator.initialize(new ECGenParameterSpec("secp256r1")); //鍵を初期化
+            final KeyPair keyPair = keyPairGenerator.generateKeyPair(); //公開鍵と秘密鍵を作成
+            PUBLIC_KEY = (ECPublicKey) keyPair.getPublic(); //公開鍵を取得
+            PRIVATE_KEY = (ECPrivateKey) keyPair.getPrivate(); //秘密鍵を取得
+            byte[] publicKeyEncodedBytes = Base64.encodeBase64(PUBLIC_KEY.getEncoded()); //公開鍵をBase64でエンコード
+            byte[] privateKeyEncodedBytes = Base64.encodeBase64(PRIVATE_KEY.getEncoded()); //秘密鍵をBase64でエンコード
+            System.out.println("ES256 Public Key:" + new String(publicKeyEncodedBytes));
+            System.out.println("ES256 Private Key:" + new String(privateKeyEncodedBytes));
+        } catch (Exception e) {
+            System.out.println("JWTの署名鍵作成中にエラーが発生しました");
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        }        
+    }
+
+    /**
+     * 単一のインスタンスを取得する
+     * @return instance
+     */
+    public static JWTUtils getInstance() {
+        return instance;
+    }
 
     /**
      * JWTの発行日時
      * @return 現在日時
      */
-    private static long jwtIat() {
+    private long jwtIat() {
         LocalDateTime ldt = LocalDateTime.now();
         ZonedDateTime zdt = ldt.atZone(ZoneOffset.ofHours(+9));
         return zdt.toEpochSecond();
@@ -56,7 +85,7 @@ public class JWTUtils {
      * JWTの有効期限
      * @return 現在日時 + 1時間後
      */
-    private static long jwtExp() {
+    private long jwtExp() {
         LocalDateTime ldt = LocalDateTime.now().plusHours(1);
         ZonedDateTime zdt = ldt.atZone(ZoneOffset.ofHours(+9));
         return zdt.toEpochSecond();
@@ -67,12 +96,10 @@ public class JWTUtils {
      * @param stuffId
      * @return jwt
      */
-    public static String createJWT(Stuff stuff) {
+    public String createJWT(Stuff stuff) {
         try {
             // JSONとJavaオブジェクト相互変換用オブジェクトを作成
             final ObjectMapper objectMapper = new ObjectMapper();
-            // 署名鍵作成
-            createKeyPair();
             // ヘッダー作成
             String jwtHeaderStr = createHeader(objectMapper);
             // ペイロード作成
@@ -96,7 +123,7 @@ public class JWTUtils {
      * @param jwt
      * @return 検証結果
      */
-    public static boolean verifyJWT(String jwt) {
+    public boolean verifyJWT(String jwt) {
         try {
             final String[] splitJwt = jwt.split("\\."); //JWTをヘッダー、ペイロード、署名に分割
             final String jwtHeaderStr = splitJwt[0]; //ヘッダーを取得
@@ -151,7 +178,7 @@ public class JWTUtils {
      * @param jwt
      * @return json
      */
-    private static JsonNode decodeJwtPayload(String jwt) {
+    private JsonNode decodeJwtPayload(String jwt) {
         try {
             final String[] splitJwt = jwt.split("\\."); //JWTをヘッダー、ペイロード、署名に分割
             final String jwtPayloadStr = splitJwt[1]; //ペイロードを取得
@@ -165,31 +192,11 @@ public class JWTUtils {
     }
 
     /**
-     * JWTの署名鍵を作成する
-     */
-    private static void createKeyPair() {
-        try {
-            final KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("EC"); //楕円曲線暗号の鍵に設定
-            keyPairGenerator.initialize(new ECGenParameterSpec("secp256r1")); //鍵を初期化
-            final KeyPair keyPair = keyPairGenerator.generateKeyPair(); //公開鍵と秘密鍵を作成
-            PUBLIC_KEY = (ECPublicKey) keyPair.getPublic(); //公開鍵を取得
-            PRIVATE_KEY = (ECPrivateKey) keyPair.getPrivate(); //秘密鍵を取得
-            byte[] publicKeyEncodedBytes = Base64.encodeBase64(PUBLIC_KEY.getEncoded()); //公開鍵をBase64でエンコード
-            byte[] privateKeyEncodedBytes = Base64.encodeBase64(PRIVATE_KEY.getEncoded()); //秘密鍵をBase64でエンコード
-            System.out.println("ES256 Public Key:" + new String(publicKeyEncodedBytes));
-            System.out.println("ES256 Private Key:" + new String(privateKeyEncodedBytes));
-        } catch (Exception e) {
-            System.out.println("JWTの署名鍵作成中にエラーが発生しました");
-            System.out.println(e.getClass().getName() + ": " + e.getMessage());
-        }
-    }
-
-    /**
      * JWTのヘッダーを作成する
      * @param objectMapper
      * @return ヘッダー
      */
-    private static String createHeader(ObjectMapper objectMapper) {
+    private String createHeader(ObjectMapper objectMapper) {
         try {
             final Map<String, Object> jwtHeader = new LinkedHashMap<>(); //ヘッダーオブジェクトを作成
             jwtHeader.put("alg", "ES256"); //アルゴリズムをES256で設定
@@ -207,13 +214,13 @@ public class JWTUtils {
      * @param stuffId, objectMapper
      * @return ペイロード
      */
-    private static String createPayload(Stuff stuff, ObjectMapper objectMapper) {
+    private String createPayload(Stuff stuff, ObjectMapper objectMapper) {
         try {
             // ペイロード部設定
             final Map<String, Object> jwtPayload = new LinkedHashMap<>(); //ペイロードオブジェクトを作成
             jwtPayload.put("sub", stuff.getStuffId()); //JWT発行者のユーザ識別子
-            jwtPayload.put("iat", jwtIat()); //JWT発行時刻
-            jwtPayload.put("exp", jwtExp()); //JWT有効期限
+            jwtPayload.put("iat", instance.jwtIat()); //JWT発行時刻
+            jwtPayload.put("exp", instance.jwtExp()); //JWT有効期限
             jwtPayload.put("storeId", stuff.getStoreId()); //店舗ID
             return Base64.encodeBase64URLSafeString(objectMapper.writeValueAsBytes(jwtPayload)); //ペイロードオブジェクトをBase64でエンコード
         } catch (Exception e) {
@@ -228,7 +235,7 @@ public class JWTUtils {
      * @param jwtHeaderStr, jwtPayloadStr
      * @return 署名データ
      */
-    private static String createSignature(String jwtHeaderStr, String jwtPayloadStr) {
+    private String createSignature(String jwtHeaderStr, String jwtPayloadStr) {
         try {
             final Signature jwtSignature = Signature.getInstance("SHA256withECDSAinP1363Format"); //署名アルゴリズムをES256で設定
             jwtSignature.initSign(PRIVATE_KEY); //秘密鍵を指定して署名を初期化

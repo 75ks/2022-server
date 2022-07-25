@@ -45,7 +45,8 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             throw new AuthenticationException(messageSource.getMessage("error.password.not.match", new String[]{}, Locale.getDefault()));
         }
         // JWTを生成&検証
-        jwt = JWTUtils.createJWT(stuff);
+        JWTUtils instance = JWTUtils.getInstance();
+        jwt = instance.createJWT(stuff);
         // Cookieを設定
         CookieUtils.setCookie(response, "jwt", jwt);
 
