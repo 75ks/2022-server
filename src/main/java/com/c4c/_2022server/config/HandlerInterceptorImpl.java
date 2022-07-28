@@ -23,16 +23,20 @@ public class HandlerInterceptorImpl implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // リクエストヘッダーに保存されているJWTを取得する
-        String jwt = request.getHeader("authorization");
-        // 「Bearer 」を除去する
-        jwt = jwt.split(" ")[1];
-        // JWTを検証
-        JWTUtils instance = JWTUtils.getInstance();
-        if (instance.verifyJWT(jwt)) {
-            // コントローラーを実行する
-            return true;
-        } else {
+        try {
+            // リクエストヘッダーに保存されているJWTを取得する
+            String jwt = request.getHeader("authorization");
+            // 「Bearer 」を除去する
+            jwt = jwt.split(" ")[1];
+            // JWTを検証
+            JWTUtils instance = JWTUtils.getInstance();
+            if (instance.verifyJWT(jwt)) {
+                // コントローラーを実行する
+                return true;
+            } else {
+                throw new AuthenticationException(messageSource.getMessage("error.authentication", new String[]{}, Locale.getDefault()));
+            }            
+        } catch (Exception e) {
             throw new AuthenticationException(messageSource.getMessage("error.authentication", new String[]{}, Locale.getDefault()));
         }
     }
