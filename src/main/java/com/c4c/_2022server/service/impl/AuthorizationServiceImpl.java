@@ -11,6 +11,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.c4c._2022server.entity.LoginUser;
 import com.c4c._2022server.entity.Stuff;
 import com.c4c._2022server.form.LoginReq;
 import com.c4c._2022server.form.LoginRes;
@@ -29,7 +30,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     /**
      * ログイン
      * @param reqForm
-     * @return stuffId
+     * @return loginRes
      */
     @Override
     public LoginRes signIn(LoginReq reqForm, HttpServletResponse response) throws AuthenticationException {
@@ -45,14 +46,15 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             throw new AuthenticationException(messageSource.getMessage("error.password.not.match", new String[]{}, Locale.getDefault()));
         }
         // JWTを生成&検証
+        LoginUser loginuser = new LoginUser(stuff.getStuffId(), stuff.getStoreId());
         JWTUtils instance = JWTUtils.getInstance();
-        jwt = instance.createJWT(stuff);
+        jwt = instance.createJWT(loginuser);
         // Cookieを設定
         CookieUtils.setCookie(response, "jwt", jwt);
 
         // レスポンスを作成
         LoginRes loginRes = new LoginRes();
-        loginRes.setStuffId(stuff.getStuffId());
+        loginRes.setId(stuff.getStuffId());
         loginRes.setJwt(jwt);
         return loginRes;
     }

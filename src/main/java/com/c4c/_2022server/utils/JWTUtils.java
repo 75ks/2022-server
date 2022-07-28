@@ -19,7 +19,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 
-import com.c4c._2022server.entity.Stuff;
+import com.c4c._2022server.entity.LoginUser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -93,17 +93,17 @@ public class JWTUtils {
 
     /**
      * JWTを作成する
-     * @param stuffId
+     * @param loginUser
      * @return jwt
      */
-    public String createJWT(Stuff stuff) {
+    public String createJWT(LoginUser loginUser) {
         try {
             // JSONとJavaオブジェクト相互変換用オブジェクトを作成
             final ObjectMapper objectMapper = new ObjectMapper();
             // ヘッダー作成
             String jwtHeaderStr = createHeader(objectMapper);
             // ペイロード作成
-            String jwtPayloadStr = createPayload(stuff, objectMapper);
+            String jwtPayloadStr = createPayload(loginUser, objectMapper);
             // 署名作成
             final String jwtSignatureStr = createSignature(jwtHeaderStr, jwtPayloadStr);
             // JWT(ヘッダー.ペイロード.署名データ)を作成
@@ -211,17 +211,17 @@ public class JWTUtils {
 
     /**
      * JWTのペイロードを作成する
-     * @param stuffId, objectMapper
+     * @param loginUser, objectMapper
      * @return ペイロード
      */
-    private String createPayload(Stuff stuff, ObjectMapper objectMapper) {
+    private String createPayload(LoginUser loginUser, ObjectMapper objectMapper) {
         try {
             // ペイロード部設定
             final Map<String, Object> jwtPayload = new LinkedHashMap<>(); //ペイロードオブジェクトを作成
-            jwtPayload.put("sub", stuff.getStuffId()); //JWT発行者のユーザ識別子
+            jwtPayload.put("sub", loginUser.getId()); //JWT発行者のユーザ識別子
             jwtPayload.put("iat", instance.jwtIat()); //JWT発行時刻
             jwtPayload.put("exp", instance.jwtExp()); //JWT有効期限
-            jwtPayload.put("storeId", stuff.getStoreId()); //店舗ID
+            jwtPayload.put("storeId", loginUser.getStoreId()); //店舗ID
             return Base64.encodeBase64URLSafeString(objectMapper.writeValueAsBytes(jwtPayload)); //ペイロードオブジェクトをBase64でエンコード
         } catch (Exception e) {
             System.out.println("JWTのペイロード作成中にエラーが発生しました");

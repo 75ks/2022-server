@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class LoginRes {
     /**
-     * スタッフID
+     * ID
      */
-    private Integer stuffId;
+    private Integer id;
 
     /**
      * JWT
