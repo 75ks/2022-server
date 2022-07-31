@@ -13,4 +13,10 @@ public class LoginRes {
      * JWT
      */
     private String jwt;
+
+    /**
+     * 認証タイプ
+     * (1: スタッフ, 2: 顧客)
+     */
+    private Integer authenticationType;
 }

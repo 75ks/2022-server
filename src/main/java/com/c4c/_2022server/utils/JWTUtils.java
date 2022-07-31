@@ -96,7 +96,7 @@ public class JWTUtils {
      * @param loginUser
      * @return jwt
      */
-    public String createJWT(LoginUser loginUser) {
+    public String createJWT(LoginUser loginUser) throws AuthenticationException {
         try {
             // JSONとJavaオブジェクト相互変換用オブジェクトを作成
             final ObjectMapper objectMapper = new ObjectMapper();
@@ -114,7 +114,7 @@ public class JWTUtils {
         } catch (Exception e) {
             System.out.println("JWTの作成中にエラーが発生しました");
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
-            return "";
+            throw new AuthenticationException(messageSource.getMessage("error.authentication", new String[]{}, Locale.getDefault()));
         }
     }
 
@@ -142,16 +142,16 @@ public class JWTUtils {
     }
 
     /**
-     * JWTからスタッフIDを取得する
+     * JWTからIDを取得する
      * @param jwt
-     * @return stuffId
+     * @return id
      */
-    public Integer getStuffId(String jwt) throws AuthenticationException {
+    public Integer getId(String jwt) throws AuthenticationException {
         try {
             JsonNode json = decodeJwtPayload(jwt);
-            return Integer.parseInt(json.get("sub").asText()); //JSONからスタッフID(sub)を取得
+            return Integer.parseInt(json.get("sub").asText()); //JSONからID(sub)を取得
         } catch (Exception e) {
-            System.out.println("JWTからスタッフID取得中にエラーが発生しました");
+            System.out.println("JWTからID取得中にエラーが発生しました");
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
             throw new AuthenticationException(messageSource.getMessage("error.authentication", new String[]{}, Locale.getDefault()));
         }
@@ -168,6 +168,22 @@ public class JWTUtils {
             return Integer.parseInt(json.get("storeId").asText()); //JSONから店舗ID(storeId)を取得
         } catch (Exception e) {
             System.out.println("JWTから店舗ID取得中にエラーが発生しました");
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            throw new AuthenticationException(messageSource.getMessage("error.authentication", new String[]{}, Locale.getDefault()));
+        }
+    }
+    
+    /**
+     * JWTから認証タイプを取得する
+     * @param jwt
+     * @return authenticationType
+     */
+    public Integer getAuthenticationType(String jwt) throws AuthenticationException {
+        try {
+            JsonNode json = decodeJwtPayload(jwt);
+            return Integer.parseInt(json.get("authenticationType").asText()); //JSONから認証タイプ(authenticationType)を取得
+        } catch (Exception e) {
+            System.out.println("JWTから認証タイプ取得中にエラーが発生しました");
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
             throw new AuthenticationException(messageSource.getMessage("error.authentication", new String[]{}, Locale.getDefault()));
         }
@@ -196,7 +212,7 @@ public class JWTUtils {
      * @param objectMapper
      * @return ヘッダー
      */
-    private String createHeader(ObjectMapper objectMapper) {
+    private String createHeader(ObjectMapper objectMapper) throws Exception {
         try {
             final Map<String, Object> jwtHeader = new LinkedHashMap<>(); //ヘッダーオブジェクトを作成
             jwtHeader.put("alg", "ES256"); //アルゴリズムをES256で設定
@@ -205,7 +221,7 @@ public class JWTUtils {
         } catch (Exception e) {
             System.out.println("JWTのヘッダー作成中にエラーが発生しました");
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
-            return "";
+            throw new Exception();
         }
     }
 
@@ -214,7 +230,7 @@ public class JWTUtils {
      * @param loginUser, objectMapper
      * @return ペイロード
      */
-    private String createPayload(LoginUser loginUser, ObjectMapper objectMapper) {
+    private String createPayload(LoginUser loginUser, ObjectMapper objectMapper) throws Exception {
         try {
             // ペイロード部設定
             final Map<String, Object> jwtPayload = new LinkedHashMap<>(); //ペイロードオブジェクトを作成
@@ -222,11 +238,12 @@ public class JWTUtils {
             jwtPayload.put("iat", instance.jwtIat()); //JWT発行時刻
             jwtPayload.put("exp", instance.jwtExp()); //JWT有効期限
             jwtPayload.put("storeId", loginUser.getStoreId()); //店舗ID
+            jwtPayload.put("authenticationType", loginUser.getAuthenticationType()); //認証タイプ
             return Base64.encodeBase64URLSafeString(objectMapper.writeValueAsBytes(jwtPayload)); //ペイロードオブジェクトをBase64でエンコード
         } catch (Exception e) {
             System.out.println("JWTのペイロード作成中にエラーが発生しました");
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
-            return "";
+            throw new Exception();
         }
     }
 
@@ -235,7 +252,7 @@ public class JWTUtils {
      * @param jwtHeaderStr, jwtPayloadStr
      * @return 署名データ
      */
-    private String createSignature(String jwtHeaderStr, String jwtPayloadStr) {
+    private String createSignature(String jwtHeaderStr, String jwtPayloadStr) throws Exception {
         try {
             final Signature jwtSignature = Signature.getInstance("SHA256withECDSAinP1363Format"); //署名アルゴリズムをES256で設定
             jwtSignature.initSign(PRIVATE_KEY); //秘密鍵を指定して署名を初期化
@@ -245,7 +262,7 @@ public class JWTUtils {
         } catch (Exception e) {
             System.out.println("JWTの署名データ作成中にエラーが発生しました");
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
-            return "";
+            throw new Exception();
         }
     }
 }
