@@ -195,4 +195,65 @@ public interface CustomerMapper {
         "where CUSTOMER_ID = #{customerId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Customer row);
+
+    /**
+     * SQLID: Customer0001
+     */
+    @Select({
+        "SELECT",
+        "    CUSTOMER.CUSTOMER_ID",
+        "    , CUSTOMER.STORE_ID",
+        "    , CUSTOMER.LAST_NAME",
+        "    , CUSTOMER.FIRST_NAME",
+        "    , CUSTOMER.LAST_NAME_KANA",
+        "    , CUSTOMER.FIRST_NAME_KANA",
+        "    , CUSTOMER.BIRTHDAY",
+        "    , CUSTOMER.AGE",
+        "    , CUSTOMER.GENDER",
+        "    , CUSTOMER.POSTAL_CODE",
+        "    , CUSTOMER.PREFECTURE_ID",
+        "    , CUSTOMER.ADDRESS1",
+        "    , CUSTOMER.ADDRESS2",
+        "    , CUSTOMER.ADDRESS3",
+        "    , CUSTOMER.PHONE_NUMBER",
+        "    , CUSTOMER.EMAIL",
+        "    , CUSTOMER.PASSWORD",
+        "    , CUSTOMER.DELETE_FLG",
+        "    , CUSTOMER.CREATED_DATETIME",
+        "    , CUSTOMER.CREATED_USER",
+        "    , CUSTOMER.UPDATE_DATETIME",
+        "    , CUSTOMER.UPDATE_USER",
+        "    , CUSTOMER.VERSION_EX_KEY",
+        "FROM",
+        "    CUSTOMER",
+        "WHERE",
+        "    CUSTOMER.EMAIL = #{email}",
+        "    AND CUSTOMER.DELETE_FLG = 0"
+    })
+    @Results({
+        @Result(column="CUSTOMER_ID", property="customerId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER),
+        @Result(column="LAST_NAME", property="lastName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FIRST_NAME", property="firstName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="LAST_NAME_KANA", property="lastNameKana", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FIRST_NAME_KANA", property="firstNameKana", jdbcType=JdbcType.VARCHAR),
+        @Result(column="BIRTHDAY", property="birthday", jdbcType=JdbcType.DATE),
+        @Result(column="AGE", property="age", jdbcType=JdbcType.INTEGER),
+        @Result(column="GENDER", property="gender", jdbcType=JdbcType.INTEGER),
+        @Result(column="POSTAL_CODE", property="postalCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="PREFECTURE_ID", property="prefectureId", jdbcType=JdbcType.INTEGER),
+        @Result(column="ADDRESS1", property="address1", jdbcType=JdbcType.VARCHAR),
+        @Result(column="ADDRESS2", property="address2", jdbcType=JdbcType.VARCHAR),
+        @Result(column="ADDRESS3", property="address3", jdbcType=JdbcType.VARCHAR),
+        @Result(column="PHONE_NUMBER", property="phoneNumber", jdbcType=JdbcType.VARCHAR),
+        @Result(column="EMAIL", property="email", jdbcType=JdbcType.VARCHAR),
+        @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="DELETE_FLG", property="deleteFlg", jdbcType=JdbcType.INTEGER),
+        @Result(column="CREATED_DATETIME", property="createdDatetime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="CREATED_USER", property="createdUser", jdbcType=JdbcType.INTEGER),
+        @Result(column="UPDATE_DATETIME", property="updateDatetime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="UPDATE_USER", property="updateUser", jdbcType=JdbcType.INTEGER),
+        @Result(column="VERSION_EX_KEY", property="versionExKey", jdbcType=JdbcType.INTEGER)
+    })
+    Customer select0001(String email);
 }
