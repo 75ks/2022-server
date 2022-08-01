@@ -2,6 +2,8 @@ package com.c4c._2022server.controller;
 
 import java.util.List;
 
+import javax.security.sasl.AuthenticationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +27,9 @@ public class ReserveHistoryController {
      * @return List{@literal<ReserveHistoryRes>}
      */
     @GetMapping("/")
-    public ResponseEntity<List<ReserveHistoryRes>> index(@RequestHeader("Authorization") String jwt, ReserveHistoryReq reqForm) {
-        int storeId = JWTUtils.getStoreId(jwt);
+    public ResponseEntity<List<ReserveHistoryRes>> index(@RequestHeader("Authorization") String jwt, ReserveHistoryReq reqForm) throws AuthenticationException {
+        JWTUtils instance = JWTUtils.getInstance();
+        int storeId = instance.getStoreId(jwt);
         List<ReserveHistoryRes> resFormList = reserveHistoryServiceImpl.index(storeId, reqForm);
         return ResponseEntity.ok(resFormList);
     }

@@ -37,6 +37,7 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer {
         // AuthorizationController以外で共通処理を実行する
         registry.addInterceptor(handlerInterceptorImpl)
                 .excludePathPatterns("/authorization/**")
+                .excludePathPatterns("/customerAuthorization/**")
                 .excludePathPatterns("/selectOption/**");
     }
 }
