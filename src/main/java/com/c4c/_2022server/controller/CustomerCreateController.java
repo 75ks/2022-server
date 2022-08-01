@@ -28,7 +28,7 @@ public class CustomerCreateController {
      * 顧客登録
      * @param reqForm
      */
-    @PostMapping("")
+    @PostMapping("/")
     public ResponseEntity<CustomerCreateRes> register(@RequestBody @Valid CustomerCreateReq reqForm) {
     	customerCreateServiceImpl.register(reqForm);
         // メッセージを設定
