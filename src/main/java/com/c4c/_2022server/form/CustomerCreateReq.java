@@ -1,7 +1,5 @@
 package com.c4c._2022server.form;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -34,51 +32,51 @@ public class CustomerCreateReq {
      */
     @NotEmpty(message = "{firstNameKana}{NotEmpty}")
     private String firstNameKana;
-    /**
-     * 生年月日
-     */
-    @NotNull(message = "{birthday}{NotNull}")
-    private Date birthday;
-    /**
-     * 年齢
-     */
-    @NotEmpty(message = "{age}{NotNull}")
-    private String age;
+//    /**
+//     * 生年月日
+//     */
+//    @NotNull(message = "{birthday}")
+//    private Date birthday;
+//    /**
+//     * 年齢
+//     */
+//    @NotEmpty(message = "{age}")
+//    private String age;
     /**
      * 性別
      */
-    @NotEmpty(message = "{gender}{NotEmpty}")
+    @NotNull(message = "{gender}{NotNull}")
     private String gender;
-    /**
-     * 郵便番号
-     */
-    @NotEmpty(message = "{postalCode}{NotNull}")
-    private String postalCode;
-    /**
-     * 都道府県
-     */
-    @NotEmpty(message = "{prefectureId}{NotNull}")
-    private String prefectureId;
-    /**
-     * 市区町村
-     */
-    @NotEmpty(message = "{address1}{NotNull}")
-    private String address1;
-    /**
-     * 市区町村以下
-     */
-    @NotEmpty(message = "{address2}{NotNull}")
-    private String address2;
-    /**
-     * 建物、部屋番号
-     */
-    @NotEmpty(message = "{address3}{NotNull}")
-    private String address3;
-    /**
-     * 電話番号
-     */
-    @NotEmpty(message = "{phoneNumber}{NotNull}")
-    private String phoneNumber;
+//    /**
+//     * 郵便番号
+//     */
+//    @NotEmpty(message = "{postalCode}")
+//    private String postalCode;
+//    /**
+//     * 都道府県
+//     */
+//    @NotEmpty(message = "{prefectureId}")
+//    private String prefectureId;
+//    /**
+//     * 市区町村
+//     */
+//    @NotEmpty(message = "{address1}")
+//    private String address1;
+//    /**
+//     * 市区町村以下
+//     */
+//    @NotEmpty(message = "{address2}")
+//    private String address2;
+//    /**
+//     * 建物、部屋番号
+//     */
+//    @NotEmpty(message = "{address3}")
+//    private String address3;
+//    /**
+//     * 電話番号
+//     */
+//    @NotEmpty(message = "{phoneNumber}")
+//    private String phoneNumber;
     /**
      * メールアドレス
      */
