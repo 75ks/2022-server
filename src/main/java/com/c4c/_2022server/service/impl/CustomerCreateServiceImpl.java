@@ -22,15 +22,15 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
         customer.setFirstName(reqForm.getFirstName());
         customer.setLastNameKana(reqForm.getLastNameKana());
         customer.setFirstNameKana(reqForm.getFirstNameKana());
-//        customer.setBirthday(reqForm.getBirthday());
-//        customer.setAge(Integer.parseInt(reqForm.getAge()));
+        customer.setBirthday(reqForm.getBirthday());
+        customer.setAge(Integer.parseInt(reqForm.getAge()));
         customer.setGender(Integer.parseInt(reqForm.getGender()));
-//        customer.setPostalCode(reqForm.getPostalCode());
-//        customer.setPrefectureId(Integer.parseInt(reqForm.getPrefectureId()));
-//        customer.setAddress1(reqForm.getAddress1());
-//        customer.setAddress2(reqForm.getAddress2());
-//        customer.setAddress3(reqForm.getAddress3());
-//        customer.setPhoneNumber(reqForm.getPhoneNumber());
+        customer.setPostalCode(reqForm.getPostalCode());
+        customer.setPrefectureId(Integer.parseInt(reqForm.getPrefectureId()));
+        customer.setAddress1(reqForm.getAddress1());
+        customer.setAddress2(reqForm.getAddress2());
+        customer.setAddress3(reqForm.getAddress3());
+        customer.setPhoneNumber(reqForm.getPhoneNumber());
         customer.setEmail(reqForm.getEmail());
         // パスワードを暗号化(エンコード)
         BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
