@@ -1,7 +1,7 @@
 package com.c4c._2022server.entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class SalesHistoryExample {
@@ -657,52 +657,52 @@ public class SalesHistoryExample {
             return (Criteria) this;
         }
 
-        public Criteria andSalesDatetimeEqualTo(Date value) {
+        public Criteria andSalesDatetimeEqualTo(LocalDateTime value) {
             addCriterion("SALES_DATETIME =", value, "salesDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andSalesDatetimeNotEqualTo(Date value) {
+        public Criteria andSalesDatetimeNotEqualTo(LocalDateTime value) {
             addCriterion("SALES_DATETIME <>", value, "salesDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andSalesDatetimeGreaterThan(Date value) {
+        public Criteria andSalesDatetimeGreaterThan(LocalDateTime value) {
             addCriterion("SALES_DATETIME >", value, "salesDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andSalesDatetimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andSalesDatetimeGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("SALES_DATETIME >=", value, "salesDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andSalesDatetimeLessThan(Date value) {
+        public Criteria andSalesDatetimeLessThan(LocalDateTime value) {
             addCriterion("SALES_DATETIME <", value, "salesDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andSalesDatetimeLessThanOrEqualTo(Date value) {
+        public Criteria andSalesDatetimeLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("SALES_DATETIME <=", value, "salesDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andSalesDatetimeIn(List<Date> values) {
+        public Criteria andSalesDatetimeIn(List<LocalDateTime> values) {
             addCriterion("SALES_DATETIME in", values, "salesDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andSalesDatetimeNotIn(List<Date> values) {
+        public Criteria andSalesDatetimeNotIn(List<LocalDateTime> values) {
             addCriterion("SALES_DATETIME not in", values, "salesDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andSalesDatetimeBetween(Date value1, Date value2) {
+        public Criteria andSalesDatetimeBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("SALES_DATETIME between", value1, value2, "salesDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andSalesDatetimeNotBetween(Date value1, Date value2) {
+        public Criteria andSalesDatetimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("SALES_DATETIME not between", value1, value2, "salesDatetime");
             return (Criteria) this;
         }
@@ -777,52 +777,52 @@ public class SalesHistoryExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreatedDatetimeEqualTo(Date value) {
+        public Criteria andCreatedDatetimeEqualTo(LocalDateTime value) {
             addCriterion("CREATED_DATETIME =", value, "createdDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedDatetimeNotEqualTo(Date value) {
+        public Criteria andCreatedDatetimeNotEqualTo(LocalDateTime value) {
             addCriterion("CREATED_DATETIME <>", value, "createdDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedDatetimeGreaterThan(Date value) {
+        public Criteria andCreatedDatetimeGreaterThan(LocalDateTime value) {
             addCriterion("CREATED_DATETIME >", value, "createdDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedDatetimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andCreatedDatetimeGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("CREATED_DATETIME >=", value, "createdDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedDatetimeLessThan(Date value) {
+        public Criteria andCreatedDatetimeLessThan(LocalDateTime value) {
             addCriterion("CREATED_DATETIME <", value, "createdDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedDatetimeLessThanOrEqualTo(Date value) {
+        public Criteria andCreatedDatetimeLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("CREATED_DATETIME <=", value, "createdDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedDatetimeIn(List<Date> values) {
+        public Criteria andCreatedDatetimeIn(List<LocalDateTime> values) {
             addCriterion("CREATED_DATETIME in", values, "createdDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedDatetimeNotIn(List<Date> values) {
+        public Criteria andCreatedDatetimeNotIn(List<LocalDateTime> values) {
             addCriterion("CREATED_DATETIME not in", values, "createdDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedDatetimeBetween(Date value1, Date value2) {
+        public Criteria andCreatedDatetimeBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("CREATED_DATETIME between", value1, value2, "createdDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedDatetimeNotBetween(Date value1, Date value2) {
+        public Criteria andCreatedDatetimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("CREATED_DATETIME not between", value1, value2, "createdDatetime");
             return (Criteria) this;
         }
@@ -897,52 +897,52 @@ public class SalesHistoryExample {
             return (Criteria) this;
         }
 
-        public Criteria andUpdateDatetimeEqualTo(Date value) {
+        public Criteria andUpdateDatetimeEqualTo(LocalDateTime value) {
             addCriterion("UPDATE_DATETIME =", value, "updateDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateDatetimeNotEqualTo(Date value) {
+        public Criteria andUpdateDatetimeNotEqualTo(LocalDateTime value) {
             addCriterion("UPDATE_DATETIME <>", value, "updateDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateDatetimeGreaterThan(Date value) {
+        public Criteria andUpdateDatetimeGreaterThan(LocalDateTime value) {
             addCriterion("UPDATE_DATETIME >", value, "updateDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateDatetimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andUpdateDatetimeGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("UPDATE_DATETIME >=", value, "updateDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateDatetimeLessThan(Date value) {
+        public Criteria andUpdateDatetimeLessThan(LocalDateTime value) {
             addCriterion("UPDATE_DATETIME <", value, "updateDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateDatetimeLessThanOrEqualTo(Date value) {
+        public Criteria andUpdateDatetimeLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("UPDATE_DATETIME <=", value, "updateDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateDatetimeIn(List<Date> values) {
+        public Criteria andUpdateDatetimeIn(List<LocalDateTime> values) {
             addCriterion("UPDATE_DATETIME in", values, "updateDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateDatetimeNotIn(List<Date> values) {
+        public Criteria andUpdateDatetimeNotIn(List<LocalDateTime> values) {
             addCriterion("UPDATE_DATETIME not in", values, "updateDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateDatetimeBetween(Date value1, Date value2) {
+        public Criteria andUpdateDatetimeBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("UPDATE_DATETIME between", value1, value2, "updateDatetime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateDatetimeNotBetween(Date value1, Date value2) {
+        public Criteria andUpdateDatetimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("UPDATE_DATETIME not between", value1, value2, "updateDatetime");
             return (Criteria) this;
         }

@@ -1,14 +1,12 @@
 package com.c4c._2022server.mapper;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.jdbc.SQL;
-
 import com.c4c._2022server.entity.Customer;
-import com.c4c._2022server.entity.CustomerExample;
 import com.c4c._2022server.entity.CustomerExample.Criteria;
 import com.c4c._2022server.entity.CustomerExample.Criterion;
+import com.c4c._2022server.entity.CustomerExample;
+import java.util.List;
+import java.util.Map;
+import org.apache.ibatis.jdbc.SQL;
 
 public class CustomerSqlProvider {
     /**

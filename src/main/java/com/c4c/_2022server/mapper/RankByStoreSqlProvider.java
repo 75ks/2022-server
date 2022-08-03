@@ -1,14 +1,12 @@
 package com.c4c._2022server.mapper;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.jdbc.SQL;
-
 import com.c4c._2022server.entity.RankByStore;
-import com.c4c._2022server.entity.RankByStoreExample;
 import com.c4c._2022server.entity.RankByStoreExample.Criteria;
 import com.c4c._2022server.entity.RankByStoreExample.Criterion;
+import com.c4c._2022server.entity.RankByStoreExample;
+import java.util.List;
+import java.util.Map;
+import org.apache.ibatis.jdbc.SQL;
 
 public class RankByStoreSqlProvider {
     /**

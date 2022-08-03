@@ -1,14 +1,12 @@
 package com.c4c._2022server.mapper;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.jdbc.SQL;
-
 import com.c4c._2022server.entity.StoreBusiness;
-import com.c4c._2022server.entity.StoreBusinessExample;
 import com.c4c._2022server.entity.StoreBusinessExample.Criteria;
 import com.c4c._2022server.entity.StoreBusinessExample.Criterion;
+import com.c4c._2022server.entity.StoreBusinessExample;
+import java.util.List;
+import java.util.Map;
+import org.apache.ibatis.jdbc.SQL;
 
 public class StoreBusinessSqlProvider {
     /**
