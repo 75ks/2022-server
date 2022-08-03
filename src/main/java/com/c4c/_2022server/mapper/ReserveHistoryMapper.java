@@ -1,7 +1,9 @@
 package com.c4c._2022server.mapper;
 
-import java.util.List;
-
+import com.c4c._2022server.entity.ReserveHistory;
+import com.c4c._2022server.entity.ReserveHistory0001;
+import com.c4c._2022server.entity.ReserveHistoryExample;
+import com.c4c._2022server.form.ReserveHistoryReq;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -16,10 +18,7 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
-import com.c4c._2022server.entity.ReserveHistory;
-import com.c4c._2022server.entity.ReserveHistory0001;
-import com.c4c._2022server.entity.ReserveHistoryExample;
-import com.c4c._2022server.form.ReserveHistoryReq;
+import java.util.List;
 
 @Mapper
 public interface ReserveHistoryMapper {

@@ -1,7 +1,6 @@
 package com.c4c._2022server.entity;
 
-import java.util.Date;
-
+import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
@@ -43,7 +42,7 @@ public class RankByStore {
      * Type: TIMESTAMP
      * Remark: 作成日時
      */
-    private Date createdDatetime;
+    private LocalDateTime createdDatetime;
 
     /**
      * Column: CREATED_USER
@@ -57,7 +56,7 @@ public class RankByStore {
      * Type: TIMESTAMP
      * Remark: 更新日時
      */
-    private Date updateDatetime;
+    private LocalDateTime updateDatetime;
 
     /**
      * Column: UPDATE_USER

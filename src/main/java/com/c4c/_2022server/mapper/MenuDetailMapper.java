@@ -1,7 +1,8 @@
 package com.c4c._2022server.mapper;
 
+import com.c4c._2022server.entity.MenuDetail;
+import com.c4c._2022server.entity.MenuDetailExample;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -15,9 +16,6 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
-
-import com.c4c._2022server.entity.MenuDetail;
-import com.c4c._2022server.entity.MenuDetailExample;
 
 @Mapper
 public interface MenuDetailMapper {

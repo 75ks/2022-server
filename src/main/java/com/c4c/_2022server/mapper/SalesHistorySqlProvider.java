@@ -1,14 +1,12 @@
 package com.c4c._2022server.mapper;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.jdbc.SQL;
-
 import com.c4c._2022server.entity.SalesHistory;
-import com.c4c._2022server.entity.SalesHistoryExample;
 import com.c4c._2022server.entity.SalesHistoryExample.Criteria;
 import com.c4c._2022server.entity.SalesHistoryExample.Criterion;
+import com.c4c._2022server.entity.SalesHistoryExample;
+import java.util.List;
+import java.util.Map;
+import org.apache.ibatis.jdbc.SQL;
 
 public class SalesHistorySqlProvider {
     /**

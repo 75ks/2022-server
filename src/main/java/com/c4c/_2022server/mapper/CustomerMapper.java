@@ -1,7 +1,7 @@
 package com.c4c._2022server.mapper;
 
-import java.util.List;
-
+import com.c4c._2022server.entity.Customer;
+import com.c4c._2022server.entity.CustomerExample;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -16,8 +16,7 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
-import com.c4c._2022server.entity.Customer;
-import com.c4c._2022server.entity.CustomerExample;
+import java.util.List;
 
 @Mapper
 public interface CustomerMapper {

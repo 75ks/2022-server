@@ -1,14 +1,12 @@
 package com.c4c._2022server.mapper;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.jdbc.SQL;
-
 import com.c4c._2022server.entity.StoreHeader;
-import com.c4c._2022server.entity.StoreHeaderExample;
 import com.c4c._2022server.entity.StoreHeaderExample.Criteria;
 import com.c4c._2022server.entity.StoreHeaderExample.Criterion;
+import com.c4c._2022server.entity.StoreHeaderExample;
+import java.util.List;
+import java.util.Map;
+import org.apache.ibatis.jdbc.SQL;
 
 public class StoreHeaderSqlProvider {
     /**
