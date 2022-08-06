@@ -485,7 +485,7 @@ public class ReserveHistorySqlProvider {
         }
 
         // 予約状態
-        if (!(reqForm.getReserveState() == null || reqForm.getReserveState().isEmpty() || reqForm.getReserveState().equals("指定なし"))) {
+        if (reqForm.getReserveState() != null) {
             sql.AND();
             sql.WHERE("RESERVE_HISTORY.RESERVE_STATE = #{reqForm.reserveState}");
         }
