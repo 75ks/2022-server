@@ -7,10 +7,10 @@ public class SelectOption {
     /**
      * コード
      */
-    String  code;
+    private Integer code;
 
     /**
      * 名称
      */
-    String name;
+    private String name;
 }
