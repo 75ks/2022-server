@@ -2,6 +2,7 @@ package com.c4c._2022server.entity;
 
 import java.util.Date;
 
+import com.c4c._2022server.enums.ReserveStateEnum;
 import lombok.Data;
 
 @Data
@@ -117,4 +118,12 @@ public class ReserveHistory0001 {
      * Remark: メイ
      */
     private String stuffFirstNameKana;
+
+    /**
+     * 予約状態に紐づく名称を取得します
+     * @return 予約状態名称
+     */
+    public String getReserveStateName() {
+        return ReserveStateEnum.getEnumByCode(this.reserveState).getName();
+    }
 }

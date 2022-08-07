@@ -11,7 +11,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.c4c._2022server.constants.AuthenticationType;
+import com.c4c._2022server.enums.AuthenticationTypeEnum;
 import com.c4c._2022server.entity.Customer;
 import com.c4c._2022server.entity.LoginUser;
 import com.c4c._2022server.form.LoginReq;
@@ -35,7 +35,7 @@ public class CustomerAuthorizationServiceImpl implements CustomerAuthorizationSe
      */
     @Override
     public LoginRes signIn(LoginReq reqForm, HttpServletResponse response) throws AuthenticationException {
-        String jwt = null;
+        String jwt;
         // メールアドレスをキーにユーザーを取得
         Customer customer = customerMapper.select0001(reqForm.getEmail());
         if (customer == null) {
@@ -47,7 +47,7 @@ public class CustomerAuthorizationServiceImpl implements CustomerAuthorizationSe
             throw new AuthenticationException(messageSource.getMessage("error.password.not.match", new String[]{}, Locale.getDefault()));
         }
         // JWTを生成&検証
-        LoginUser loginuser = new LoginUser(customer.getCustomerId(), customer.getStoreId(), AuthenticationType.CUSTOMER.getCode());
+        LoginUser loginuser = new LoginUser(customer.getCustomerId(), customer.getStoreId(), AuthenticationTypeEnum.CUSTOMER.getCode());
         JWTUtils instance = JWTUtils.getInstance();
         jwt = instance.createJWT(loginuser);
         // Cookieを設定
@@ -57,7 +57,7 @@ public class CustomerAuthorizationServiceImpl implements CustomerAuthorizationSe
         LoginRes loginRes = new LoginRes();
         loginRes.setId(customer.getCustomerId());
         loginRes.setJwt(jwt);
-        loginRes.setAuthenticationType(AuthenticationType.CUSTOMER.getCode());
+        loginRes.setAuthenticationType(AuthenticationTypeEnum.CUSTOMER.getCode());
         return loginRes;
     }
 

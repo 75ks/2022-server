@@ -53,7 +53,12 @@ public class ReserveHistoryRes {
      * Remark: 予約状態
      * 上記を元に予約状態名を保持する
      */
-    private String reserveState;
+    private Integer reserveState;
+
+    /**
+     * 予約状態名称
+     */
+    private String reserveStateName;
 
     /**
      * Table: CUSTOMER
