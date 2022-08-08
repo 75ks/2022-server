@@ -32,5 +32,5 @@ public class ReserveHistoryReq {
     private String reserveDateTimeMax;
 
     /** 予約状態 */
-    private String reserveState;
+    private Integer reserveState;
 }
