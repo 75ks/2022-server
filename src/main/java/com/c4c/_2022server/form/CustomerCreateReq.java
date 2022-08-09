@@ -1,6 +1,6 @@
 package com.c4c._2022server.form;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -38,7 +38,7 @@ public class CustomerCreateReq {
     /**
      * 生年月日
      */
-    private Date birthday;
+    private LocalDate birthday;
     /**
      * 年齢
      */
