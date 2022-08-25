@@ -1,9 +1,7 @@
 package com.c4c._2022server.mapper;
 
-import com.c4c._2022server.entity.ReserveHistory;
-import com.c4c._2022server.entity.ReserveHistory0001;
-import com.c4c._2022server.entity.ReserveHistoryExample;
-import com.c4c._2022server.form.ReserveHistoryReq;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -18,7 +16,11 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
-import java.util.List;
+import com.c4c._2022server.entity.ReserveHistory;
+import com.c4c._2022server.entity.ReserveHistory0001;
+import com.c4c._2022server.entity.ReserveHistory0002;
+import com.c4c._2022server.entity.ReserveHistoryExample;
+import com.c4c._2022server.form.ReserveHistoryReq;
 
 @Mapper
 public interface ReserveHistoryMapper {
@@ -185,4 +187,37 @@ public interface ReserveHistoryMapper {
             @Result(column = "STUFF_FIRST_NAME_KANA", property = "stuffFirstNameKana", jdbcType=JdbcType.VARCHAR)
     })
     List<ReserveHistory0001> select0001(@Param("storeId") int storeId, @Param("reqForm") ReserveHistoryReq reqForm);
+
+    /**
+     * SQLID: ReserveHistory0002
+     */
+    @Select({
+        "SELECT",
+        "    RANK_BY_STORE.RANK",
+        "    , MENU_HEADER.MENU",
+        "    , MENU_DETAIL.PRICE",
+        "FROM",
+        "    STUFF",
+        "INNER JOIN",
+        "    RANK_BY_STORE",
+        "    ON STUFF.STORE_ID = RANK_BY_STORE.STORE_ID",
+        "    AND STUFF.RANK_ID = RANK_BY_STORE.RANK_ID",
+        "INNER JOIN",
+        "    MENU_HEADER",
+        "    ON STUFF.STORE_ID = MENU_HEADER.STORE_ID",
+        "    AND MENU_HEADER.MENU_ID = #{menuId}",
+        "INNER JOIN",
+        "    MENU_DETAIL",
+        "    ON STUFF.STORE_ID = MENU_DETAIL.STORE_ID",
+        "    AND MENU_HEADER.MENU_ID = MENU_DETAIL.MENU_ID",
+        "    AND STUFF.RANK_ID = MENU_DETAIL.RANK_ID",
+        "WHERE",
+        "    STUFF.STUFF_ID = #{stuffId}"
+    })
+    @Results({
+        @Result(column="RANK", property="rank", jdbcType=JdbcType.VARCHAR),
+        @Result(column="MENU", property="menu", jdbcType=JdbcType.VARCHAR),
+        @Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER)
+    })
+    ReserveHistory0002 select0002(int stuffId, int menuId);
 }

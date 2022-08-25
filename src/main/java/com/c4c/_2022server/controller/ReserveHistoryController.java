@@ -1,16 +1,23 @@
 package com.c4c._2022server.controller;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.security.sasl.AuthenticationException;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.c4c._2022server.form.ReserveHistoryRegisterReq;
+import com.c4c._2022server.form.ReserveHistoryRegisterRes;
 import com.c4c._2022server.form.ReserveHistoryReq;
 import com.c4c._2022server.form.ReserveHistoryRes;
 import com.c4c._2022server.service.impl.ReserveHistoryServiceImpl;
@@ -20,10 +27,14 @@ import com.c4c._2022server.utils.JWTUtils;
 @RequestMapping("/reserves")
 public class ReserveHistoryController {
     @Autowired
+    MessageSource messageSource;
+    @Autowired
     ReserveHistoryServiceImpl reserveHistoryServiceImpl;
 
     /**
      * 予約履歴一覧取得
+     * @param jwt
+     * @param reqForm
      * @return List{@literal<ReserveHistoryRes>}
      */
     @GetMapping("/")
@@ -32,5 +43,23 @@ public class ReserveHistoryController {
         int storeId = instance.getStoreId(jwt);
         List<ReserveHistoryRes> resFormList = reserveHistoryServiceImpl.index(storeId, reqForm);
         return ResponseEntity.ok(resFormList);
+    }
+
+    /**
+     * 予約情報登録
+     * @param jwt
+     * @param reqForm
+     * @return ReserveHistoryRegisterRes
+     */
+    @PostMapping("/register")
+    public ResponseEntity<ReserveHistoryRegisterRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid ReserveHistoryRegisterReq reqForm) throws AuthenticationException {
+        JWTUtils instance = JWTUtils.getInstance();
+        int stuffId = instance.getId(jwt);
+        int storeId = instance.getStoreId(jwt);
+        reserveHistoryServiceImpl.register(stuffId, storeId, reqForm);
+        // メッセージを設定
+        ReserveHistoryRegisterRes resForm = new ReserveHistoryRegisterRes();
+        resForm.setMessages(messageSource.getMessage("success", new String[]{"登録"}, Locale.getDefault()));
+        return ResponseEntity.ok(resForm);
     }
 }
