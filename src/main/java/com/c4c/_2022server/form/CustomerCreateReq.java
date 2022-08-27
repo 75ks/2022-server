@@ -1,7 +1,5 @@
 package com.c4c._2022server.form;
 
-import java.time.LocalDate;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -10,11 +8,11 @@ import lombok.Data;
 
 @Data
 public class CustomerCreateReq {
-    /**
-     * 店舗名
-     */
-    @NotEmpty(message = "{storeId}{NotEmpty}")
-    private String storeId;
+//    /**
+//     * 店舗名
+//     */
+//    @NotEmpty(message = "{storeId}{NotEmpty}")
+//    private String storeId;
     /**
      * 姓
      */
@@ -38,24 +36,24 @@ public class CustomerCreateReq {
     /**
      * 生年月日
      */
-    private LocalDate birthday;
+    private String birthday;
     /**
      * 年齢
      */
-    private String age;
+    private Integer age;
     /**
      * 性別
      */
     @NotNull(message = "{gender}{NotNull}")
-    private String gender;
+    private Integer gender;
     /**
      * 郵便番号
      */
-    private String postalCode;
+    private Integer postalCode;
     /**
      * 都道府県
      */
-    private String prefectureId;
+    private Integer prefectureId;
     /**
      * 市区町村
      */
@@ -82,5 +80,4 @@ public class CustomerCreateReq {
      */
     @NotEmpty(message = "{password}{NotEmpty}")
     private String password;
-//    private String email;
 }

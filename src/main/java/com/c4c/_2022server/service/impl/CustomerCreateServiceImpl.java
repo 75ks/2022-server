@@ -1,5 +1,7 @@
 package com.c4c._2022server.service.impl;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,20 +15,20 @@ import com.c4c._2022server.service.CustomerCreateService;
 public class CustomerCreateServiceImpl implements CustomerCreateService {
     @Autowired
     CustomerMapper customerMapper;
-
+    
     @Override
     public void register(CustomerCreateReq reqForm) {
     	Customer customer = new Customer();
-        customer.setStoreId(Integer.parseInt(reqForm.getStoreId()));
+//    	customer.setStoreId(Integer.parseInt(reqForm.getStoreId()));
         customer.setLastName(reqForm.getLastName());
         customer.setFirstName(reqForm.getFirstName());
         customer.setLastNameKana(reqForm.getLastNameKana());
         customer.setFirstNameKana(reqForm.getFirstNameKana());
-        customer.setBirthday(reqForm.getBirthday());
-        customer.setAge(Integer.parseInt(reqForm.getAge()));
-        customer.setGender(Integer.parseInt(reqForm.getGender()));
+        customer.setBirthday(LocalDate.parse(reqForm.getBirthday()));
+        customer.setAge(reqForm.getAge());
+        customer.setGender(reqForm.getGender());
         customer.setPostalCode(reqForm.getPostalCode());
-        customer.setPrefectureId(Integer.parseInt(reqForm.getPrefectureId()));
+        customer.setPrefectureId(reqForm.getPrefectureId());
         customer.setAddress1(reqForm.getAddress1());
         customer.setAddress2(reqForm.getAddress2());
         customer.setAddress3(reqForm.getAddress3());
