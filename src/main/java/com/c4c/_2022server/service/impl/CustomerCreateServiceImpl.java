@@ -1,6 +1,7 @@
 package com.c4c._2022server.service.impl;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,7 +25,7 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
         customer.setFirstName(reqForm.getFirstName());
         customer.setLastNameKana(reqForm.getLastNameKana());
         customer.setFirstNameKana(reqForm.getFirstNameKana());
-        customer.setBirthday(LocalDate.parse(reqForm.getBirthday()));
+        customer.setBirthday(LocalDate.parse(reqForm.getBirthday(),DateTimeFormatter.ofPattern("yyyy/MM/dd")));
         customer.setAge(reqForm.getAge());
         customer.setGender(reqForm.getGender());
         customer.setPostalCode(reqForm.getPostalCode());
