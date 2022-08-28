@@ -1,7 +1,7 @@
 package com.c4c._2022server.mapper;
 
-import com.c4c._2022server.entity.Customer;
-import com.c4c._2022server.entity.CustomerExample;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -16,7 +16,8 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
-import java.util.List;
+import com.c4c._2022server.entity.Customer;
+import com.c4c._2022server.entity.CustomerExample;
 
 @Mapper
 public interface CustomerMapper {
@@ -45,7 +46,7 @@ public interface CustomerMapper {
      * @mbg.generated generated automatically, do not modify!
      */
     @Insert({
-        "insert into CUSTOMER (CUSTOMER_ID, STORE_ID, ",
+        "insert into CUSTOMER (CUSTOMER_ID, ",
         "LAST_NAME, FIRST_NAME, ",
         "LAST_NAME_KANA, FIRST_NAME_KANA, ",
         "BIRTHDAY, AGE, GENDER, ",
@@ -56,7 +57,7 @@ public interface CustomerMapper {
         "DELETE_FLG, CREATED_DATETIME, ",
         "CREATED_USER, UPDATE_DATETIME, ",
         "UPDATE_USER, VERSION_EX_KEY)",
-        "values (#{customerId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, ",
+        "values (#{customerId,jdbcType=INTEGER}, ",
         "#{lastName,jdbcType=VARCHAR}, #{firstName,jdbcType=VARCHAR}, ",
         "#{lastNameKana,jdbcType=VARCHAR}, #{firstNameKana,jdbcType=VARCHAR}, ",
         "#{birthday,jdbcType=DATE}, #{age,jdbcType=INTEGER}, #{gender,jdbcType=INTEGER}, ",
@@ -82,7 +83,7 @@ public interface CustomerMapper {
     @SelectProvider(type=CustomerSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="CUSTOMER_ID", property="customerId", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER),
+//        @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER),
         @Result(column="LAST_NAME", property="lastName", jdbcType=JdbcType.VARCHAR),
         @Result(column="FIRST_NAME", property="firstName", jdbcType=JdbcType.VARCHAR),
         @Result(column="LAST_NAME_KANA", property="lastNameKana", jdbcType=JdbcType.VARCHAR),
@@ -112,7 +113,7 @@ public interface CustomerMapper {
      */
     @Select({
         "select",
-        "CUSTOMER_ID, STORE_ID, LAST_NAME, FIRST_NAME, LAST_NAME_KANA, FIRST_NAME_KANA, ",
+        "CUSTOMER_ID, LAST_NAME, FIRST_NAME, LAST_NAME_KANA, FIRST_NAME_KANA, ",
         "BIRTHDAY, AGE, GENDER, POSTAL_CODE, PREFECTURE_ID, ADDRESS1, ADDRESS2, ADDRESS3, ",
         "PHONE_NUMBER, EMAIL, `PASSWORD`, DELETE_FLG, CREATED_DATETIME, CREATED_USER, ",
         "UPDATE_DATETIME, UPDATE_USER, VERSION_EX_KEY",
@@ -121,7 +122,7 @@ public interface CustomerMapper {
     })
     @Results({
         @Result(column="CUSTOMER_ID", property="customerId", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER),
+//        @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER),
         @Result(column="LAST_NAME", property="lastName", jdbcType=JdbcType.VARCHAR),
         @Result(column="FIRST_NAME", property="firstName", jdbcType=JdbcType.VARCHAR),
         @Result(column="LAST_NAME_KANA", property="lastNameKana", jdbcType=JdbcType.VARCHAR),
@@ -169,7 +170,7 @@ public interface CustomerMapper {
      */
     @Update({
         "update CUSTOMER",
-        "set STORE_ID = #{storeId,jdbcType=INTEGER},",
+//        "set STORE_ID = #{storeId,jdbcType=INTEGER},",
           "LAST_NAME = #{lastName,jdbcType=VARCHAR},",
           "FIRST_NAME = #{firstName,jdbcType=VARCHAR},",
           "LAST_NAME_KANA = #{lastNameKana,jdbcType=VARCHAR},",
@@ -201,7 +202,7 @@ public interface CustomerMapper {
     @Select({
         "SELECT",
         "    CUSTOMER.CUSTOMER_ID",
-        "    , CUSTOMER.STORE_ID",
+//        "    , CUSTOMER.STORE_ID",
         "    , CUSTOMER.LAST_NAME",
         "    , CUSTOMER.FIRST_NAME",
         "    , CUSTOMER.LAST_NAME_KANA",
@@ -231,7 +232,7 @@ public interface CustomerMapper {
     })
     @Results({
         @Result(column="CUSTOMER_ID", property="customerId", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER),
+//        @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER),
         @Result(column="LAST_NAME", property="lastName", jdbcType=JdbcType.VARCHAR),
         @Result(column="FIRST_NAME", property="firstName", jdbcType=JdbcType.VARCHAR),
         @Result(column="LAST_NAME_KANA", property="lastNameKana", jdbcType=JdbcType.VARCHAR),
