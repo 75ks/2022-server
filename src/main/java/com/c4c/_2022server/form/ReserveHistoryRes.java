@@ -62,6 +62,14 @@ public class ReserveHistoryRes {
 
     /**
      * Table: CUSTOMER
+     * Column: CUSTOMER_ID
+     * Type: INT
+     * Remark: 顧客ID
+     */
+    private Integer customerId;
+
+    /**
+     * Table: CUSTOMER
      * Column: LAST_NAME
      * Type: VARCHAR(30)
      * Remark: 姓
@@ -91,6 +99,14 @@ public class ReserveHistoryRes {
      * Remark: メイ
      */
     private String customerFirstNameKana;
+
+    /**
+     * Table: STUFF
+     * Column: STUFF_ID
+     * Type: INT
+     * Remark: スタッフID
+     */
+    private Integer stuffId;
 
     /**
      * Table: STUFF
