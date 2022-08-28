@@ -25,6 +25,14 @@ public class ReserveHistory0001 {
     private String rank;
 
     /**
+     * Table: MENU_HEADER
+     * Column: MENU_ID
+     * Type: INT
+     * Remark: メニューID
+     */
+    private String menuId;
+
+    /**
      * Table: RESERVE_HISTORY
      * Column: MENU
      * Type: VARCHAR(255)

@@ -186,7 +186,8 @@ public interface ReserveHistoryMapper {
             @Result(column = "STUFF_LAST_NAME", property = "stuffLastName", jdbcType=JdbcType.VARCHAR),
             @Result(column = "STUFF_FIRST_NAME", property = "stuffFirstName", jdbcType=JdbcType.VARCHAR),
             @Result(column = "STUFF_LAST_NAME_KANA", property = "stuffLastNameKana", jdbcType=JdbcType.VARCHAR),
-            @Result(column = "STUFF_FIRST_NAME_KANA", property = "stuffFirstNameKana", jdbcType=JdbcType.VARCHAR)
+            @Result(column = "STUFF_FIRST_NAME_KANA", property = "stuffFirstNameKana", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "MENU_ID", property = "menuId", jdbcType=JdbcType.INTEGER)
     })
     List<ReserveHistory0001> select0001(@Param("storeId") int storeId, @Param("reqForm") ReserveHistoryReq reqForm);
 
