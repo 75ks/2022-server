@@ -3,7 +3,6 @@ package com.c4c._2022server.service.impl;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.c4c._2022server.entity.Customer;
@@ -18,7 +17,7 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
     
     @Override
     public void register(CustomerCreateReq reqForm) {
-    	Customer customer = new Customer();
+    	Customer customer = new Customer();;
 //    	customer.setStoreId(Integer.parseInt(reqForm.getStoreId()));
         customer.setLastName(reqForm.getLastName());
         customer.setFirstName(reqForm.getFirstName());
@@ -34,10 +33,10 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
         customer.setAddress3(reqForm.getAddress3());
         customer.setPhoneNumber(reqForm.getPhoneNumber());
         customer.setEmail(reqForm.getEmail());
-        // パスワードを暗号化(エンコード)
-        BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
-        String encodeedPassword = bcpe.encode(reqForm.getPassword());
-        customer.setPassword(encodeedPassword);
+//        // パスワードを暗号化(エンコード)
+//        BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
+//        String encodeedPassword = bcpe.encode(reqForm.getPassword());
+//        customer.setPassword(encodeedPassword);
         // INSERTを実行し、データを登録する
         customerMapper.insert(customer);
     }

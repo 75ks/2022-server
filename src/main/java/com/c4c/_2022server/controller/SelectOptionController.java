@@ -148,32 +148,5 @@ public class SelectOptionController {
     	}
     	return ResponseEntity.ok(selectOptionList);
     }
-    
-//    @GetMapping("/storeNames")
-//    public ResponseEntity<List<SelectOption>> getStoreNamesOptions() {
-//        // 店舗名取得
-//        List<StoreHeader0001> storeNameList = storeHeaderMapper.select0001();
-//        List<SelectOption> selectOptionList = new ArrayList<>();
-//
-//        // 初期値の選択肢を追加
-//        SelectOption selectOption = new SelectOption();
-//        selectOption.setCode(null);
-//        selectOption.setName("指定なし");
-//        selectOptionList.add(selectOption);
-//
-//        int count = 1;
-//        // 検索結果全件に対しての処理
-//        for (StoreHeader0001 storeName : storeNameList) {
-//            SelectOption tempSelectOption = new SelectOption();
-//            // selectOptionFormに以下の値を設定
-//            String code = String.valueOf(count);
-//            tempSelectOption.setCode(1);
-//            tempSelectOption.setName(storeName.getStoreName());
-//            // selectOptionListに追加
-//            selectOptionList.add(tempSelectOption);
-//            count++;
-//        }
-//        return ResponseEntity.ok(selectOptionList);
-//    }
   
 }

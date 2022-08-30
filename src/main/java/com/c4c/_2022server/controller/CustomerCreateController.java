@@ -35,13 +35,5 @@ public class CustomerCreateController {
     	CustomerCreateRes resForm = new CustomerCreateRes();
         resForm.setMessages(messageSource.getMessage("success", new String[]{"登録"}, Locale.getDefault()));
         return ResponseEntity.ok(resForm);
-    	
-//    	System.out.println(reqForm);
-//    	
-//    	String test = reqForm.getEmail(); 
-//    	
-//    	System.out.println(test);
-//    	
-//        return null;
     }
 }

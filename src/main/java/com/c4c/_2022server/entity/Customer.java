@@ -78,7 +78,7 @@ public class Customer {
      * Type: VARCHAR(7)
      * Remark: 郵便番号
      */
-    private Integer postalCode;
+    private String postalCode;
 
     /**
      * Column: PREFECTURE_ID
