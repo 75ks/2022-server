@@ -1,12 +1,15 @@
 package com.c4c._2022server.mapper;
 
-import com.c4c._2022server.entity.Stuff;
-import com.c4c._2022server.entity.StuffExample.Criteria;
-import com.c4c._2022server.entity.StuffExample.Criterion;
-import com.c4c._2022server.entity.StuffExample;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.ibatis.jdbc.SQL;
+
+import com.c4c._2022server.entity.Stuff;
+import com.c4c._2022server.entity.StuffExample;
+import com.c4c._2022server.entity.StuffExample.Criteria;
+import com.c4c._2022server.entity.StuffExample.Criterion;
+import com.c4c._2022server.form.StuffListFormReq;
 
 public class StuffSqlProvider {
     /**
@@ -523,5 +526,74 @@ public class StuffSqlProvider {
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }
+    }
+
+    public String select0002(StuffListFormReq reqForm) {
+        SQL sql = new SQL();
+        sql.SELECT(
+                "STUFF.STUFF_ID",
+                "STUFF.STORE_ID",
+                "STUFF.LAST_NAME",
+                "STUFF.FIRST_NAME",
+                "STUFF.LAST_NAME_KANA",
+                "STUFF.FIRST_NAME_KANA",
+                "STUFF.RANK_ID",
+                "STUFF.AGE",
+                "STUFF.GENDER",
+                "RANK_BY_STORE.RANK"
+        );
+        sql.FROM("STUFF");
+        sql.INNER_JOIN(
+                "RANK_BY_STORE ON RANK_BY_STORE.STORE_ID = STUFF.STORE_ID"
+                , "RANK_BY_STORE.RANK_ID = STUFF.RANK_ID"
+        );
+        sql.WHERE("STUFF.STORE_ID = #{storeId}");
+        sql.WHERE("STUFF.DELETE_FLG = 0");
+
+        // スタッフID
+        if (!(reqForm.getStuffId() == null)) {
+            sql.AND();
+            sql.WHERE("STUFF.STUFF_ID = #{reqForm.stuffId}");
+        }
+
+        // 店舗ID
+        if (!(reqForm.getStoreId() == null)) {
+            sql.AND();
+            sql.WHERE("STUFF.STORE_ID = #{reqForm.storeId}");
+        }
+
+        // スタッフ名(姓 or 名)
+        if (!(reqForm.getStuffName() == null || reqForm.getStuffName().isEmpty())) {
+            sql.AND();
+            sql.WHERE("STUFF.LAST_NAME LIKE '%' #{reqForm.stuffName} '%' OR " +
+                    "STUFF.FIRST_NAME LIKE '%' #{reqForm.stuffName} '%'");
+        }
+        
+        // スタッフ仮名(セイ or メイ)
+        if (!(reqForm.getStuffNameKana() == null || reqForm.getStuffNameKana().isEmpty())) {
+            sql.AND();
+            sql.WHERE("STUFF.LAST_NAME_KANA LIKE '%' #{reqForm.stuffNameKana} '%' OR " +
+                    "STUFF.FIRST_NAME_KANA LIKE '%' #{reqForm.stuffNameKana} '%'");
+        }
+
+        // ランク名
+        if (!(reqForm.getRankName() == null || reqForm.getRankName().isEmpty() || reqForm.getRankName().equals("指定なし"))) {
+            sql.AND();
+            sql.WHERE("STUFF.RANK_ID = #{reqForm.rankName}");
+        }
+        
+        // 年齢
+        if (!(reqForm.getAge() == null)) {
+            sql.AND();
+            sql.WHERE("STUFF.AGE = #{reqForm.age}");
+        }
+
+        // 性別
+        if (!(reqForm.getGender() == null)) {
+            sql.AND();
+            sql.WHERE("STUFF.GENDER = #{reqForm.gender}");
+        }
+
+        return sql.toString();
     }
 }
