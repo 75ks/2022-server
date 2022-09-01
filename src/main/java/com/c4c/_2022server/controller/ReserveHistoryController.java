@@ -11,6 +11,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.c4c._2022server.form.ReserveHistoryRegisterReq;
 import com.c4c._2022server.form.ReserveHistoryRegisterRes;
 import com.c4c._2022server.form.ReserveHistoryReq;
 import com.c4c._2022server.form.ReserveHistoryRes;
+import com.c4c._2022server.form.ReserveHistoryUpdateReq;
 import com.c4c._2022server.service.impl.ReserveHistoryServiceImpl;
 import com.c4c._2022server.utils.JWTUtils;
 
@@ -60,6 +62,41 @@ public class ReserveHistoryController {
         // メッセージを設定
         ReserveHistoryRegisterRes resForm = new ReserveHistoryRegisterRes();
         resForm.setMessages(messageSource.getMessage("success", new String[]{"登録"}, Locale.getDefault()));
+        return ResponseEntity.ok(resForm);
+    }
+
+    /**
+     * 予約情報更新
+     * @param jwt
+     * @param reqForm
+     * @return ReserveHistoryUpdateReq
+     */
+    @PutMapping("/update")
+    public ResponseEntity<ReserveHistoryRegisterRes> update(@RequestHeader("Authorization") String jwt, @RequestBody @Valid ReserveHistoryUpdateReq reqForm) throws AuthenticationException {
+        JWTUtils instance = JWTUtils.getInstance();
+        int stuffId = instance.getId(jwt);
+        int storeId = instance.getStoreId(jwt);
+        reserveHistoryServiceImpl.update(stuffId, storeId, reqForm);
+        // メッセージを設定
+        ReserveHistoryRegisterRes resForm = new ReserveHistoryRegisterRes();
+        resForm.setMessages(messageSource.getMessage("success", new String[]{"更新"}, Locale.getDefault()));
+        return ResponseEntity.ok(resForm);
+    }
+
+    /**
+     * 予約情報削除
+     * @param jwt
+     * @param reqForm
+     * @return ReserveHistoryUpdateReq
+     */
+    @PutMapping("/delete")
+    public ResponseEntity<ReserveHistoryRegisterRes> delete(@RequestHeader("Authorization") String jwt, @RequestBody @Valid ReserveHistoryUpdateReq reqForm) throws AuthenticationException {
+        JWTUtils instance = JWTUtils.getInstance();
+        int stuffId = instance.getId(jwt);
+        reserveHistoryServiceImpl.delete(stuffId, reqForm);
+        // メッセージを設定
+        ReserveHistoryRegisterRes resForm = new ReserveHistoryRegisterRes();
+        resForm.setMessages(messageSource.getMessage("success", new String[]{"削除"}, Locale.getDefault()));
         return ResponseEntity.ok(resForm);
     }
 }

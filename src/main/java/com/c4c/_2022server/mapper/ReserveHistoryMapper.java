@@ -167,6 +167,25 @@ public interface ReserveHistoryMapper {
     int updateByPrimaryKey(ReserveHistory row);
 
     /**
+     * @mbg.generated generated automatically, do not modify!
+     */
+    @Update({
+        "update RESERVE_HISTORY",
+        "set STORE_ID = #{storeId,jdbcType=INTEGER},",
+          "CUSTOMER_ID = #{customerId,jdbcType=INTEGER},",
+          "STUFF_ID = #{stuffId,jdbcType=INTEGER},",
+          "`RANK` = #{rank,jdbcType=VARCHAR},",
+          "MENU = #{menu,jdbcType=VARCHAR},",
+          "PRICE = #{price,jdbcType=INTEGER},",
+          "RESERVE_DATETIME = #{reserveDatetime,jdbcType=TIMESTAMP},",
+          "RESERVE_STATE = #{reserveState,jdbcType=INTEGER},",
+          "UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP},",
+          "UPDATE_USER = #{updateUser,jdbcType=INTEGER}",
+        "where RESERVE_HISTORY_ID = #{reserveHistoryId,jdbcType=INTEGER}"
+    })
+    int updateByPrimaryKeyCustom(ReserveHistory row);
+
+    /**
      * SQLID: ReserveHistory0001
      */
     @SelectProvider(type = ReserveHistorySqlProvider.class, method = "select0001")
@@ -223,4 +242,17 @@ public interface ReserveHistoryMapper {
         @Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER)
     })
     ReserveHistory0002 select0002(int stuffId, int menuId);
+
+    /**
+     * SQLID: ReserveHistory0003
+     */
+    @Update({
+        "UPDATE RESERVE_HISTORY",
+        "    SET DELETE_FLG = 1",
+        "    , UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP}",
+        "    , UPDATE_USER = #{updateUser,jdbcType=INTEGER}",
+        "WHERE",
+        "    RESERVE_HISTORY_ID = #{reserveHistoryId,jdbcType=INTEGER}"
+    })
+    int delete(ReserveHistory row);
 }

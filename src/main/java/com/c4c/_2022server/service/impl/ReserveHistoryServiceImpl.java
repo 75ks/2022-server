@@ -16,6 +16,7 @@ import com.c4c._2022server.enums.ReserveStateEnum;
 import com.c4c._2022server.form.ReserveHistoryRegisterReq;
 import com.c4c._2022server.form.ReserveHistoryReq;
 import com.c4c._2022server.form.ReserveHistoryRes;
+import com.c4c._2022server.form.ReserveHistoryUpdateReq;
 import com.c4c._2022server.mapper.ReserveHistoryMapper;
 import com.c4c._2022server.service.ReserveHistoryService;
 import com.c4c._2022server.utils.EntityUtils;
@@ -70,5 +71,48 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
         entityUtils.setColumns4Insert(reserveHistory, stuffId);
         // INSERTを実行し、データを登録する
         reserveHistoryMapper.insert(reserveHistory);
+    }
+
+    /**
+     * 予約情報更新
+     * @param stuffId
+     * @param storeId
+     * @param reqForm
+     */
+    @Override
+    public void update(int stuffId, int storeId, ReserveHistoryUpdateReq reqForm) {
+        // SELECT文を実行し、データを取得する
+        ReserveHistory0002 reserveHistory0002 = reserveHistoryMapper.select0002(reqForm.getStuffId(), reqForm.getMenuId());
+        // Formにデータを詰める
+        ReserveHistory reserveHistory = new ReserveHistory();
+        reserveHistory.setReserveHistoryId(reqForm.getReserveHistoryId());
+        reserveHistory.setStoreId(storeId);
+        reserveHistory.setCustomerId(reqForm.getCustomerId());
+        reserveHistory.setStuffId(reqForm.getStuffId());
+        reserveHistory.setRank(reserveHistory0002.getRank());
+        reserveHistory.setMenu(reserveHistory0002.getMenu());
+        reserveHistory.setPrice(reserveHistory0002.getPrice());
+        reserveHistory.setReserveDatetime(LocalDateTime.parse(reqForm.getReserveDateTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        reserveHistory.setReserveState(reqForm.getReserveState());
+        // UPDATE時の共通設定
+        entityUtils.setColumns4Update(reserveHistory, stuffId);
+        // UPDATEを実行し、データを登録する
+        reserveHistoryMapper.updateByPrimaryKeyCustom(reserveHistory);
+    }
+
+    /**
+     * 予約情報削除
+     * @param stuffId
+     * @param reqForm
+     */
+    @Override
+    public void delete(int stuffId, ReserveHistoryUpdateReq reqForm) {
+        // Formにデータを詰める
+        ReserveHistory reserveHistory = new ReserveHistory();
+        reserveHistory.setReserveHistoryId(reqForm.getReserveHistoryId());
+        // UPDATE時の共通設定
+        entityUtils.setColumns4Update(reserveHistory, stuffId);
+        // UPDATEを実行し、データを登録する
+        reserveHistoryMapper.delete(reserveHistory);
     }
 }
