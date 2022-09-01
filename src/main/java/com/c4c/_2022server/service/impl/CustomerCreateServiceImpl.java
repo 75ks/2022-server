@@ -16,9 +16,9 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
     CustomerMapper customerMapper;
     
     @Override
-    public void register(CustomerCreateReq reqForm) {
-    	Customer customer = new Customer();;
-//    	customer.setStoreId(Integer.parseInt(reqForm.getStoreId()));
+    public void register(int storeId, CustomerCreateReq reqForm) {
+    	Customer customer = new Customer();
+    	customer.setStoreId(storeId);
         customer.setLastName(reqForm.getLastName());
         customer.setFirstName(reqForm.getFirstName());
         customer.setLastNameKana(reqForm.getLastNameKana());
@@ -32,11 +32,8 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
         customer.setAddress2(reqForm.getAddress2());
         customer.setAddress3(reqForm.getAddress3());
         customer.setPhoneNumber(reqForm.getPhoneNumber());
-        customer.setEmail(reqForm.getEmail());
-//        // パスワードを暗号化(エンコード)
-//        BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
-//        String encodeedPassword = bcpe.encode(reqForm.getPassword());
-//        customer.setPassword(encodeedPassword);
+        customer.setEmail(reqForm.getEmail());        
+
         // INSERTを実行し、データを登録する
         customerMapper.insert(customer);
     }

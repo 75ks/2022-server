@@ -7,5 +7,5 @@ public interface CustomerCreateService {
      * 顧客登録
      * @param reqForm
      */
-    public void register(CustomerCreateReq reqForm);
+    public void register(int storeId, CustomerCreateReq reqForm);
 }
