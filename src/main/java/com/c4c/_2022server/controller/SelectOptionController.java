@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.security.sasl.AuthenticationException;
 
+import com.c4c._2022server.entity.*;
+import com.c4c._2022server.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,22 +14,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.c4c._2022server.entity.Customer;
-import com.c4c._2022server.entity.CustomerExample;
-import com.c4c._2022server.entity.MenuHeader;
-import com.c4c._2022server.entity.MenuHeaderExample;
-import com.c4c._2022server.entity.RankByStore;
-import com.c4c._2022server.entity.RankByStoreExample;
-import com.c4c._2022server.entity.Stuff;
-import com.c4c._2022server.entity.StuffExample;
 import com.c4c._2022server.enums.GenderEnum;
+import com.c4c._2022server.enums.PrefectureIdEnum;
 import com.c4c._2022server.enums.ReserveStateEnum;
 import com.c4c._2022server.form.SelectOption;
-import com.c4c._2022server.mapper.CustomerMapper;
-import com.c4c._2022server.mapper.MenuHeaderMapper;
-import com.c4c._2022server.mapper.RankByStoreMapper;
-import com.c4c._2022server.mapper.StoreHeaderMapper;
-import com.c4c._2022server.mapper.StuffMapper;
 import com.c4c._2022server.utils.JWTUtils;
 
 @RestController
@@ -129,6 +119,25 @@ public class SelectOptionController {
         List<SelectOption> selectOptionList = new ArrayList<>();
         // 検索結果全件に対しての処理
         for (GenderEnum e : enumArray) {
+            // SelectOptionに以下の値を設定する
+            SelectOption tempSelectOption = new SelectOption();
+            tempSelectOption.setCode(e.getCode()); // コード値
+            tempSelectOption.setName(e.getName()); // 名称
+            // selectOptionListに追加
+            selectOptionList.add(tempSelectOption);
+        }
+        return ResponseEntity.ok(selectOptionList);
+    }
+
+    @GetMapping("/prefectureId")
+    public ResponseEntity<List<SelectOption>> getPrefectureIdOptions() {
+        // 都道府県Enum取得
+        PrefectureIdEnum[] enumArray = PrefectureIdEnum.values();
+
+        // 選択肢一覧を格納するリストをnewする
+        List<SelectOption> selectOptionList = new ArrayList<>();
+        // 検索結果全件に対しての処理
+        for (PrefectureIdEnum e : enumArray) {
             // SelectOptionに以下の値を設定する
             SelectOption tempSelectOption = new SelectOption();
             tempSelectOption.setCode(e.getCode()); // コード値

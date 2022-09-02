@@ -2,6 +2,7 @@ package com.c4c._2022server.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import lombok.Data;
 
 /**
@@ -53,7 +54,7 @@ public class Customer {
 
     /**
      * Column: BIRTHDAY
-     * Type: DATE
+     * Type: LOCALDATE
      * Remark: 生年月日
      */
     private LocalDate birthday;
