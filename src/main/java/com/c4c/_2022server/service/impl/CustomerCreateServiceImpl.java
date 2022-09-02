@@ -14,7 +14,7 @@ import com.c4c._2022server.service.CustomerCreateService;
 public class CustomerCreateServiceImpl implements CustomerCreateService {
     @Autowired
     CustomerMapper customerMapper;
-    
+
     @Override
     public void register(int storeId, CustomerCreateReq reqForm) {
     	Customer customer = new Customer();
@@ -32,7 +32,11 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
         customer.setAddress2(reqForm.getAddress2());
         customer.setAddress3(reqForm.getAddress3());
         customer.setPhoneNumber(reqForm.getPhoneNumber());
-        customer.setEmail(reqForm.getEmail());        
+        customer.setEmail(reqForm.getEmail());
+
+        // TODO null不許可のため仮実装
+        // パスワード生成、メール送信処理を別途追加する
+        customer.setPassword("pass1234");
 
         // INSERTを実行し、データを登録する
         customerMapper.insert(customer);
