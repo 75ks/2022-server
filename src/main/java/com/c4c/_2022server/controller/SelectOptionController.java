@@ -113,7 +113,7 @@ public class SelectOptionController {
     @GetMapping("/gender")
     public ResponseEntity<List<SelectOption>> getGenderOptions() {
         // 性別Enum取得
-    	GenderEnum[] enumArray = GenderEnum.values();
+        GenderEnum[] enumArray = GenderEnum.values();
 
         // 選択肢一覧を格納するリストをnewする
         List<SelectOption> selectOptionList = new ArrayList<>();
@@ -131,21 +131,21 @@ public class SelectOptionController {
 
     @GetMapping("/prefectureId")
     public ResponseEntity<List<SelectOption>> getPrefectureIdOptions() {
-    	// 都道府県Enum取得
-    	PrefectureIdEnum[] enumArray = PrefectureIdEnum.values();
+        // 都道府県Enum取得
+        PrefectureIdEnum[] enumArray = PrefectureIdEnum.values();
 
-    	// 選択肢一覧を格納するリストをnewする
-    	List<SelectOption> selectOptionList = new ArrayList<>();
-    	// 検索結果全件に対しての処理
-    	for (PrefectureIdEnum e : enumArray) {
-    		// SelectOptionに以下の値を設定する
-    		SelectOption tempSelectOption = new SelectOption();
-    		tempSelectOption.setCode(e.getCode()); // コード値
-    		tempSelectOption.setName(e.getName()); // 名称
-    		// selectOptionListに追加
-    		selectOptionList.add(tempSelectOption);
-    	}
-    	return ResponseEntity.ok(selectOptionList);
+        // 選択肢一覧を格納するリストをnewする
+        List<SelectOption> selectOptionList = new ArrayList<>();
+        // 検索結果全件に対しての処理
+        for (PrefectureIdEnum e : enumArray) {
+            // SelectOptionに以下の値を設定する
+            SelectOption tempSelectOption = new SelectOption();
+            tempSelectOption.setCode(e.getCode()); // コード値
+            tempSelectOption.setName(e.getName()); // 名称
+            // selectOptionListに追加
+            selectOptionList.add(tempSelectOption);
+        }
+        return ResponseEntity.ok(selectOptionList);
     }
 
     @GetMapping("/customers")
