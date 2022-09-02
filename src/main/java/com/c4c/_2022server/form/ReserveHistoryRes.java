@@ -23,6 +23,14 @@ public class ReserveHistoryRes {
     private String rank;
 
     /**
+     * Table: MENU_HEADER
+     * Column: MENU_ID
+     * Type: INT
+     * Remark: メニューID
+     */
+    private String menuId;
+
+    /**
      * Table: RESERVE_HISTORY
      * Column: MENU
      * Type: VARCHAR(255)
@@ -62,6 +70,14 @@ public class ReserveHistoryRes {
 
     /**
      * Table: CUSTOMER
+     * Column: CUSTOMER_ID
+     * Type: INT
+     * Remark: 顧客ID
+     */
+    private Integer customerId;
+
+    /**
+     * Table: CUSTOMER
      * Column: LAST_NAME
      * Type: VARCHAR(30)
      * Remark: 姓
@@ -91,6 +107,14 @@ public class ReserveHistoryRes {
      * Remark: メイ
      */
     private String customerFirstNameKana;
+
+    /**
+     * Table: STUFF
+     * Column: STUFF_ID
+     * Type: INT
+     * Remark: スタッフID
+     */
+    private Integer stuffId;
 
     /**
      * Table: STUFF

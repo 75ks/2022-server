@@ -3,6 +3,7 @@ package com.c4c._2022server.entity;
 import java.util.Date;
 
 import com.c4c._2022server.enums.ReserveStateEnum;
+
 import lombok.Data;
 
 @Data
@@ -22,6 +23,14 @@ public class ReserveHistory0001 {
      * Remark: ランク
      */
     private String rank;
+
+    /**
+     * Table: MENU_HEADER
+     * Column: MENU_ID
+     * Type: INT
+     * Remark: メニューID
+     */
+    private String menuId;
 
     /**
      * Table: RESERVE_HISTORY
@@ -57,6 +66,14 @@ public class ReserveHistory0001 {
 
     /**
      * Table: CUSTOMER
+     * Column: CUSTOMER_ID
+     * Type: INT
+     * Remark: 顧客ID
+     */
+    private Integer customerId;
+
+    /**
+     * Table: CUSTOMER
      * Column: LAST_NAME
      * Type: VARCHAR(30)
      * Remark: 姓
@@ -87,6 +104,14 @@ public class ReserveHistory0001 {
      */
     private String customerFirstNameKana;
 
+    /**
+     * Table: STUFF
+     * Column: STUFF_ID
+     * Type: INT
+     * Remark: スタッフID
+     */
+    private Integer stuffId;
+    
     /**
      * Table: STUFF
      * Column: LAST_NAME

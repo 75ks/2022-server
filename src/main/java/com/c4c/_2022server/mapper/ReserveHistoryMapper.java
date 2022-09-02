@@ -1,9 +1,7 @@
 package com.c4c._2022server.mapper;
 
-import com.c4c._2022server.entity.ReserveHistory;
-import com.c4c._2022server.entity.ReserveHistory0001;
-import com.c4c._2022server.entity.ReserveHistoryExample;
-import com.c4c._2022server.form.ReserveHistoryReq;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -18,7 +16,11 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
-import java.util.List;
+import com.c4c._2022server.entity.ReserveHistory;
+import com.c4c._2022server.entity.ReserveHistory0001;
+import com.c4c._2022server.entity.ReserveHistory0002;
+import com.c4c._2022server.entity.ReserveHistoryExample;
+import com.c4c._2022server.form.ReserveHistoryReq;
 
 @Mapper
 public interface ReserveHistoryMapper {
@@ -165,6 +167,25 @@ public interface ReserveHistoryMapper {
     int updateByPrimaryKey(ReserveHistory row);
 
     /**
+     * @mbg.generated generated automatically, do not modify!
+     */
+    @Update({
+        "update RESERVE_HISTORY",
+        "set STORE_ID = #{storeId,jdbcType=INTEGER},",
+          "CUSTOMER_ID = #{customerId,jdbcType=INTEGER},",
+          "STUFF_ID = #{stuffId,jdbcType=INTEGER},",
+          "`RANK` = #{rank,jdbcType=VARCHAR},",
+          "MENU = #{menu,jdbcType=VARCHAR},",
+          "PRICE = #{price,jdbcType=INTEGER},",
+          "RESERVE_DATETIME = #{reserveDatetime,jdbcType=TIMESTAMP},",
+          "RESERVE_STATE = #{reserveState,jdbcType=INTEGER},",
+          "UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP},",
+          "UPDATE_USER = #{updateUser,jdbcType=INTEGER}",
+        "where RESERVE_HISTORY_ID = #{reserveHistoryId,jdbcType=INTEGER}"
+    })
+    int updateByPrimaryKeyCustom(ReserveHistory row);
+
+    /**
      * SQLID: ReserveHistory0001
      */
     @SelectProvider(type = ReserveHistorySqlProvider.class, method = "select0001")
@@ -175,14 +196,63 @@ public interface ReserveHistoryMapper {
             @Result(column = "PRICE", property = "price", jdbcType=JdbcType.INTEGER),
             @Result(column = "RESERVE_DATETIME", property = "reserveDatetime", jdbcType=JdbcType.TIMESTAMP),
             @Result(column = "RESERVE_STATE", property = "reserveState", jdbcType=JdbcType.INTEGER),
+            @Result(column = "CUSTOMER_ID", property = "customerId", jdbcType=JdbcType.INTEGER),
             @Result(column = "CUSTOMER_LAST_NAME", property = "customerLastName", jdbcType=JdbcType.VARCHAR),
             @Result(column = "CUSTOMER_FIRST_NAME", property = "customerFirstName", jdbcType=JdbcType.VARCHAR),
             @Result(column = "CUSTOMER_LAST_NAME_KANA", property = "customerLastNameKana", jdbcType=JdbcType.VARCHAR),
             @Result(column = "CUSTOMER_FIRST_NAME_KANA", property = "customerFirstNameKana", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "STUFF_ID", property = "stuffId", jdbcType=JdbcType.INTEGER),
             @Result(column = "STUFF_LAST_NAME", property = "stuffLastName", jdbcType=JdbcType.VARCHAR),
             @Result(column = "STUFF_FIRST_NAME", property = "stuffFirstName", jdbcType=JdbcType.VARCHAR),
             @Result(column = "STUFF_LAST_NAME_KANA", property = "stuffLastNameKana", jdbcType=JdbcType.VARCHAR),
-            @Result(column = "STUFF_FIRST_NAME_KANA", property = "stuffFirstNameKana", jdbcType=JdbcType.VARCHAR)
+            @Result(column = "STUFF_FIRST_NAME_KANA", property = "stuffFirstNameKana", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "MENU_ID", property = "menuId", jdbcType=JdbcType.INTEGER)
     })
     List<ReserveHistory0001> select0001(@Param("storeId") int storeId, @Param("reqForm") ReserveHistoryReq reqForm);
+
+    /**
+     * SQLID: ReserveHistory0002
+     */
+    @Select({
+        "SELECT",
+        "    RANK_BY_STORE.RANK",
+        "    , MENU_HEADER.MENU",
+        "    , MENU_DETAIL.PRICE",
+        "FROM",
+        "    STUFF",
+        "INNER JOIN",
+        "    RANK_BY_STORE",
+        "    ON STUFF.STORE_ID = RANK_BY_STORE.STORE_ID",
+        "    AND STUFF.RANK_ID = RANK_BY_STORE.RANK_ID",
+        "INNER JOIN",
+        "    MENU_HEADER",
+        "    ON STUFF.STORE_ID = MENU_HEADER.STORE_ID",
+        "    AND MENU_HEADER.MENU_ID = #{menuId}",
+        "INNER JOIN",
+        "    MENU_DETAIL",
+        "    ON STUFF.STORE_ID = MENU_DETAIL.STORE_ID",
+        "    AND MENU_HEADER.MENU_ID = MENU_DETAIL.MENU_ID",
+        "    AND STUFF.RANK_ID = MENU_DETAIL.RANK_ID",
+        "WHERE",
+        "    STUFF.STUFF_ID = #{stuffId}"
+    })
+    @Results({
+        @Result(column="RANK", property="rank", jdbcType=JdbcType.VARCHAR),
+        @Result(column="MENU", property="menu", jdbcType=JdbcType.VARCHAR),
+        @Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER)
+    })
+    ReserveHistory0002 select0002(int stuffId, int menuId);
+
+    /**
+     * SQLID: ReserveHistory0003
+     */
+    @Update({
+        "UPDATE RESERVE_HISTORY",
+        "    SET DELETE_FLG = 1",
+        "    , UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP}",
+        "    , UPDATE_USER = #{updateUser,jdbcType=INTEGER}",
+        "WHERE",
+        "    RESERVE_HISTORY_ID = #{reserveHistoryId,jdbcType=INTEGER}"
+    })
+    int delete(ReserveHistory row);
 }

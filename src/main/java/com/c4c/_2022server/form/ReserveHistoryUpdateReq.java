@@ -1,0 +1,45 @@
+package com.c4c._2022server.form;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import lombok.Data;
+
+@Data
+public class ReserveHistoryUpdateReq {
+    /**
+     * 予約履歴ID
+     */
+    @NotNull(message = "{reserveHistoryId}{NotNull}")
+    private Integer reserveHistoryId;
+
+    /**
+     * 顧客ID
+     */
+    @NotNull(message = "{customer}{NotNull}")
+    private Integer customerId;
+
+    /**
+     * スタッフID
+     */
+    @NotNull(message = "{stuff}{NotNull}")
+    private Integer stuffId;
+
+    /**
+     * メニューID
+     */
+    @NotNull(message = "{menu}{NotNull}")
+    private Integer menuId;
+
+    /**
+     * 予約日時
+     */
+    @NotEmpty(message = "{reserveDateTime}{NotEmpty}")
+    private String reserveDateTime;
+
+    /**
+     * 予約状態
+     */
+    @NotNull(message = "{reserveDateTime}{NotNull}")
+    private Integer reserveState;
+}
