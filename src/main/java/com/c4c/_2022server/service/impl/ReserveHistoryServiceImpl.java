@@ -12,12 +12,14 @@ import org.springframework.stereotype.Service;
 import com.c4c._2022server.entity.ReserveHistory;
 import com.c4c._2022server.entity.ReserveHistory0001;
 import com.c4c._2022server.entity.ReserveHistory0002;
+import com.c4c._2022server.entity.SalesHistory;
 import com.c4c._2022server.enums.ReserveStateEnum;
 import com.c4c._2022server.form.ReserveHistoryRegisterReq;
 import com.c4c._2022server.form.ReserveHistoryReq;
 import com.c4c._2022server.form.ReserveHistoryRes;
 import com.c4c._2022server.form.ReserveHistoryUpdateReq;
 import com.c4c._2022server.mapper.ReserveHistoryMapper;
+import com.c4c._2022server.mapper.SalesHistoryMapper;
 import com.c4c._2022server.service.ReserveHistoryService;
 import com.c4c._2022server.utils.EntityUtils;
 
@@ -27,6 +29,8 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
     EntityUtils entityUtils;
     @Autowired
     ReserveHistoryMapper reserveHistoryMapper;
+    @Autowired
+    SalesHistoryMapper salesHistoryMapper;
 
     /**
      * 予約履歴一覧取得
@@ -98,6 +102,21 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
         entityUtils.setColumns4Update(reserveHistory, stuffId);
         // UPDATEを実行し、データを登録する
         reserveHistoryMapper.updateByPrimaryKeyCustom(reserveHistory);
+
+        // 予約状態が来店済の場合
+        if (reqForm.getReserveState() == ReserveStateEnum.VISITED.getCode()) {
+            // 更新した予約情報を取得
+            reserveHistory = new ReserveHistory();
+            reserveHistory = reserveHistoryMapper.selectByPrimaryKey(reqForm.getReserveHistoryId());
+            // Formにデータを詰める
+            SalesHistory salesHistory = new SalesHistory();
+            BeanUtils.copyProperties(reserveHistory, salesHistory);
+            salesHistory.setSalesDatetime(reserveHistory.getReserveDatetime());
+            // INSERT時の共通処理
+            entityUtils.setColumns4Insert(salesHistory, stuffId);
+            // INSERTを実行し、データを登録
+            salesHistoryMapper.insert(salesHistory);
+        }
     }
 
     /**
