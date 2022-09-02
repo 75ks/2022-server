@@ -57,7 +57,7 @@ public interface CustomerMapper {
         "DELETE_FLG, CREATED_DATETIME, ",
         "CREATED_USER, UPDATE_DATETIME, ",
         "UPDATE_USER, VERSION_EX_KEY)",
-        "values (#{customerId,jdbcType=INTEGER} #{storeId,jdbcType=INTEGER}, ",
+        "values (#{customerId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, ",
         "#{lastName,jdbcType=VARCHAR}, #{firstName,jdbcType=VARCHAR}, ",
         "#{lastNameKana,jdbcType=VARCHAR}, #{firstNameKana,jdbcType=VARCHAR}, ",
         "#{birthday,jdbcType=DATE}, #{age,jdbcType=INTEGER}, #{gender,jdbcType=INTEGER}, ",
