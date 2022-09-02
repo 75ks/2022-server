@@ -32,14 +32,14 @@ public class CustomerCreateController {
      * @param reqForm
      */
     @PostMapping("")
-    public ResponseEntity<CustomerCreateRes> register(@RequestBody @Valid @RequestHeader("Authorization") String jwt, CustomerCreateReq reqForm) throws AuthenticationException {  
-    	// JWTから店舗IDを取得する
-    	JWTUtils instance = JWTUtils.getInstance();
-    	Integer storeId = instance.getStoreId(jwt);
-    	
-    	customerCreateServiceImpl.register(storeId, reqForm);
+    public ResponseEntity<CustomerCreateRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid CustomerCreateReq reqForm) throws AuthenticationException {
+        // JWTから店舗IDを取得する
+        JWTUtils instance = JWTUtils.getInstance();
+        Integer storeId = instance.getStoreId(jwt);
+
+        customerCreateServiceImpl.register(storeId, reqForm);
         // メッセージを設定
-    	CustomerCreateRes resForm = new CustomerCreateRes();
+        CustomerCreateRes resForm = new CustomerCreateRes();
         resForm.setMessages(messageSource.getMessage("success", new String[]{"登録"}, Locale.getDefault()));
         return ResponseEntity.ok(resForm);
     }
