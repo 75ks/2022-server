@@ -13,7 +13,7 @@ public class StuffListFormRes {
      * Remark: スタッフID
      */
     private Integer stuffId;
-	
+
     /**
      * Table: STUFF
      * Column: STORE_ID
@@ -85,60 +85,4 @@ public class StuffListFormRes {
      * Remark: 性別
      */
     private Integer gender;
-
-    /**
-     * Table: STUFF
-     * Column: POSTAL_CODE
-     * Type: VARCHAR(7)
-     * Remark: 郵便番号
-     */
-    private String postalCode;
-
-    /**
-     * Table: STUFF
-     * Column: PREFECTURE_ID
-     * Type: INT
-     * Remark: 都道府県
-     */
-    private Integer prefectureId;
-
-    /**
-     * Table: STUFF
-     * Column: ADDRESS1
-     * Type: VARCHAR(45)
-     * Remark: 住所1
-     */
-    private String address1;
-
-    /**
-     * Table: STUFF
-     * Column: ADDRESS2
-     * Type: VARCHAR(45)
-     * Remark: 住所2
-     */
-    private String address2;
-
-    /**
-     * Table: STUFF
-     * Column: ADDRESS3
-     * Type: VARCHAR(45)
-     * Remark: 住所3
-     */
-    private String address3;
-
-    /**
-     * Table: STUFF
-     * Column: PHONE_NUMBER
-     * Type: VARCHAR(11)
-     * Remark: 電話番号
-     */
-    private String phoneNumber;
-
-    /**
-     * Table: STUFF
-     * Column: EMAIL
-     * Type: VARCHAR(255)
-     * Remark: メールアドレス
-     */
-    private String email;
 }

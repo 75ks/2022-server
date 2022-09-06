@@ -269,31 +269,7 @@ public interface StuffMapper {
     /**
      * SQLID: Stuff0002
      */
-    @Select({
-        "SELECT",
-        "    STUFF.STUFF_ID",
-        "    , STUFF.STORE_ID",
-        "    , STUFF.LAST_NAME",
-        "    , STUFF.FIRST_NAME",
-        "    , STUFF.LAST_NAME_KANA",
-        "    , STUFF.FIRST_NAME_KANA",
-        "    , STUFF.RANK_ID",
-        "    , STUFF.BIRTHDAY",
-        "    , STUFF.AGE",
-        "    , STUFF.GENDER",
-        "    , STUFF.POSTAL_CODE",
-        "    , STUFF.PREFECTURE_ID",
-        "    , STUFF.ADDRESS1",
-        "    , STUFF.ADDRESS2",
-        "    , STUFF.ADDRESS3",
-        "    , STUFF.PHONE_NUMBER",
-        "    , STUFF.EMAIL",
-        "FROM",
-        "    STUFF",
-        "WHERE",
-        "    STUFF.EMAIL = #{email}",
-        "    AND STUFF.DELETE_FLG = 0"
-    })
+    @SelectProvider(type = StuffSqlProvider.class, method = "select0002")
     @Results({
         @Result(column="STUFF_ID", property="stuffId", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER),
@@ -305,13 +281,7 @@ public interface StuffMapper {
         @Result(column="BIRTHDAY", property="birthday", jdbcType=JdbcType.DATE),
         @Result(column="AGE", property="age", jdbcType=JdbcType.INTEGER),
         @Result(column="GENDER", property="gender", jdbcType=JdbcType.INTEGER),
-        @Result(column="POSTAL_CODE", property="postalCode", jdbcType=JdbcType.VARCHAR),
-        @Result(column="PREFECTURE_ID", property="prefectureId", jdbcType=JdbcType.INTEGER),
-        @Result(column="ADDRESS1", property="address1", jdbcType=JdbcType.VARCHAR),
-        @Result(column="ADDRESS2", property="address2", jdbcType=JdbcType.VARCHAR),
-        @Result(column="ADDRESS3", property="address3", jdbcType=JdbcType.VARCHAR),
-        @Result(column="PHONE_NUMBER", property="phoneNumber", jdbcType=JdbcType.VARCHAR),
-        @Result(column="EMAIL", property="email", jdbcType=JdbcType.VARCHAR)
+        @Result(column="RANK", property="rank", jdbcType=JdbcType.VARCHAR),
     })
     List<StuffList0001> select0002(@Param("storeId") int storeId, @Param("reqForm") StuffListFormReq reqForm);
 }
