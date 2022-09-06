@@ -39,13 +39,6 @@ public class StuffListServiceImpl implements StuffListService {
         	stuffForm.setBirthday(stuffList0001.getBirthday());
         	stuffForm.setAge(stuffList0001.getAge());
         	stuffForm.setGender(stuffList0001.getGender());
-        	stuffForm.setPostalCode(stuffList0001.getPostalCode());
-        	stuffForm.setPrefectureId(stuffList0001.getPrefectureId());
-        	stuffForm.setAddress1(stuffList0001.getAddress1());
-        	stuffForm.setAddress2(stuffList0001.getAddress2());
-        	stuffForm.setAddress3(stuffList0001.getAddress3());
-        	stuffForm.setPhoneNumber(stuffList0001.getPhoneNumber());
-        	stuffForm.setEmail(stuffList0001.getEmail());
         	stuffFormList.add(stuffForm);
         }
         return stuffFormList;
