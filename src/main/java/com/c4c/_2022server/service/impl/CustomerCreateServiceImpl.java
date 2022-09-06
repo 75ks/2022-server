@@ -1,6 +1,7 @@
 package com.c4c._2022server.service.impl;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,10 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
         customer.setFirstName(reqForm.getFirstName());
         customer.setLastNameKana(reqForm.getLastNameKana());
         customer.setFirstNameKana(reqForm.getFirstNameKana());
+        // 生年月日がnullまたは空文字でない場合
+        if (!(Objects.equals(reqForm.getBirthday(), null) || Objects.equals(reqForm.getBirthday(), ""))) {
         customer.setBirthday(LocalDate.parse(reqForm.getBirthday()));
+        }
         customer.setAge(reqForm.getAge());
         customer.setGender(reqForm.getGender());
         customer.setPostalCode(reqForm.getPostalCode());
