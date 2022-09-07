@@ -26,7 +26,7 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
         customer.setFirstNameKana(reqForm.getFirstNameKana());
         // 生年月日がnullまたは空文字でない場合
         if (!(Objects.equals(reqForm.getBirthday(), null) || Objects.equals(reqForm.getBirthday(), ""))) {
-        customer.setBirthday(LocalDate.parse(reqForm.getBirthday()));
+        	customer.setBirthday(LocalDate.parse(reqForm.getBirthday()));
         }
         customer.setAge(reqForm.getAge());
         customer.setGender(reqForm.getGender());
