@@ -21,6 +21,7 @@ import com.c4c._2022server.form.ReserveHistoryUpdateReq;
 import com.c4c._2022server.mapper.ReserveHistoryMapper;
 import com.c4c._2022server.mapper.SalesHistoryMapper;
 import com.c4c._2022server.service.ReserveHistoryService;
+import com.c4c._2022server.utils.CommonUtils;
 import com.c4c._2022server.utils.EntityUtils;
 
 @Service
@@ -101,7 +102,7 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
         // UPDATE時の共通設定
         entityUtils.setColumns4Update(reserveHistory, stuffId);
         // UPDATEを実行し、データを登録する
-        reserveHistoryMapper.updateByPrimaryKeyCustom(reserveHistory);
+        reserveHistoryMapper.updateByPrimaryKeySelective(reserveHistory);
 
         // 予約状態が来店済の場合
         if (reqForm.getReserveState() == ReserveStateEnum.VISITED.getCode()) {
@@ -129,9 +130,10 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
         // Formにデータを詰める
         ReserveHistory reserveHistory = new ReserveHistory();
         reserveHistory.setReserveHistoryId(reqForm.getReserveHistoryId());
+        reserveHistory.setDeleteFlg(CommonUtils.ON);
         // UPDATE時の共通設定
         entityUtils.setColumns4Update(reserveHistory, stuffId);
         // UPDATEを実行し、データを登録する
-        reserveHistoryMapper.delete(reserveHistory);
+        reserveHistoryMapper.updateByPrimaryKeySelective(reserveHistory);
     }
 }
