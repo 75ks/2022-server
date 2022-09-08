@@ -2,7 +2,6 @@ package com.c4c._2022server.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import lombok.Data;
 
 /**
@@ -54,7 +53,7 @@ public class Customer {
 
     /**
      * Column: BIRTHDAY
-     * Type: LOCALDATE
+     * Type: DATE
      * Remark: 生年月日
      */
     private LocalDate birthday;
@@ -128,6 +127,14 @@ public class Customer {
      * Remark: パスワード
      */
     private String password;
+
+    /**
+     * Column: FIRST_LOGIN_FLG
+     * Type: INT
+     * Default value: 0
+     * Remark: 初回ログインフラグ
+     */
+    private Integer firstLoginFlg;
 
     /**
      * Column: DELETE_FLG
