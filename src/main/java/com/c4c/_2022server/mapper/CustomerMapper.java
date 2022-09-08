@@ -1,7 +1,7 @@
 package com.c4c._2022server.mapper;
 
-import java.util.List;
-
+import com.c4c._2022server.entity.Customer;
+import com.c4c._2022server.entity.CustomerExample;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -16,8 +16,7 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
-import com.c4c._2022server.entity.Customer;
-import com.c4c._2022server.entity.CustomerExample;
+import java.util.List;
 
 @Mapper
 public interface CustomerMapper {
@@ -54,9 +53,10 @@ public interface CustomerMapper {
         "ADDRESS1, ADDRESS2, ",
         "ADDRESS3, PHONE_NUMBER, ",
         "EMAIL, `PASSWORD`, ",
-        "DELETE_FLG, CREATED_DATETIME, ",
-        "CREATED_USER, UPDATE_DATETIME, ",
-        "UPDATE_USER, VERSION_EX_KEY)",
+        "FIRST_LOGIN_FLG, DELETE_FLG, ",
+        "CREATED_DATETIME, CREATED_USER, ",
+        "UPDATE_DATETIME, UPDATE_USER, ",
+        "VERSION_EX_KEY)",
         "values (#{customerId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, ",
         "#{lastName,jdbcType=VARCHAR}, #{firstName,jdbcType=VARCHAR}, ",
         "#{lastNameKana,jdbcType=VARCHAR}, #{firstNameKana,jdbcType=VARCHAR}, ",
@@ -65,9 +65,10 @@ public interface CustomerMapper {
         "#{address1,jdbcType=VARCHAR}, #{address2,jdbcType=VARCHAR}, ",
         "#{address3,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, ",
         "#{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, ",
-        "#{deleteFlg,jdbcType=INTEGER}, #{createdDatetime,jdbcType=TIMESTAMP}, ",
-        "#{createdUser,jdbcType=INTEGER}, #{updateDatetime,jdbcType=TIMESTAMP}, ",
-        "#{updateUser,jdbcType=INTEGER}, #{versionExKey,jdbcType=INTEGER})"
+        "#{firstLoginFlg,jdbcType=INTEGER}, #{deleteFlg,jdbcType=INTEGER}, ",
+        "#{createdDatetime,jdbcType=TIMESTAMP}, #{createdUser,jdbcType=INTEGER}, ",
+        "#{updateDatetime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, ",
+        "#{versionExKey,jdbcType=INTEGER})"
     })
     int insert(Customer row);
 
@@ -99,6 +100,7 @@ public interface CustomerMapper {
         @Result(column="PHONE_NUMBER", property="phoneNumber", jdbcType=JdbcType.VARCHAR),
         @Result(column="EMAIL", property="email", jdbcType=JdbcType.VARCHAR),
         @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FIRST_LOGIN_FLG", property="firstLoginFlg", jdbcType=JdbcType.INTEGER),
         @Result(column="DELETE_FLG", property="deleteFlg", jdbcType=JdbcType.INTEGER),
         @Result(column="CREATED_DATETIME", property="createdDatetime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="CREATED_USER", property="createdUser", jdbcType=JdbcType.INTEGER),
@@ -115,8 +117,8 @@ public interface CustomerMapper {
         "select",
         "CUSTOMER_ID, STORE_ID, LAST_NAME, FIRST_NAME, LAST_NAME_KANA, FIRST_NAME_KANA, ",
         "BIRTHDAY, AGE, GENDER, POSTAL_CODE, PREFECTURE_ID, ADDRESS1, ADDRESS2, ADDRESS3, ",
-        "PHONE_NUMBER, EMAIL, `PASSWORD`, DELETE_FLG, CREATED_DATETIME, CREATED_USER, ",
-        "UPDATE_DATETIME, UPDATE_USER, VERSION_EX_KEY",
+        "PHONE_NUMBER, EMAIL, `PASSWORD`, FIRST_LOGIN_FLG, DELETE_FLG, CREATED_DATETIME, ",
+        "CREATED_USER, UPDATE_DATETIME, UPDATE_USER, VERSION_EX_KEY",
         "from CUSTOMER",
         "where CUSTOMER_ID = #{customerId,jdbcType=INTEGER}"
     })
@@ -138,6 +140,7 @@ public interface CustomerMapper {
         @Result(column="PHONE_NUMBER", property="phoneNumber", jdbcType=JdbcType.VARCHAR),
         @Result(column="EMAIL", property="email", jdbcType=JdbcType.VARCHAR),
         @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FIRST_LOGIN_FLG", property="firstLoginFlg", jdbcType=JdbcType.INTEGER),
         @Result(column="DELETE_FLG", property="deleteFlg", jdbcType=JdbcType.INTEGER),
         @Result(column="CREATED_DATETIME", property="createdDatetime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="CREATED_USER", property="createdUser", jdbcType=JdbcType.INTEGER),
@@ -186,6 +189,7 @@ public interface CustomerMapper {
           "PHONE_NUMBER = #{phoneNumber,jdbcType=VARCHAR},",
           "EMAIL = #{email,jdbcType=VARCHAR},",
           "`PASSWORD` = #{password,jdbcType=VARCHAR},",
+          "FIRST_LOGIN_FLG = #{firstLoginFlg,jdbcType=INTEGER},",
           "DELETE_FLG = #{deleteFlg,jdbcType=INTEGER},",
           "CREATED_DATETIME = #{createdDatetime,jdbcType=TIMESTAMP},",
           "CREATED_USER = #{createdUser,jdbcType=INTEGER},",

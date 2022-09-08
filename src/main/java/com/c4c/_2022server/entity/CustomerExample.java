@@ -1278,6 +1278,66 @@ public class CustomerExample {
             return (Criteria) this;
         }
 
+        public Criteria andFirstLoginFlgIsNull() {
+            addCriterion("FIRST_LOGIN_FLG is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginFlgIsNotNull() {
+            addCriterion("FIRST_LOGIN_FLG is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginFlgEqualTo(Integer value) {
+            addCriterion("FIRST_LOGIN_FLG =", value, "firstLoginFlg");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginFlgNotEqualTo(Integer value) {
+            addCriterion("FIRST_LOGIN_FLG <>", value, "firstLoginFlg");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginFlgGreaterThan(Integer value) {
+            addCriterion("FIRST_LOGIN_FLG >", value, "firstLoginFlg");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginFlgGreaterThanOrEqualTo(Integer value) {
+            addCriterion("FIRST_LOGIN_FLG >=", value, "firstLoginFlg");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginFlgLessThan(Integer value) {
+            addCriterion("FIRST_LOGIN_FLG <", value, "firstLoginFlg");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginFlgLessThanOrEqualTo(Integer value) {
+            addCriterion("FIRST_LOGIN_FLG <=", value, "firstLoginFlg");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginFlgIn(List<Integer> values) {
+            addCriterion("FIRST_LOGIN_FLG in", values, "firstLoginFlg");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginFlgNotIn(List<Integer> values) {
+            addCriterion("FIRST_LOGIN_FLG not in", values, "firstLoginFlg");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginFlgBetween(Integer value1, Integer value2) {
+            addCriterion("FIRST_LOGIN_FLG between", value1, value2, "firstLoginFlg");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginFlgNotBetween(Integer value1, Integer value2) {
+            addCriterion("FIRST_LOGIN_FLG not between", value1, value2, "firstLoginFlg");
+            return (Criteria) this;
+        }
+
         public Criteria andDeleteFlgIsNull() {
             addCriterion("DELETE_FLG is null");
             return (Criteria) this;

@@ -1,14 +1,12 @@
 package com.c4c._2022server.mapper;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.jdbc.SQL;
-
 import com.c4c._2022server.entity.Customer;
-import com.c4c._2022server.entity.CustomerExample;
 import com.c4c._2022server.entity.CustomerExample.Criteria;
 import com.c4c._2022server.entity.CustomerExample.Criterion;
+import com.c4c._2022server.entity.CustomerExample;
+import java.util.List;
+import java.util.Map;
+import org.apache.ibatis.jdbc.SQL;
 
 public class CustomerSqlProvider {
     /**
@@ -106,6 +104,10 @@ public class CustomerSqlProvider {
             sql.VALUES("`PASSWORD`", "#{password,jdbcType=VARCHAR}");
         }
         
+        if (row.getFirstLoginFlg() != null) {
+            sql.VALUES("FIRST_LOGIN_FLG", "#{firstLoginFlg,jdbcType=INTEGER}");
+        }
+        
         if (row.getDeleteFlg() != null) {
             sql.VALUES("DELETE_FLG", "#{deleteFlg,jdbcType=INTEGER}");
         }
@@ -159,6 +161,7 @@ public class CustomerSqlProvider {
         sql.SELECT("PHONE_NUMBER");
         sql.SELECT("EMAIL");
         sql.SELECT("`PASSWORD`");
+        sql.SELECT("FIRST_LOGIN_FLG");
         sql.SELECT("DELETE_FLG");
         sql.SELECT("CREATED_DATETIME");
         sql.SELECT("CREATED_USER");
@@ -253,6 +256,10 @@ public class CustomerSqlProvider {
             sql.SET("`PASSWORD` = #{row.password,jdbcType=VARCHAR}");
         }
         
+        if (row.getFirstLoginFlg() != null) {
+            sql.SET("FIRST_LOGIN_FLG = #{row.firstLoginFlg,jdbcType=INTEGER}");
+        }
+        
         if (row.getDeleteFlg() != null) {
             sql.SET("DELETE_FLG = #{row.deleteFlg,jdbcType=INTEGER}");
         }
@@ -305,6 +312,7 @@ public class CustomerSqlProvider {
         sql.SET("PHONE_NUMBER = #{row.phoneNumber,jdbcType=VARCHAR}");
         sql.SET("EMAIL = #{row.email,jdbcType=VARCHAR}");
         sql.SET("`PASSWORD` = #{row.password,jdbcType=VARCHAR}");
+        sql.SET("FIRST_LOGIN_FLG = #{row.firstLoginFlg,jdbcType=INTEGER}");
         sql.SET("DELETE_FLG = #{row.deleteFlg,jdbcType=INTEGER}");
         sql.SET("CREATED_DATETIME = #{row.createdDatetime,jdbcType=TIMESTAMP}");
         sql.SET("CREATED_USER = #{row.createdUser,jdbcType=INTEGER}");
@@ -386,6 +394,10 @@ public class CustomerSqlProvider {
         
         if (row.getPassword() != null) {
             sql.SET("`PASSWORD` = #{password,jdbcType=VARCHAR}");
+        }
+        
+        if (row.getFirstLoginFlg() != null) {
+            sql.SET("FIRST_LOGIN_FLG = #{firstLoginFlg,jdbcType=INTEGER}");
         }
         
         if (row.getDeleteFlg() != null) {
