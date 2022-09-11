@@ -11,6 +11,7 @@ import com.c4c._2022server.entity.Customer;
 import com.c4c._2022server.form.CustomerCreateReq;
 import com.c4c._2022server.mapper.CustomerMapper;
 import com.c4c._2022server.service.CustomerCreateService;
+import com.c4c._2022server.utils.CommonUtils;
 import com.c4c._2022server.utils.MailUtils;
 
 @Service
@@ -44,6 +45,8 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
         // パスワード生成
         String randomPassword = createRandomPassword();
         customer.setPassword(randomPassword);
+        // 初回ログインフラグをOFFで設定
+        customer.setFirstLoginFlg(CommonUtils.OFF);
 
         // INSERTを実行し、データを登録する
         customerMapper.insert(customer);
