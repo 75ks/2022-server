@@ -1,7 +1,7 @@
 package com.c4c._2022server.mapper;
 
-import com.c4c._2022server.entity.Customer;
-import com.c4c._2022server.entity.CustomerExample;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -16,7 +16,8 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
-import java.util.List;
+import com.c4c._2022server.entity.Customer;
+import com.c4c._2022server.entity.CustomerExample;
 
 @Mapper
 public interface CustomerMapper {
@@ -222,6 +223,7 @@ public interface CustomerMapper {
         "    , CUSTOMER.PHONE_NUMBER",
         "    , CUSTOMER.EMAIL",
         "    , CUSTOMER.PASSWORD",
+        "    , CUSTOMER.FIRST_LOGIN_FLG",
         "    , CUSTOMER.DELETE_FLG",
         "    , CUSTOMER.CREATED_DATETIME",
         "    , CUSTOMER.CREATED_USER",
@@ -252,6 +254,7 @@ public interface CustomerMapper {
         @Result(column="PHONE_NUMBER", property="phoneNumber", jdbcType=JdbcType.VARCHAR),
         @Result(column="EMAIL", property="email", jdbcType=JdbcType.VARCHAR),
         @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FIRST_LOGIN_FLG", property="firstLoginFlg", jdbcType=JdbcType.INTEGER),
         @Result(column="DELETE_FLG", property="deleteFlg", jdbcType=JdbcType.INTEGER),
         @Result(column="CREATED_DATETIME", property="createdDatetime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="CREATED_USER", property="createdUser", jdbcType=JdbcType.INTEGER),
