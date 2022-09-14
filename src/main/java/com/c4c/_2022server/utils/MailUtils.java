@@ -56,8 +56,8 @@ public class MailUtils {
                 + "       <p>・パスワード：" + customer.getPassword() + "</p>"
                 + "       <p>※パスワードは初回ログイン時に変更してください。</p>"
                 + "       <br>"
-                + "       <p>■ログイン情報</p>"
-                + "       <p>・" + link + "</p>"
+                + "       <p>ログインはこちら</p>"
+                + "       <a href='" + link + "'>・" + link + "</a>"
                 + "   </body>"
                 + "</html>";
 
