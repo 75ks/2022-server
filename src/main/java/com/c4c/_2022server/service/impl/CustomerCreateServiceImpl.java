@@ -12,6 +12,7 @@ import com.c4c._2022server.form.CustomerCreateReq;
 import com.c4c._2022server.mapper.CustomerMapper;
 import com.c4c._2022server.service.CustomerCreateService;
 import com.c4c._2022server.utils.CommonUtils;
+import com.c4c._2022server.utils.EntityUtils;
 import com.c4c._2022server.utils.MailUtils;
 
 @Service
@@ -19,10 +20,12 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
     @Autowired
     CustomerMapper customerMapper;
     @Autowired
+    EntityUtils entityUtils;
+    @Autowired
     MailUtils mailUtils;
 
     @Override
-    public void register(int storeId, CustomerCreateReq reqForm) {
+    public void register(int storeId, int stuffId, CustomerCreateReq reqForm) {
     	Customer customer = new Customer();
     	customer.setStoreId(storeId);
         customer.setLastName(reqForm.getLastName());
@@ -48,6 +51,8 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
         // 初回ログインフラグをOFFで設定
         customer.setFirstLoginFlg(CommonUtils.OFF);
 
+        // INSERT時の共通設定
+        entityUtils.setColumns4Insert(customer, stuffId);
         // INSERTを実行し、データを登録する
         customerMapper.insert(customer);
 

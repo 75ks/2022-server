@@ -36,8 +36,9 @@ public class CustomerCreateController {
         // JWTから店舗IDを取得する
         JWTUtils instance = JWTUtils.getInstance();
         Integer storeId = instance.getStoreId(jwt);
+        Integer stuffId = instance.getId(jwt);
 
-        customerCreateServiceImpl.register(storeId, reqForm);
+        customerCreateServiceImpl.register(storeId, stuffId, reqForm);
         // メッセージを設定
         CustomerCreateRes resForm = new CustomerCreateRes();
         resForm.setMessages(messageSource.getMessage("success", new String[]{"登録"}, Locale.getDefault()));
