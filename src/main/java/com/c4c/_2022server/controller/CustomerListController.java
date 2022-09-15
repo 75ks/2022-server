@@ -23,7 +23,7 @@ public class CustomerListController {
     CustomerListServiceImpl customerListServiceImpl;
 
     /**
-     * スタッフ一覧取得
+     * 顧客一覧取得
      * @return List{@literal<CustomerListRes>}
      */
     @GetMapping("/")

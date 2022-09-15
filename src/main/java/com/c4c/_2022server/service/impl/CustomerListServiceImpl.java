@@ -18,7 +18,7 @@ public class CustomerListServiceImpl implements CustomerListService {
     CustomerMapper customerMapper;
 
     /**
-     * スタッフ一覧取得
+     * 顧客一覧取得
      * @return customerFormList
      */
     @Override
