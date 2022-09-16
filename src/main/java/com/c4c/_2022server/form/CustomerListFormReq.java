@@ -16,9 +16,6 @@ public class CustomerListFormReq {
     /** 顧客名(カナ) */
     private String customerNameKana;
 
-    /** ランク名 */
-    private String rankName;
-
     /** 年齢 */
     private Integer age;
     

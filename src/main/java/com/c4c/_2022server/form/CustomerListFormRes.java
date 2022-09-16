@@ -56,14 +56,6 @@ public class CustomerListFormRes {
 
     /**
      * Table: CUSTOMER
-     * Column: RANK
-     * Type: VARCHAR(255)
-     * Remark: ランク
-     */
-    private String rank;
-
-    /**
-     * Table: CUSTOMER
      * Column: BIRTHDAY
      * Type: DATE
      * Remark: 生年月日

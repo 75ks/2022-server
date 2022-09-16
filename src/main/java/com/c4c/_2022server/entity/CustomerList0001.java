@@ -55,21 +55,6 @@ public class CustomerList0001 {
     private String firstNameKana;
 
     /**
-     * Column: RANK_ID
-     * Type: INT
-     * Remark: ランクID
-     */
-    private Integer rankId;
-
-    /**
-     * Table: CUSTOMER
-     * Column: RANK
-     * Type: VARCHAR(255)
-     * Remark: ランク
-     */
-    private String rank;
-
-    /**
      * Table: CUSTOMER
      * Column: BIRTHDAY
      * Type: DATE

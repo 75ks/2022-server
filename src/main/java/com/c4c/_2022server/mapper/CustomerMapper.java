@@ -277,11 +277,9 @@ public interface CustomerMapper {
         @Result(column="FIRST_NAME", property="firstName", jdbcType=JdbcType.VARCHAR),
         @Result(column="LAST_NAME_KANA", property="lastNameKana", jdbcType=JdbcType.VARCHAR),
         @Result(column="FIRST_NAME_KANA", property="firstNameKana", jdbcType=JdbcType.VARCHAR),
-        @Result(column="RANK_ID", property="rankId", jdbcType=JdbcType.INTEGER),
         @Result(column="BIRTHDAY", property="birthday", jdbcType=JdbcType.DATE),
         @Result(column="AGE", property="age", jdbcType=JdbcType.INTEGER),
         @Result(column="GENDER", property="gender", jdbcType=JdbcType.INTEGER),
-        @Result(column="RANK", property="rank", jdbcType=JdbcType.VARCHAR),
     })
     List<CustomerList0001> select0002(@Param("storeId") int storeId, @Param("reqForm") CustomerListFormReq reqForm);
 }

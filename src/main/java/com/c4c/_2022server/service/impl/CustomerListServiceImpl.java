@@ -35,7 +35,6 @@ public class CustomerListServiceImpl implements CustomerListService {
         	customerForm.setFirstName(customerList0001.getFirstName());
         	customerForm.setLastNameKana(customerList0001.getLastNameKana());
         	customerForm.setFirstNameKana(customerList0001.getFirstNameKana());
-        	customerForm.setRank(customerList0001.getRank());
         	customerForm.setBirthday(customerList0001.getBirthday());
         	customerForm.setAge(customerList0001.getAge());
         	customerForm.setGender(customerList0001.getGender());

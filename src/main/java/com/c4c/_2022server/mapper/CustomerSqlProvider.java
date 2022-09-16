@@ -575,12 +575,6 @@ public class CustomerSqlProvider {
                     "CUSTOMER.FIRST_NAME_KANA LIKE '%' #{reqForm.customerNameKana} '%'");
         }
 
-        // ランク名
-        if (!(reqForm.getRankName() == null || reqForm.getRankName().isEmpty() || reqForm.getRankName().equals("指定なし"))) {
-            sql.AND();
-            sql.WHERE("CUSTOMER.RANK_ID = #{reqForm.rankName}");
-        }
-
         // 年齢
         if (!(reqForm.getAge() == null)) {
             sql.AND();
