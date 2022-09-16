@@ -30,7 +30,6 @@ public class CustomerListServiceImpl implements CustomerListService {
         for (CustomerList0001 customerList0001 : customerList) {
         	CustomerListFormRes customerForm = new CustomerListFormRes();
         	customerForm.setCustomerId(customerList0001.getCustomerId());
-        	customerForm.setStoreId(customerList0001.getStoreId());
         	customerForm.setLastName(customerList0001.getLastName());
         	customerForm.setFirstName(customerList0001.getFirstName());
         	customerForm.setLastNameKana(customerList0001.getLastNameKana());

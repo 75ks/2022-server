@@ -7,9 +7,6 @@ public class CustomerListFormReq {
     /** 顧客ID */
     private Integer customerId;
 
-    /** 店舗ID */
-    private Integer storeId;
-
     /** 顧客名 */
     private String customerName;
     

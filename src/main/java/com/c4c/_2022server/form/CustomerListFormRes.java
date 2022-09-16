@@ -16,14 +16,6 @@ public class CustomerListFormRes {
 
     /**
      * Table: CUSTOMER
-     * Column: STORE_ID
-     * Type: INT
-     * Remark: 店舗ID
-     */
-    private Integer storeId;
-
-    /**
-     * Table: CUSTOMER
      * Column: LAST_NAME
      * Type: VARCHAR(30)
      * Remark: 姓

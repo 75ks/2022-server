@@ -555,12 +555,6 @@ public class CustomerSqlProvider {
             sql.WHERE("CUSTOMER.CUSTOMER_ID = #{reqForm.customerId}");
         }
 
-        // 店舗ID
-        if (!(reqForm.getStoreId() == null)) {
-            sql.AND();
-            sql.WHERE("CUSTOMER.STORE_ID = #{reqForm.storeId}");
-        }
-
         // 顧客名(姓 or 名)
         if (!(reqForm.getCustomerName() == null || reqForm.getCustomerName().isEmpty())) {
             sql.AND();
