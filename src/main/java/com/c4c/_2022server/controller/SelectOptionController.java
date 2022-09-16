@@ -67,10 +67,10 @@ public class SelectOptionController {
     }
 
     @GetMapping("/menus")
-    public ResponseEntity<List<SelectOption>> getMenusOptions(@RequestHeader("Authorization") String jwt) throws AuthenticationException {
+    public ResponseEntity<List<SelectOption>> getMenusOptions(@RequestHeader("Authorization") String jwt, @RequestHeader("CustomerAuthorization") String customerJwt) throws AuthenticationException {
         // JWTから店舗IDを取得する
         JWTUtils instance = JWTUtils.getInstance();
-        Integer storeId = instance.getStoreId(jwt);
+        Integer storeId = jwt.length() > 7 ? instance.getStoreId(jwt) : instance.getStoreId(customerJwt);
 
         // 店舗IDに紐づくメニュー一覧を取得する
         MenuHeaderExample menuHeaderExample = new MenuHeaderExample();
@@ -174,10 +174,10 @@ public class SelectOptionController {
     }
 
     @GetMapping("/stuffs")
-    public ResponseEntity<List<SelectOption>> getStuffsOptions(@RequestHeader("Authorization") String jwt) throws AuthenticationException {
+    public ResponseEntity<List<SelectOption>> getStuffsOptions(@RequestHeader("Authorization") String jwt, @RequestHeader("CustomerAuthorization") String customerJwt) throws AuthenticationException {
         // JWTから店舗IDを取得する
         JWTUtils instance = JWTUtils.getInstance();
-        Integer storeId = instance.getStoreId(jwt);
+        Integer storeId = jwt.length() > 7 ? instance.getStoreId(jwt) : instance.getStoreId(customerJwt);
 
         // 店舗IDに紐づくスタッフ一覧を取得する
         StuffExample stuffExample = new StuffExample();
