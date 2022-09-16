@@ -531,21 +531,16 @@ public class CustomerSqlProvider {
     public String select0002(CustomerListFormReq reqForm) {
         SQL sql = new SQL();
         sql.SELECT(
-                "CUSTOMER.STUFF_ID",
+                "CUSTOMER.CUSTOMER_ID",
                 "CUSTOMER.STORE_ID",
                 "CUSTOMER.LAST_NAME",
                 "CUSTOMER.FIRST_NAME",
                 "CUSTOMER.LAST_NAME_KANA",
                 "CUSTOMER.FIRST_NAME_KANA",
-                "CUSTOMER.RANK_ID",
                 "CUSTOMER.AGE",
-                "CUSTOMER.GENDER",
-                "RANK_BY_STORE.RANK"
+                "CUSTOMER.GENDER"
         );
         sql.FROM("CUSTOMER");
-        sql.INNER_JOIN(
-                "RANK_BY_STORE ON RANK_BY_STORE.STORE_ID = CUSTOMER.STORE_ID AND RANK_BY_STORE.RANK_ID = CUSTOMER.RANK_ID"
-        );
         sql.WHERE("CUSTOMER.STORE_ID = #{storeId}");
         sql.WHERE("CUSTOMER.DELETE_FLG = 0");
 
