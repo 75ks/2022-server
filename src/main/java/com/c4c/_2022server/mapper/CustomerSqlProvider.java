@@ -550,18 +550,13 @@ public class CustomerSqlProvider {
             sql.WHERE("CUSTOMER.CUSTOMER_ID = #{reqForm.customerId}");
         }
 
-        // 顧客名(姓 or 名)
+        // 顧客名(姓 or 名),顧客名(カナ)(セイ or メイ)
         if (!(reqForm.getCustomerName() == null || reqForm.getCustomerName().isEmpty())) {
             sql.AND();
             sql.WHERE("CUSTOMER.LAST_NAME LIKE '%' #{reqForm.customerName} '%' OR " +
-                    "CUSTOMER.FIRST_NAME LIKE '%' #{reqForm.customerName} '%'");
-        }
-
-        // 顧客名(カナ)(セイ or メイ)
-        if (!(reqForm.getCustomerNameKana() == null || reqForm.getCustomerNameKana().isEmpty())) {
-            sql.AND();
-            sql.WHERE("CUSTOMER.LAST_NAME_KANA LIKE '%' #{reqForm.customerNameKana} '%' OR " +
-                    "CUSTOMER.FIRST_NAME_KANA LIKE '%' #{reqForm.customerNameKana} '%'");
+                    "CUSTOMER.FIRST_NAME LIKE '%' #{reqForm.customerName} '%' OR " +
+                    "CUSTOMER.LAST_NAME_KANA LIKE '%' #{reqForm.customerName} '%' OR " +
+                    "CUSTOMER.FIRST_NAME_KANA LIKE '%' #{reqForm.customerName} '%'");
         }
 
         // 年齢
