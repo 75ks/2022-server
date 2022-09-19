@@ -1,6 +1,8 @@
 package com.c4c._2022server.utils;
 
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import org.springframework.stereotype.Component;
 
@@ -51,7 +53,7 @@ public class EntityUtils {
                 case CREATED_DATETIME:
                 case UPDATE_DATETIME:
                     declaredField.setAccessible(true); // privateな変数でもアクセスできるようにする
-                    declaredField.set(entity, CommonUtils.CURRENT_DATE_TIME);
+                    declaredField.set(entity, LocalDateTime.now(ZoneId.of("Asia/Tokyo")));
                     break;
                 case CREATED_USER:
                 case UPDATE_USER:
@@ -81,7 +83,7 @@ public class EntityUtils {
             switch (declaredField.getName()) {
                 case UPDATE_DATETIME:
                     declaredField.setAccessible(true); // privateな変数でもアクセスできるようにする
-                    declaredField.set(entity, CommonUtils.CURRENT_DATE_TIME);
+                    declaredField.set(entity, LocalDateTime.now(ZoneId.of("Asia/Tokyo")));
                     break;
                 case UPDATE_USER:
                     declaredField.setAccessible(true); // privateな変数でもアクセスできるようにする
