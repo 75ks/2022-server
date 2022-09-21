@@ -71,6 +71,35 @@ public class EntityUtils {
     }
 
     /**
+     * INSERT時の共通設定
+     * @param <T>
+     * @param entity
+     */
+    @SneakyThrows
+    public <T> void setColumnsNonUser4Insert(T entity) {
+        Field[] declaredFields = entity.getClass().getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            switch (declaredField.getName()) {
+            case DELETE_FLG:
+                declaredField.setAccessible(true); // privateな変数でもアクセスできるようにする
+                declaredField.set(entity, CommonUtils.OFF);
+                break;
+            case CREATED_DATETIME:
+            case UPDATE_DATETIME:
+                declaredField.setAccessible(true); // privateな変数でもアクセスできるようにする
+                declaredField.set(entity, LocalDateTime.now(ZoneId.of("Asia/Tokyo")));
+                break;
+            case VERSION_EX_KEY:
+                declaredField.setAccessible(true); // privateな変数でもアクセスできるようにする
+                declaredField.set(entity, 0);
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+    /**
      * UPDATE時の共通設定
      * @param <T>
      * @param entity
@@ -91,6 +120,26 @@ public class EntityUtils {
                     break;
                 default:
                     break;
+            }
+        }
+    }
+
+    /**
+     * UPDATE時の共通設定
+     * @param <T>
+     * @param entity
+     */
+    @SneakyThrows
+    public <T> void setColumnsNonUser4Update(T entity) {
+        Field[] declaredFields = entity.getClass().getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            switch (declaredField.getName()) {
+            case UPDATE_DATETIME:
+                declaredField.setAccessible(true); // privateな変数でもアクセスできるようにする
+                declaredField.set(entity, LocalDateTime.now(ZoneId.of("Asia/Tokyo")));
+                break;
+            default:
+                break;
             }
         }
     }
