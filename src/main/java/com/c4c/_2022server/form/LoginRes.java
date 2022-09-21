@@ -19,4 +19,9 @@ public class LoginRes {
      * (1: スタッフ, 2: 顧客)
      */
     private Integer authenticationType;
+
+    /**
+     * 初回ログインフラグ
+     */
+    private Integer firstLoginFlg;
 }

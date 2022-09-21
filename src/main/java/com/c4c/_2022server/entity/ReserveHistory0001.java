@@ -151,4 +151,12 @@ public class ReserveHistory0001 {
     public String getReserveStateName() {
         return ReserveStateEnum.getEnumByCode(this.reserveState).getName();
     }
+
+    /**
+     * Table: SALES_HISTORY
+     * Column: SALES_HISTORY_ID
+     * Type: INT
+     * Remark: 来店履歴ID
+     */
+    private Integer salesHistoryId;
 }

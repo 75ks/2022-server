@@ -14,33 +14,33 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.c4c._2022server.form.CustomerCreateReq;
-import com.c4c._2022server.form.CustomerCreateRes;
-import com.c4c._2022server.service.impl.CustomerCreateServiceImpl;
+import com.c4c._2022server.form.ReserveRegisterReq;
+import com.c4c._2022server.form.ReserveRegisterRes;
+import com.c4c._2022server.service.impl.ReserveRegisterServiceImpl;
 import com.c4c._2022server.utils.JWTUtils;
 
 @RestController
-@RequestMapping("/customerCreate")
-public class CustomerCreateController {
+@RequestMapping("/reserveRegister")
+public class ReserveRegister {
     @Autowired
     MessageSource messageSource;
     @Autowired
-    CustomerCreateServiceImpl customerCreateServiceImpl;
+    ReserveRegisterServiceImpl reserveRegisterServiceImpl;
 
     /**
-     * 顧客登録
+     * 予約情報登録
+     * @param jwt
      * @param reqForm
+     * @return ReserveRegisterRes
      */
-    @PostMapping("")
-    public ResponseEntity<CustomerCreateRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid CustomerCreateReq reqForm) throws AuthenticationException {
-        // JWTから店舗IDを取得する
+    @PostMapping("/")
+    public ResponseEntity<ReserveRegisterRes> register(@RequestHeader("CustomerAuthorization") String jwt, @RequestBody @Valid ReserveRegisterReq reqForm) throws AuthenticationException {
         JWTUtils instance = JWTUtils.getInstance();
-        Integer storeId = instance.getStoreId(jwt);
-        Integer stuffId = instance.getId(jwt);
-
-        customerCreateServiceImpl.register(storeId, stuffId, reqForm);
+        int customerId = instance.getId(jwt);
+        int storeId = instance.getStoreId(jwt);
+        reserveRegisterServiceImpl.register(customerId, storeId, reqForm);
         // メッセージを設定
-        CustomerCreateRes resForm = new CustomerCreateRes();
+        ReserveRegisterRes resForm = new ReserveRegisterRes();
         resForm.setMessages(messageSource.getMessage("success", new String[]{"登録"}, Locale.getDefault()));
         return ResponseEntity.ok(resForm);
     }

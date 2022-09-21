@@ -1,7 +1,7 @@
 package com.c4c._2022server.mapper;
 
-import com.c4c._2022server.entity.Customer;
-import com.c4c._2022server.entity.CustomerExample;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -16,7 +16,10 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
-import java.util.List;
+import com.c4c._2022server.entity.Customer;
+import com.c4c._2022server.entity.CustomerExample;
+import com.c4c._2022server.entity.CustomerList0001;
+import com.c4c._2022server.form.CustomerListFormReq;
 
 @Mapper
 public interface CustomerMapper {
@@ -222,6 +225,7 @@ public interface CustomerMapper {
         "    , CUSTOMER.PHONE_NUMBER",
         "    , CUSTOMER.EMAIL",
         "    , CUSTOMER.PASSWORD",
+        "    , CUSTOMER.FIRST_LOGIN_FLG",
         "    , CUSTOMER.DELETE_FLG",
         "    , CUSTOMER.CREATED_DATETIME",
         "    , CUSTOMER.CREATED_USER",
@@ -252,6 +256,7 @@ public interface CustomerMapper {
         @Result(column="PHONE_NUMBER", property="phoneNumber", jdbcType=JdbcType.VARCHAR),
         @Result(column="EMAIL", property="email", jdbcType=JdbcType.VARCHAR),
         @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FIRST_LOGIN_FLG", property="firstLoginFlg", jdbcType=JdbcType.INTEGER),
         @Result(column="DELETE_FLG", property="deleteFlg", jdbcType=JdbcType.INTEGER),
         @Result(column="CREATED_DATETIME", property="createdDatetime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="CREATED_USER", property="createdUser", jdbcType=JdbcType.INTEGER),
@@ -260,4 +265,21 @@ public interface CustomerMapper {
         @Result(column="VERSION_EX_KEY", property="versionExKey", jdbcType=JdbcType.INTEGER)
     })
     Customer select0001(String email);
+
+    /**
+     * SQLID: Customer0002
+     */
+    @SelectProvider(type = CustomerSqlProvider.class, method = "select0002")
+    @Results({
+        @Result(column="CUSTOMER_ID", property="customerId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER),
+        @Result(column="LAST_NAME", property="lastName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FIRST_NAME", property="firstName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="LAST_NAME_KANA", property="lastNameKana", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FIRST_NAME_KANA", property="firstNameKana", jdbcType=JdbcType.VARCHAR),
+        @Result(column="BIRTHDAY", property="birthday", jdbcType=JdbcType.DATE),
+        @Result(column="AGE", property="age", jdbcType=JdbcType.INTEGER),
+        @Result(column="GENDER", property="gender", jdbcType=JdbcType.INTEGER),
+    })
+    List<CustomerList0001> select0002(@Param("storeId") int storeId, @Param("reqForm") CustomerListFormReq reqForm);
 }
