@@ -21,7 +21,7 @@ import com.c4c._2022server.utils.JWTUtils;
 
 @RestController
 @RequestMapping("/reserveRegister")
-public class ReserveRegister {
+public class ReserveRegisterController {
     @Autowired
     MessageSource messageSource;
     @Autowired
