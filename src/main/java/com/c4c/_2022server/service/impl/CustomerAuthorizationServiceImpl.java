@@ -47,18 +47,18 @@ public class CustomerAuthorizationServiceImpl implements CustomerAuthorizationSe
             throw new AuthenticationException(messageSource.getMessage("error.email.not.registered", new String[]{}, Locale.getDefault()));
         }
         // 初回ログインの場合、パスワードがハッシュ化されていないため、通常チェックを行う
-//        if (CommonUtils.OFF == customer.getFirstLoginFlg()) {
-//            if (!reqForm.getPassword().equals(customer.getPassword())) {
-//                throw new AuthenticationException(messageSource.getMessage("error.password.not.match", new String[]{}, Locale.getDefault()));
-//            }
+        if (CommonUtils.OFF == customer.getFirstLoginFlg()) {
+            if (!reqForm.getPassword().equals(customer.getPassword())) {
+                throw new AuthenticationException(messageSource.getMessage("error.password.not.match", new String[]{}, Locale.getDefault()));
+            }
         // 初回ログインではない場合、パスワードがハッシュ化されているため、エンコードをしてチェックを行う
-//        } else {
-//            // 入力されたパスワードとDBのパスワード(ハッシュ化済み)を比較
-//            BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
-//            if (!bcpe.matches(reqForm.getPassword(), customer.getPassword())) {
-//                throw new AuthenticationException(messageSource.getMessage("error.password.not.match", new String[]{}, Locale.getDefault()));
-//            }
-//        }
+        } else {
+            // 入力されたパスワードとDBのパスワード(ハッシュ化済み)を比較
+            BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
+            if (!bcpe.matches(reqForm.getPassword(), customer.getPassword())) {
+                throw new AuthenticationException(messageSource.getMessage("error.password.not.match", new String[]{}, Locale.getDefault()));
+            }
+        }
         // JWTを生成&検証
         LoginUser loginuser = new LoginUser(customer.getCustomerId(), customer.getStoreId(), AuthenticationTypeEnum.CUSTOMER.getCode());
         JWTUtils instance = JWTUtils.getInstance();
