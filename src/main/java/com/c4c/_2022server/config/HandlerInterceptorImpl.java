@@ -25,7 +25,7 @@ public class HandlerInterceptorImpl implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         try {
             // リクエストヘッダーに保存されているJWTを取得する
-            String jwt = request.getHeader("authorization");
+            String jwt = request.getHeader("authorization").length() > 7 ? request.getHeader("authorization") : request.getHeader("CustomerAuthorization");
             // 「Bearer 」を除去する
             jwt = jwt.split(" ")[1];
             // JWTを検証
