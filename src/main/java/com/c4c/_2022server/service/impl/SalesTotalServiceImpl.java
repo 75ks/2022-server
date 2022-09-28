@@ -3,11 +3,15 @@ package com.c4c._2022server.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.c4c._2022server.entity.SalesHistory0001;
 import com.c4c._2022server.entity.SalesHistory0002;
+import com.c4c._2022server.entity.SalesHistory0003;
+import com.c4c._2022server.form.SalesHistoryReq;
+import com.c4c._2022server.form.SalesHistoryRes;
 import com.c4c._2022server.form.SalesTotalMonthReq;
 import com.c4c._2022server.form.SalesTotalMonthRes;
 import com.c4c._2022server.form.SalesTotalYearReq;
@@ -59,5 +63,24 @@ public class SalesTotalServiceImpl implements SalesTotalService {
         resForm.setSalesAmount(salesHistory0002.getSalesAmount());
         resForm.setAverageAmount(salesHistory0002.getAverageAmount());
         return resForm;
+    }
+
+    /**
+     * 売上情報一覧取得
+     * @param storeId
+     * @param reqForm
+     * @return List{@literal<SalesHistoryRes>}
+     */
+    public List<SalesHistoryRes> index(int storeId, SalesHistoryReq reqForm) {
+        // SELECT文を実行し、データを取得する
+        List<SalesHistory0003> salesHistoryList = salesHistoryMapper.select0003(storeId, reqForm);
+        // Formにデータを詰める
+        List<SalesHistoryRes> resFormList = new ArrayList<>();
+        for (SalesHistory0003 salesHistory0003 : salesHistoryList) {
+            SalesHistoryRes resForm = new SalesHistoryRes();
+            BeanUtils.copyProperties(salesHistory0003, resForm);
+            resFormList.add(resForm);
+        }
+        return resFormList;
     }
 }

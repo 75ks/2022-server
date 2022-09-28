@@ -19,7 +19,9 @@ import org.apache.ibatis.type.JdbcType;
 import com.c4c._2022server.entity.SalesHistory;
 import com.c4c._2022server.entity.SalesHistory0001;
 import com.c4c._2022server.entity.SalesHistory0002;
+import com.c4c._2022server.entity.SalesHistory0003;
 import com.c4c._2022server.entity.SalesHistoryExample;
+import com.c4c._2022server.form.SalesHistoryReq;
 import com.c4c._2022server.form.SalesTotalMonthReq;
 import com.c4c._2022server.form.SalesTotalYearReq;
 
@@ -214,4 +216,63 @@ public interface SalesHistoryMapper {
             @Result(column="AVERAGE_AMOUNT", property="averageAmount", jdbcType=JdbcType.INTEGER)
     })
     SalesHistory0002 select0002(int storeId, SalesTotalMonthReq reqForm);
+
+    /**
+     * SQLID: SalesHistory0003
+     */
+    @Select({
+        "SELECT",
+        "    SALES_HISTORY.SALES_HISTORY_ID",
+        "    , SALES_HISTORY.RESERVE_HISTORY_ID",
+        "    , SALES_HISTORY.RANK",
+        "    , SALES_HISTORY.MENU",
+        "    , SALES_HISTORY.PRICE",
+        "    , SALES_HISTORY.SALES_DATETIME",
+        "    , CUSTOMER.CUSTOMER_ID",
+        "    , CUSTOMER.LAST_NAME AS CUSTOMER_LAST_NAME",
+        "    , CUSTOMER.FIRST_NAME AS CUSTOMER_FIRST_NAME",
+        "    , CUSTOMER.LAST_NAME_KANA AS CUSTOMER_LAST_NAME_KANA",
+        "    , CUSTOMER.FIRST_NAME_KANA AS CUSTOMER_FIRST_NAME_KANA",
+        "    , STUFF.STUFF_ID",
+        "    , STUFF.LAST_NAME AS STUFF_LAST_NAME",
+        "    , STUFF.FIRST_NAME AS STUFF_FIRST_NAME",
+        "    , STUFF.LAST_NAME_KANA AS STUFF_LAST_NAME_KANA",
+        "    , STUFF.FIRST_NAME_KANA AS STUFF_FIRST_NAME_KANA",
+        "    , MENU_HEADER.MENU_ID",
+        "FROM",
+        "    SALES_HISTORY",
+        "INNER JOIN",
+        "    CUSTOMER",
+        "    ON CUSTOMER.CUSTOMER_ID = SALES_HISTORY.CUSTOMER_ID",
+        "INNER JOIN",
+        "    STUFF",
+        "    ON STUFF.STUFF_ID = SALES_HISTORY.STUFF_ID",
+        "INNER JOIN",
+        "    MENU_HEADER",
+        "    ON MENU_HEADER.STORE_ID = SALES_HISTORY.STORE_ID AND MENU_HEADER.MENU = SALES_HISTORY.MENU",
+        "WHERE",
+        "    SALES_HISTORY.STORE_ID = #{storeId}",
+        "    AND DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%Y%c') = #{reqForm.salesYearMonth}",
+        "    AND SALES_HISTORY.DELETE_FLG = 0"
+    })
+    @Results(value = {
+            @Result(column = "SALES_HISTORY_ID", property = "salesHistoryId", jdbcType=JdbcType.INTEGER, id=true),
+            @Result(column = "RESERVE_HISTORY_ID", property = "reserveHistoryId", jdbcType=JdbcType.INTEGER),
+            @Result(column = "RANK", property = "rank", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "MENU", property = "menu", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "PRICE", property = "price", jdbcType=JdbcType.INTEGER),
+            @Result(column = "SALES_DATETIME", property = "salesDatetime", jdbcType=JdbcType.TIMESTAMP),
+            @Result(column = "CUSTOMER_ID", property = "customerId", jdbcType=JdbcType.INTEGER),
+            @Result(column = "CUSTOMER_LAST_NAME", property = "customerLastName", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "CUSTOMER_FIRST_NAME", property = "customerFirstName", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "CUSTOMER_LAST_NAME_KANA", property = "customerLastNameKana", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "CUSTOMER_FIRST_NAME_KANA", property = "customerFirstNameKana", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "STUFF_ID", property = "stuffId", jdbcType=JdbcType.INTEGER),
+            @Result(column = "STUFF_LAST_NAME", property = "stuffLastName", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "STUFF_FIRST_NAME", property = "stuffFirstName", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "STUFF_LAST_NAME_KANA", property = "stuffLastNameKana", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "STUFF_FIRST_NAME_KANA", property = "stuffFirstNameKana", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "MENU_ID", property = "menuId", jdbcType=JdbcType.INTEGER),
+    })
+    List<SalesHistory0003> select0003(int storeId, SalesHistoryReq reqForm);
 }
