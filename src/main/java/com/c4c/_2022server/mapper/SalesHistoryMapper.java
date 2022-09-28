@@ -1,8 +1,7 @@
 package com.c4c._2022server.mapper;
 
-import com.c4c._2022server.entity.SalesHistory;
-import com.c4c._2022server.entity.SalesHistoryExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -16,6 +15,13 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
+
+import com.c4c._2022server.entity.SalesHistory;
+import com.c4c._2022server.entity.SalesHistory0001;
+import com.c4c._2022server.entity.SalesHistory0002;
+import com.c4c._2022server.entity.SalesHistoryExample;
+import com.c4c._2022server.form.SalesTotalMonthReq;
+import com.c4c._2022server.form.SalesTotalYearReq;
 
 @Mapper
 public interface SalesHistoryMapper {
@@ -160,4 +166,52 @@ public interface SalesHistoryMapper {
         "where SALES_HISTORY_ID = #{salesHistoryId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(SalesHistory row);
+
+    /**
+     * SQLID: SalesHistory0001
+     */
+    @Select({
+        "SELECT",
+        "    DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%m月') AS SALES_MONTH",
+        "    , COUNT(*) AS NUMBER_OF_VISITORS",
+        "    , IFNULL(SUM(SALES_HISTORY.PRICE), 0) as SALES_AMOUNT",
+        "    , IFNULL(AVG(SALES_HISTORY.PRICE), 0) AS AVERAGE_AMOUNT",
+        "FROM",
+        "    SALES_HISTORY",
+        "WHERE",
+        "    SALES_HISTORY.STORE_ID = #{storeId}",
+        "    AND DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%Y') = #{reqForm.salesYear}",
+        "    AND SALES_HISTORY.DELETE_FLG = 0",
+        "GROUP BY",
+        "    DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%m月')"
+    })
+    @Results(value = {
+        @Result(column="SALES_MONTH", property="salesMonth", jdbcType=JdbcType.VARCHAR),
+        @Result(column="NUMBER_OF_VISITORS", property="numberOfVisitors", jdbcType=JdbcType.INTEGER),
+        @Result(column="SALES_AMOUNT", property="salesAmount", jdbcType=JdbcType.INTEGER),
+        @Result(column="AVERAGE_AMOUNT", property="averageAmount", jdbcType=JdbcType.INTEGER)
+    })
+    List<SalesHistory0001> select0001(int storeId, SalesTotalYearReq reqForm);
+
+    /**
+     * SQLID: SalesHistory0002
+     */
+    @Select({
+        "SELECT",
+        "    COUNT(*) AS NUMBER_OF_VISITORS",
+        "    , IFNULL(SUM(SALES_HISTORY.PRICE), 0) as SALES_AMOUNT",
+        "    , IFNULL(AVG(SALES_HISTORY.PRICE), 0) AS AVERAGE_AMOUNT",
+        "FROM",
+        "    SALES_HISTORY",
+        "WHERE",
+        "    SALES_HISTORY.STORE_ID = #{storeId}",
+        "    AND DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%Y%c') = #{reqForm.salesYearMonth}",
+        "    AND SALES_HISTORY.DELETE_FLG = 0"
+    })
+    @Results(value = {
+            @Result(column="NUMBER_OF_VISITORS", property="numberOfVisitors", jdbcType=JdbcType.INTEGER),
+            @Result(column="SALES_AMOUNT", property="salesAmount", jdbcType=JdbcType.INTEGER),
+            @Result(column="AVERAGE_AMOUNT", property="averageAmount", jdbcType=JdbcType.INTEGER)
+    })
+    SalesHistory0002 select0002(int storeId, SalesTotalMonthReq reqForm);
 }
