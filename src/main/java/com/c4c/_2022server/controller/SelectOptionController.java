@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.security.sasl.AuthenticationException;
 
-import com.c4c._2022server.entity.*;
-import com.c4c._2022server.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +12,23 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.c4c._2022server.entity.Customer;
+import com.c4c._2022server.entity.CustomerExample;
+import com.c4c._2022server.entity.MenuHeader;
+import com.c4c._2022server.entity.MenuHeaderExample;
+import com.c4c._2022server.entity.RankByStore;
+import com.c4c._2022server.entity.RankByStoreExample;
+import com.c4c._2022server.entity.Stuff;
+import com.c4c._2022server.entity.StuffExample;
 import com.c4c._2022server.enums.GenderEnum;
 import com.c4c._2022server.enums.PrefectureIdEnum;
 import com.c4c._2022server.enums.ReserveStateEnum;
 import com.c4c._2022server.form.SelectOption;
+import com.c4c._2022server.mapper.CustomerMapper;
+import com.c4c._2022server.mapper.MenuHeaderMapper;
+import com.c4c._2022server.mapper.RankByStoreMapper;
+import com.c4c._2022server.mapper.StoreHeaderMapper;
+import com.c4c._2022server.mapper.StuffMapper;
 import com.c4c._2022server.utils.JWTUtils;
 
 @RestController

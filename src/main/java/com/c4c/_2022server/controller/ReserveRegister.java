@@ -44,4 +44,6 @@ public class ReserveRegister {
         resForm.setMessages(messageSource.getMessage("success", new String[]{"登録"}, Locale.getDefault()));
         return ResponseEntity.ok(resForm);
     }
+    
+    
 }
