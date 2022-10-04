@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.c4c._2022server.form.SalesHistoryReq;
 import com.c4c._2022server.form.SalesHistoryRes;
+import com.c4c._2022server.form.SalesTotalChartReq;
+import com.c4c._2022server.form.SalesTotalChartRes;
 import com.c4c._2022server.form.SalesTotalMonthReq;
 import com.c4c._2022server.form.SalesTotalMonthRes;
 import com.c4c._2022server.form.SalesTotalYearReq;
@@ -23,6 +25,13 @@ public interface SalesTotalService {
      * @param reqForm
      */
     public SalesTotalMonthRes getSalesMonth(int storeId, SalesTotalMonthReq reqForm);
+
+    /**
+     * 売上情報取得(グラフ)
+     * @param storeId
+     * @param reqForm
+     */
+    public List<SalesTotalChartRes> getSalesChart(int storeId, SalesTotalChartReq reqForm);
 
     /**
      * 売上情報一覧取得

@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 import com.c4c._2022server.entity.SalesHistory0001;
 import com.c4c._2022server.entity.SalesHistory0002;
 import com.c4c._2022server.entity.SalesHistory0003;
+import com.c4c._2022server.entity.SalesHistory0004;
 import com.c4c._2022server.form.SalesHistoryReq;
 import com.c4c._2022server.form.SalesHistoryRes;
+import com.c4c._2022server.form.SalesTotalChartReq;
+import com.c4c._2022server.form.SalesTotalChartRes;
 import com.c4c._2022server.form.SalesTotalMonthReq;
 import com.c4c._2022server.form.SalesTotalMonthRes;
 import com.c4c._2022server.form.SalesTotalYearReq;
@@ -66,11 +69,48 @@ public class SalesTotalServiceImpl implements SalesTotalService {
     }
 
     /**
+     * 売上情報取得(グラフ)
+     * @param storeId
+     * @param reqForm
+     * @return SalesTotalChartRes
+     */
+    @Override
+    public List<SalesTotalChartRes> getSalesChart(int storeId, SalesTotalChartReq reqForm) {
+        // 絞り込み用の値をセットする(YYYYM)
+        reqForm.setJanuary(reqForm.getSalesYear() + "1");
+        reqForm.setFebruary(reqForm.getSalesYear() + "2");
+        reqForm.setMarch(reqForm.getSalesYear() + "3");
+        reqForm.setApril(reqForm.getSalesYear() + "4");
+        reqForm.setMay(reqForm.getSalesYear() + "5");
+        reqForm.setJune(reqForm.getSalesYear() + "6");
+        reqForm.setJuly(reqForm.getSalesYear() + "7");
+        reqForm.setAugust(reqForm.getSalesYear() + "8");
+        reqForm.setSeptember(reqForm.getSalesYear() + "9");
+        reqForm.setOctober(reqForm.getSalesYear() + "10");
+        reqForm.setNovember(reqForm.getSalesYear() + "11");
+        reqForm.setDecember(reqForm.getSalesYear() + "12");
+        // SELECT文を実行し、データを取得する
+        List<SalesHistory0004> salesHistoryList = salesHistoryMapper.select0004(storeId, reqForm);
+        // Formにデータを詰める
+        List<SalesTotalChartRes> resFormList = new ArrayList<>();
+        for (SalesHistory0004 salesHistory0004 : salesHistoryList) {
+            SalesTotalChartRes resForm = new SalesTotalChartRes();
+            resForm.setSalesMonth(salesHistory0004.getSalesMonth());
+            resForm.setNumberOfVisitors(salesHistory0004.getNumberOfVisitors());
+            resForm.setSalesAmount(salesHistory0004.getSalesAmount());
+            resForm.setAverageAmount(salesHistory0004.getAverageAmount());
+            resFormList.add(resForm);
+        }
+        return resFormList;
+    }
+
+    /**
      * 売上情報一覧取得
      * @param storeId
      * @param reqForm
      * @return List{@literal<SalesHistoryRes>}
      */
+    @Override
     public List<SalesHistoryRes> index(int storeId, SalesHistoryReq reqForm) {
         // SELECT文を実行し、データを取得する
         List<SalesHistory0003> salesHistoryList = salesHistoryMapper.select0003(storeId, reqForm);

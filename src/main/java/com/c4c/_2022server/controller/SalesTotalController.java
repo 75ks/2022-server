@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.c4c._2022server.form.SalesHistoryReq;
 import com.c4c._2022server.form.SalesHistoryRes;
+import com.c4c._2022server.form.SalesTotalChartReq;
+import com.c4c._2022server.form.SalesTotalChartRes;
 import com.c4c._2022server.form.SalesTotalMonthReq;
 import com.c4c._2022server.form.SalesTotalMonthRes;
 import com.c4c._2022server.form.SalesTotalYearReq;
@@ -52,6 +54,20 @@ public class SalesTotalController {
         int storeId = instance.getStoreId(jwt);
         SalesTotalMonthRes resForm = salesTotalServiceImpl.getSalesMonth(storeId, reqForm);
         return ResponseEntity.ok(resForm);
+    }
+
+    /**
+     * 売上情報取得(グラフ)
+     * @param jwt
+     * @param reqForm
+     * @return SalesTotalChartRes
+     */
+    @GetMapping("/charts")
+    public ResponseEntity<List<SalesTotalChartRes>> getSalesChart(@RequestHeader("Authorization") String jwt, SalesTotalChartReq reqForm) throws AuthenticationException {
+        JWTUtils instance = JWTUtils.getInstance();
+        int storeId = instance.getStoreId(jwt);
+        List<SalesTotalChartRes> resFormList = salesTotalServiceImpl.getSalesChart(storeId, reqForm);
+        return ResponseEntity.ok(resFormList);
     }
 
     /**
