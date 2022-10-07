@@ -1,12 +1,15 @@
 package com.c4c._2022server.mapper;
 
-import com.c4c._2022server.entity.Customer;
-import com.c4c._2022server.entity.CustomerExample.Criteria;
-import com.c4c._2022server.entity.CustomerExample.Criterion;
-import com.c4c._2022server.entity.CustomerExample;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.ibatis.jdbc.SQL;
+
+import com.c4c._2022server.entity.Customer;
+import com.c4c._2022server.entity.CustomerExample;
+import com.c4c._2022server.entity.CustomerExample.Criteria;
+import com.c4c._2022server.entity.CustomerExample.Criterion;
+import com.c4c._2022server.form.CustomerListFormReq;
 
 public class CustomerSqlProvider {
     /**
@@ -523,5 +526,51 @@ public class CustomerSqlProvider {
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }
+    }
+    
+    public String select0002(CustomerListFormReq reqForm) {
+        SQL sql = new SQL();
+        sql.SELECT(
+                "CUSTOMER.CUSTOMER_ID",
+                "CUSTOMER.STORE_ID",
+                "CUSTOMER.LAST_NAME",
+                "CUSTOMER.FIRST_NAME",
+                "CUSTOMER.LAST_NAME_KANA",
+                "CUSTOMER.FIRST_NAME_KANA",
+                "CUSTOMER.AGE",
+                "CUSTOMER.GENDER"
+        );
+        sql.FROM("CUSTOMER");
+        sql.WHERE("CUSTOMER.STORE_ID = #{storeId}");
+        sql.WHERE("CUSTOMER.DELETE_FLG = 0");
+
+        // 顧客ID
+        if (!(reqForm.getCustomerId() == null)) {
+            sql.AND();
+            sql.WHERE("CUSTOMER.CUSTOMER_ID = #{reqForm.customerId}");
+        }
+
+        // 顧客名(姓 or 名),顧客名(カナ)(セイ or メイ)
+        if (!(reqForm.getCustomerName() == null || reqForm.getCustomerName().isEmpty())) {
+            sql.AND();
+            sql.WHERE("CUSTOMER.LAST_NAME LIKE '%' #{reqForm.customerName} '%' OR " +
+                    "CUSTOMER.FIRST_NAME LIKE '%' #{reqForm.customerName} '%' OR " +
+                    "CUSTOMER.LAST_NAME_KANA LIKE '%' #{reqForm.customerName} '%' OR " +
+                    "CUSTOMER.FIRST_NAME_KANA LIKE '%' #{reqForm.customerName} '%'");
+        }
+
+        // 年齢
+        if (!(reqForm.getAge() == null)) {
+            sql.AND();
+            sql.WHERE("CUSTOMER.AGE = #{reqForm.age}");
+        }
+
+        // 性別
+        if (!(reqForm.getGender() == null)) {
+            sql.AND();
+            sql.WHERE("CUSTOMER.GENDER = #{reqForm.gender}");
+        }
+
+        return sql.toString();
     }
 }
