@@ -11,12 +11,15 @@ import com.c4c._2022server.entity.SalesHistory0001;
 import com.c4c._2022server.entity.SalesHistory0002;
 import com.c4c._2022server.entity.SalesHistory0003;
 import com.c4c._2022server.entity.SalesHistory0004;
+import com.c4c._2022server.entity.SalesHistory0005;
 import com.c4c._2022server.form.SalesHistoryReq;
 import com.c4c._2022server.form.SalesHistoryRes;
 import com.c4c._2022server.form.SalesTotalChartReq;
 import com.c4c._2022server.form.SalesTotalChartRes;
 import com.c4c._2022server.form.SalesTotalMonthReq;
 import com.c4c._2022server.form.SalesTotalMonthRes;
+import com.c4c._2022server.form.SalesTotalPieChartReq;
+import com.c4c._2022server.form.SalesTotalPieChartRes;
 import com.c4c._2022server.form.SalesTotalYearReq;
 import com.c4c._2022server.form.SalesTotalYearRes;
 import com.c4c._2022server.mapper.SalesHistoryMapper;
@@ -99,6 +102,27 @@ public class SalesTotalServiceImpl implements SalesTotalService {
             resForm.setNumberOfVisitors(salesHistory0004.getNumberOfVisitors());
             resForm.setSalesAmount(salesHistory0004.getSalesAmount());
             resForm.setAverageAmount(salesHistory0004.getAverageAmount());
+            resFormList.add(resForm);
+        }
+        return resFormList;
+    }
+
+    /**
+     * 売上情報取得(円グラフ)
+     * @param storeId
+     * @param reqForm
+     * @return SalesTotalPieChartRes
+     */
+    @Override
+    public List<SalesTotalPieChartRes> getSalesPieChart(int storeId, SalesTotalPieChartReq reqForm) {
+        // SELECT文を実行し、データを取得する
+        List<SalesHistory0005> salesHistoryList = salesHistoryMapper.select0005(storeId, reqForm);
+        // Formにデータを詰める
+        List<SalesTotalPieChartRes> resFormList = new ArrayList<>();
+        for (SalesHistory0005 salesHistory0005 : salesHistoryList) {
+            SalesTotalPieChartRes resForm = new SalesTotalPieChartRes();
+            resForm.setMenu(salesHistory0005.getMenu());
+            resForm.setNumberOfOrders(salesHistory0005.getNumberOfOrders());
             resFormList.add(resForm);
         }
         return resFormList;

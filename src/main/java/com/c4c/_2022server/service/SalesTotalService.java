@@ -8,6 +8,8 @@ import com.c4c._2022server.form.SalesTotalChartReq;
 import com.c4c._2022server.form.SalesTotalChartRes;
 import com.c4c._2022server.form.SalesTotalMonthReq;
 import com.c4c._2022server.form.SalesTotalMonthRes;
+import com.c4c._2022server.form.SalesTotalPieChartReq;
+import com.c4c._2022server.form.SalesTotalPieChartRes;
 import com.c4c._2022server.form.SalesTotalYearReq;
 import com.c4c._2022server.form.SalesTotalYearRes;
 
@@ -32,6 +34,13 @@ public interface SalesTotalService {
      * @param reqForm
      */
     public List<SalesTotalChartRes> getSalesChart(int storeId, SalesTotalChartReq reqForm);
+
+    /**
+     * 売上情報取得(円グラフ)
+     * @param storeId
+     * @param reqForm
+     */
+    public List<SalesTotalPieChartRes> getSalesPieChart(int storeId, SalesTotalPieChartReq reqForm);
 
     /**
      * 売上情報一覧取得

@@ -17,6 +17,8 @@ import com.c4c._2022server.form.SalesTotalChartReq;
 import com.c4c._2022server.form.SalesTotalChartRes;
 import com.c4c._2022server.form.SalesTotalMonthReq;
 import com.c4c._2022server.form.SalesTotalMonthRes;
+import com.c4c._2022server.form.SalesTotalPieChartReq;
+import com.c4c._2022server.form.SalesTotalPieChartRes;
 import com.c4c._2022server.form.SalesTotalYearReq;
 import com.c4c._2022server.form.SalesTotalYearRes;
 import com.c4c._2022server.service.impl.SalesTotalServiceImpl;
@@ -67,6 +69,20 @@ public class SalesTotalController {
         JWTUtils instance = JWTUtils.getInstance();
         int storeId = instance.getStoreId(jwt);
         List<SalesTotalChartRes> resFormList = salesTotalServiceImpl.getSalesChart(storeId, reqForm);
+        return ResponseEntity.ok(resFormList);
+    }
+
+    /**
+     * 売上情報取得(円グラフ)
+     * @param jwt
+     * @param reqForm
+     * @return SalesTotalChartRes
+     */
+    @GetMapping("/pieCharts")
+    public ResponseEntity<List<SalesTotalPieChartRes>> getSalesPieChart(@RequestHeader("Authorization") String jwt, SalesTotalPieChartReq reqForm) throws AuthenticationException {
+        JWTUtils instance = JWTUtils.getInstance();
+        int storeId = instance.getStoreId(jwt);
+        List<SalesTotalPieChartRes> resFormList = salesTotalServiceImpl.getSalesPieChart(storeId, reqForm);
         return ResponseEntity.ok(resFormList);
     }
 

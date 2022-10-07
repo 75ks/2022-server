@@ -21,10 +21,12 @@ import com.c4c._2022server.entity.SalesHistory0001;
 import com.c4c._2022server.entity.SalesHistory0002;
 import com.c4c._2022server.entity.SalesHistory0003;
 import com.c4c._2022server.entity.SalesHistory0004;
+import com.c4c._2022server.entity.SalesHistory0005;
 import com.c4c._2022server.entity.SalesHistoryExample;
 import com.c4c._2022server.form.SalesHistoryReq;
 import com.c4c._2022server.form.SalesTotalChartReq;
 import com.c4c._2022server.form.SalesTotalMonthReq;
+import com.c4c._2022server.form.SalesTotalPieChartReq;
 import com.c4c._2022server.form.SalesTotalYearReq;
 
 @Mapper
@@ -433,4 +435,25 @@ public interface SalesHistoryMapper {
             @Result(column="AVERAGE_AMOUNT", property="averageAmount", jdbcType=JdbcType.INTEGER)
     })
     List<SalesHistory0004> select0004(int storeId, SalesTotalChartReq reqForm);
+
+    /**
+     * SQLID: SalesHistory0005
+     */
+    @Select({
+        "SELECT",
+        "    SALES_HISTORY.MENU",
+        "    , COUNT(SALES_HISTORY.MENU) AS NUMBER_OF_ORDERS",
+        "FROM",
+        "    SALES_HISTORY",
+        "WHERE",
+        "    DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%Y%c') = #{reqForm.salesYearMonth}",
+        "    AND SALES_HISTORY.DELETE_FLG = 0",
+        "GROUP BY",
+        "    SALES_HISTORY.MENU"
+    })
+    @Results(value = {
+            @Result(column = "MENU", property = "menu", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "NUMBER_OF_ORDERS", property = "numberOfOrders", jdbcType=JdbcType.INTEGER),
+    })
+    List<SalesHistory0005> select0005(int storeId, SalesTotalPieChartReq reqForm);
 }
