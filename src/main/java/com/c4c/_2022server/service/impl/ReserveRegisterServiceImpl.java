@@ -41,7 +41,7 @@ public class ReserveRegisterServiceImpl implements ReserveRegisterService {
         reserveHistory.setReserveDatetime(LocalDateTime.parse(reqForm.getReserveDateTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         reserveHistory.setReserveState(ReserveStateEnum.RESERVED.getCode());
         // INSERT時の共通設定
-        entityUtils.setColumns4Insert(reserveHistory, customerId);
+        entityUtils.setColumnsNonUser4Insert(reserveHistory);
         // INSERTを実行し、データを登録する
         reserveHistoryMapper.insert(reserveHistory);
     }
