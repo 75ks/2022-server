@@ -25,15 +25,14 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
         // Formにデータを詰める
         CustomerListFormRes resForm = new CustomerListFormRes();
 
-        	CustomerListFormRes customerForm = new CustomerListFormRes();
-        	resForm.setCustomerId(customer.getCustomerId());
-        	resForm.setLastName(customer.getLastName());
-        	resForm.setFirstName(customer.getFirstName());
-        	resForm.setLastNameKana(customer.getLastNameKana());
-        	resForm.setFirstNameKana(customer.getFirstNameKana());
-        	resForm.setBirthday(customer.getBirthday().toString());
-        	resForm.setAge(customer.getAge());
-        	resForm.setGender(customer.getGender());
+    	resForm.setCustomerId(customer.getCustomerId());
+    	resForm.setLastName(customer.getLastName());
+    	resForm.setFirstName(customer.getFirstName());
+    	resForm.setLastNameKana(customer.getLastNameKana());
+    	resForm.setFirstNameKana(customer.getFirstNameKana());
+    	resForm.setBirthday(customer.getBirthday().toString());
+    	resForm.setAge(customer.getAge());
+    	resForm.setGender(customer.getGender());
 
 
         return resForm;
