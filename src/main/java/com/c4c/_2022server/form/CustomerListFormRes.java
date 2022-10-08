@@ -1,7 +1,5 @@
 package com.c4c._2022server.form;
 
-import java.util.Date;
-
 import lombok.Data;
 
 @Data
