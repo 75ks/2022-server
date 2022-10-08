@@ -52,7 +52,7 @@ public class CustomerListFormRes {
      * Type: DATE
      * Remark: 生年月日
      */
-    private Date birthday;
+    private String birthday;
 
     /**
      * Table: CUSTOMER
