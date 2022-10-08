@@ -1,13 +1,9 @@
 package com.c4c._2022server.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.c4c._2022server.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.c4c._2022server.entity.CustomerList0001;
-import com.c4c._2022server.form.CustomerListFormReq;
 import com.c4c._2022server.form.CustomerListFormRes;
 import com.c4c._2022server.mapper.CustomerMapper;
 import com.c4c._2022server.service.CustomerProfileService;
@@ -22,23 +18,20 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
      * @return customerFormList
      */
     @Override
-    public List<CustomerListFormRes> index(int customerId, CustomerListFormReq reqForm) {
-        // SELECT文を実行し、データを取得する
-    	List<CustomerList0001> customerList = customerMapper.select0002(customerId, reqForm);
-        // Formにデータを詰める
-        List<CustomerListFormRes> customerFormList = new ArrayList<>();
-        for (CustomerList0001 customerList0001 : customerList) {
-        	CustomerListFormRes customerForm = new CustomerListFormRes();
-        	customerForm.setCustomerId(customerList0001.getCustomerId());
-        	customerForm.setLastName(customerList0001.getLastName());
-        	customerForm.setFirstName(customerList0001.getFirstName());
-        	customerForm.setLastNameKana(customerList0001.getLastNameKana());
-        	customerForm.setFirstNameKana(customerList0001.getFirstNameKana());
-        	customerForm.setBirthday(customerList0001.getBirthday());
-        	customerForm.setAge(customerList0001.getAge());
-        	customerForm.setGender(customerList0001.getGender());
-        	customerFormList.add(customerForm);
-        }
-        return customerFormList;
+    public CustomerListFormRes index(int customerId) {
+        // PKによるSELECTを実行し、データを取得する
+		Customer customer = customerMapper.selectByPrimaryKey(customerId);
+
+		CustomerListFormRes resForm = new CustomerListFormRes();
+		resForm.setCustomerId(customer.getCustomerId());
+		resForm.setLastName(customer.getLastName());
+		resForm.setFirstName(customer.getFirstName());
+		resForm.setLastNameKana(customer.getLastNameKana());
+		resForm.setFirstNameKana(customer.getFirstNameKana());
+		resForm.setBirthday(customer.getBirthday().toString());
+		resForm.setAge(customer.getAge());
+		resForm.setGender(customer.getGender());
+
+        return resForm;
     }
 }
