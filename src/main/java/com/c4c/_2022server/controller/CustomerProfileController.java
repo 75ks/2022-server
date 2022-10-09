@@ -25,7 +25,7 @@ public class CustomerProfileController {
      * @return List{@literal<StuffListRes>}
      */
     @GetMapping("/profile")
-    public ResponseEntity<CustomerListFormRes> index(@RequestHeader("Authorization") String jwt) throws AuthenticationException {
+    public ResponseEntity<CustomerListFormRes> index(@RequestHeader("CustomerAuthorization") String jwt) throws AuthenticationException {
     	JWTUtils instance = JWTUtils.getInstance();
     	Integer customerId = instance.getId(jwt);
     	CustomerListFormRes resForm = CustomerProfileServiceImpl.index(customerId);
