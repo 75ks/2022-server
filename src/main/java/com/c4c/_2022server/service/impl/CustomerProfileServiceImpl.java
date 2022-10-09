@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.c4c._2022server.entity.Customer;
 
-import com.c4c._2022server.entity.Customer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
 
 
 import com.c4c._2022server.form.CustomerListFormRes;
