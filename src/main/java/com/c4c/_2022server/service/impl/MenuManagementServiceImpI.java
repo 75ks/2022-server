@@ -1,16 +1,16 @@
 package com.c4c._2022server.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.c4c._2022server.entity.MenuDetail;
 import com.c4c._2022server.entity.MenuDetailExample;
-import com.c4c._2022server.form.MenuDetailManagementRes;
 import com.c4c._2022server.form.MenuDetailManegementHIstoryUpdateReq;
-import com.c4c._2022server.form.ReserveHistoryRegisterReq;
 import com.c4c._2022server.mapper.MenuDetailMapper;
 import com.c4c._2022server.mapper.ReserveHistoryMapper;
 import com.c4c._2022server.service.MenuManagementService;
@@ -26,8 +26,29 @@ public class MenuManagementServiceImpI implements MenuManagementService {
     ReserveHistoryMapper reserveHistoryMapper;
     
 
+//    @Override
+//    public List<MenuDetailManagementRes> index(int storeId) {
+//        // SELECT文を実行し、データを取得する
+//        // MenuDetailExampleをnewする
+//        MenuDetailExample menuDetailExample = new MenuDetailExample();
+//        // 検索条件に店舗IDを設定する
+//        menuDetailExample.createCriteria().andStoreIdEqualTo(storeId);
+//        // SELECTを実行する
+//        List<MenuDetail> menuDetailList = MenuDetailMapper.selectByExample(menuDetailExample);
+//        // Formにデータを詰める
+//        
+//        List<MenuDetailManagementRes> menuManagementList = new ArrayList<>();
+//        for (MenuDetail MenuDetail : menuDetailList) {
+//            MenuDetailManagementRes tempResForm = new MenuDetailManagementRes();
+//            tempResForm.setMenuId(MenuDetail.getMenuId());
+//            tempResForm.setRankId(MenuDetail.getRankId());
+//            tempResForm.setPrice(MenuDetail.getPrice());
+//            menuManagementList.add(tempResForm);
+//        }
+//        return menuManagementList;
+//    }
     @Override
-    public List<MenuDetailManagementRes> index(int storeId) {
+    public  Map<Integer, List<MenuDetail>>  index(int storeId) {
         // SELECT文を実行し、データを取得する
         // MenuDetailExampleをnewする
         MenuDetailExample menuDetailExample = new MenuDetailExample();
@@ -36,16 +57,25 @@ public class MenuManagementServiceImpI implements MenuManagementService {
         // SELECTを実行する
         List<MenuDetail> menuDetailList = MenuDetailMapper.selectByExample(menuDetailExample);
         // Formにデータを詰める
-        List<MenuDetailManagementRes> menuManagementList = new ArrayList<>();
+        Map<Integer, List<MenuDetail>> map = new HashMap<>();
         for (MenuDetail MenuDetail : menuDetailList) {
-            MenuDetailManagementRes tempResForm = new MenuDetailManagementRes();
-            tempResForm.setMenuId(MenuDetail.getMenuId());
-            tempResForm.setRankId(MenuDetail.getRankId());
-            tempResForm.setPrice(MenuDetail.getPrice());
-            menuManagementList.add(tempResForm);
+
+        	if(map.containsKey(MenuDetail.getMenuId())) {
+//        		List<MenuDetail> _menuManagementList =  map.get(MenuDetail.getMenuId());
+//        		_menuManagementList.add(MenuDetail);
+        		map.get(MenuDetail.getMenuId()).add(MenuDetail);
+        		} else {
+        			List<MenuDetail> _menuManagementList = new ArrayList<>();
+        			_menuManagementList.add(MenuDetail);
+        			map.put(MenuDetail.getMenuId(), _menuManagementList);
+        			
+        		}
+            
         }
-        return menuManagementList;
+		return map;
     }
+    
+    
     
     @Override
     public void deleteInsert(int storeId,List<MenuDetailManegementHIstoryUpdateReq> reqForm) {
@@ -71,8 +101,8 @@ public class MenuManagementServiceImpI implements MenuManagementService {
     
     
     
-    @Override
-    public void register(int storeId, ReserveHistoryRegisterReq reqForm) {
-    	MenuDetailExample menuDetail = new MenuDetailExample();
-    }
+//    @Override
+//    public void register(int storeId, ReserveHistoryRegisterReq reqForm) {
+//    	MenuDetailExample menuDetail = new MenuDetailExample();
+//    }
 }

@@ -1,6 +1,7 @@
 package com.c4c._2022server.entity;
 
 import java.time.LocalDateTime;
+
 import lombok.Data;
 
 /**
@@ -79,4 +80,6 @@ public class MenuDetail {
      * Remark: 排他制御カラム
      */
     private Integer versionExKey;
+
+
 }
