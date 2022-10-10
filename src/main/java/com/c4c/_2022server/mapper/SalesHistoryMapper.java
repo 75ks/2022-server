@@ -446,7 +446,8 @@ public interface SalesHistoryMapper {
         "FROM",
         "    SALES_HISTORY",
         "WHERE",
-        "    DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%Y%c') = #{reqForm.salesYearMonth}",
+        "    SALES_HISTORY.STORE_ID = #{storeId}",
+        "    AND DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%Y%c') = #{reqForm.salesYearMonth}",
         "    AND SALES_HISTORY.DELETE_FLG = 0",
         "GROUP BY",
         "    SALES_HISTORY.MENU"
