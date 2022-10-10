@@ -17,4 +17,6 @@ public class MenuDetailRes {
 	 * Remark: 料金
 	 */
 	private Integer price;
+
+
 }

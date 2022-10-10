@@ -16,15 +16,6 @@ public class MenuDetailManagementRes {
     private List<MenuDetailRes> detail;
 
 
-	public void setRankId(Integer rankId) {
-		// TODO 自動生成されたメソッド・スタブ
-		
-	}
 
-
-	public void setPrice(Integer price) {
-		// TODO 自動生成されたメソッド・スタブ
-		
-	}
 
 }
