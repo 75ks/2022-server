@@ -15,7 +15,7 @@ import com.c4c._2022server.service.impl.CustomerProfileServiceImpl;
 import com.c4c._2022server.utils.JWTUtils;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/customer/profile")
 public class CustomerProfileController {
     @Autowired
     CustomerProfileServiceImpl CustomerProfileServiceImpl;
@@ -24,11 +24,13 @@ public class CustomerProfileController {
      * スタッフ一覧取得
      * @return List{@literal<StuffListRes>}
      */
-    @GetMapping("/profile")
+    @GetMapping("/initialize")
     public ResponseEntity<CustomerListFormRes> index(@RequestHeader("CustomerAuthorization") String jwt) throws AuthenticationException {
     	JWTUtils instance = JWTUtils.getInstance();
     	Integer customerId = instance.getId(jwt);
     	CustomerListFormRes resForm = CustomerProfileServiceImpl.index(customerId);
         return ResponseEntity.ok(resForm);
     }
+
+
 }
