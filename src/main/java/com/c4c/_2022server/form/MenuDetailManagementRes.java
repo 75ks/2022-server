@@ -5,15 +5,15 @@ import java.util.List;
 import lombok.Data;
 @Data
 public class MenuDetailManagementRes {
-    /**
-     * Column: MENU_ID
-     * Type: INT
-     * Remark: メニューID
-     */
-    private Integer menuId;
-    
-    
-    private List<MenuDetailRes> detail;
+	/**
+	 * Column: MENU_ID
+	 * Type: INT
+	 * Remark: メニューID
+	 */
+	private Integer menuId;
+
+
+	private List<MenuDetailRes> detail;
 
 
 
