@@ -46,6 +46,7 @@ public class MenuManagementController {
 		return ResponseEntity.ok(menuDetailManagementResList);
 	}
 
+	
 	@Autowired
 	MessageSource messageSource;
 
