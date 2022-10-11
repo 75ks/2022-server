@@ -104,22 +104,28 @@ public class MenuManagementServiceImpI implements MenuManagementService {
     	for (MenuDetail MenuDetail : menuDetailList) {
 
     		if(map.containsKey(MenuDetail.getMenuId())) {
-    			//        		List<MenuDetail> _menuManagementList =  map.get(MenuDetail.getMenuId());
-    			//        		_menuManagementList.add(MenuDetail);
+    			// List<MenuDetail> menuManagementList =  map.get(MenuDetail.getMenuId());
+    			// menuManagementList.add(MenuDetail);
     			map.get(MenuDetail.getMenuId()).add(MenuDetail);
     		} else {
+    			//値がない状態から値が取れないため、リストに値を入れる必要がある。
     			List<MenuDetail> menuManagementLists = new ArrayList<>();
     			menuManagementLists.add(MenuDetail);
+    			//リストに値を入れることによって、マップの値のところに値がputすることが可能になる。
     			map.put(MenuDetail.getMenuId(), menuManagementLists);
 
     		}       	
 
     	}
+    	//MenuDetailManagementResに値を入れるためにnewする。
     	List<MenuDetailManagementRes> menuManagementList = new ArrayList<>();
     	for(Map.Entry<Integer, List<MenuDetail>> entry : map.entrySet() ) {
     		MenuDetailManagementRes tempResForms = new MenuDetailManagementRes();
+    		//メニューIDにキーとして値をセットする。
     		tempResForms.setMenuId(entry.getKey());
+    		//MenuDetailManagementResの中にMenuDetailResというリストがあるため、newする必要がある。
     		List<MenuDetailRes> menuDetailResList = new ArrayList<>();
+    		//メニューIdのキーに対して、値が複数あるため、二重ループの必要がある。
     		for(MenuDetail menuDetail : entry.getValue()) {
     			MenuDetailRes tempRes = new MenuDetailRes();
     			tempRes.setRankId(menuDetail.getRankId());

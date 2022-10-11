@@ -39,7 +39,7 @@ public class ReserveHistoryController {
      * @param reqForm
      * @return List{@literal<ReserveHistoryRes>}
      */
-    @GetMapping("/")
+    @GetMapping("/update")
     public ResponseEntity<List<ReserveHistoryRes>> index(@RequestHeader("Authorization") String jwt, ReserveHistoryReq reqForm) throws AuthenticationException {
         JWTUtils instance = JWTUtils.getInstance();
         int storeId = instance.getStoreId(jwt);
