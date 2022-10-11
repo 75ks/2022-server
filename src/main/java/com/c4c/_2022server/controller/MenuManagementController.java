@@ -1,6 +1,5 @@
 package com.c4c._2022server.controller;
 
-
 import java.util.List;
 import java.util.Locale;
 
@@ -28,39 +27,37 @@ import com.c4c._2022server.utils.JWTUtils;
 @RestController
 @RequestMapping("/menuManagement")
 public class MenuManagementController {
-    @Autowired
-    CustomerMapper CustomerMapper;
+	@Autowired
+	CustomerMapper CustomerMapper;
 
-    @Autowired
-    MenuManagementServiceImpl MenuManegementServiceImpI;
+	@Autowired
+	MenuManagementServiceImpl MenuManegementServiceImpI;
 
-    @Autowired
-    MenuDetailMapper MenuDetailMapper;
+	@Autowired
+	MenuDetailMapper MenuDetailMapper;
 
-    @GetMapping("/initialize")
-    public ResponseEntity<List<MenuDetailManagementRes>> index(@RequestHeader("Authorization") String jwt) throws AuthenticationException {
-        JWTUtils instance = JWTUtils.getInstance();
-        Integer storeId = instance.getStoreId(jwt);
+	@GetMapping("/initialize")
+	public ResponseEntity<List<MenuDetailManagementRes>> index(@RequestHeader("Authorization") String jwt)
+			throws AuthenticationException {
+		JWTUtils instance = JWTUtils.getInstance();
+		Integer storeId = instance.getStoreId(jwt);
 
-        List<MenuDetailManagementRes> menuDetailManagementResList = MenuManegementServiceImpI.index(storeId);
-        return ResponseEntity.ok(menuDetailManagementResList);
-    }
-    
-    
-    
-    @Autowired
-    MessageSource messageSource;
+		List<MenuDetailManagementRes> menuDetailManagementResList = MenuManegementServiceImpI.index(storeId);
+		return ResponseEntity.ok(menuDetailManagementResList);
+	}
 
+	@Autowired
+	MessageSource messageSource;
 
-    @PutMapping("/update")
-    public ResponseEntity<MenuDetailManegementHIstoryUpdateRes> update(@RequestHeader("Authorization") String jwt, @RequestBody @Valid List<MenuDetailManegementHIstoryUpdateReq> reqForm) throws AuthenticationException {
-        JWTUtils instance = JWTUtils.getInstance();
-        int storeId = instance.getStoreId(jwt);
-        MenuManegementServiceImpI.deleteInsert(storeId, reqForm);
-        // メッセージを設定
-        MenuDetailManegementHIstoryUpdateRes resForm = new MenuDetailManegementHIstoryUpdateRes();
-        resForm.setMessages(messageSource.getMessage("success", new String[]{"更新"}, Locale.getDefault()));
-        return ResponseEntity.ok(resForm);
-    }
-
+	@PutMapping("/update")
+	public ResponseEntity<MenuDetailManegementHIstoryUpdateRes> update(@RequestHeader("Authorization") String jwt,
+			@RequestBody @Valid List<MenuDetailManegementHIstoryUpdateReq> reqForm) throws AuthenticationException {
+		JWTUtils instance = JWTUtils.getInstance();
+		int storeId = instance.getStoreId(jwt);
+		MenuManegementServiceImpI.deleteInsert(storeId, reqForm);
+		// メッセージを設定
+		MenuDetailManegementHIstoryUpdateRes resForm = new MenuDetailManegementHIstoryUpdateRes();
+		resForm.setMessages(messageSource.getMessage("success", new String[] { "更新" }, Locale.getDefault()));
+		return ResponseEntity.ok(resForm);
+	}
 }
