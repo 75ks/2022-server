@@ -1,8 +1,7 @@
 package com.c4c._2022server.mapper;
 
-import com.c4c._2022server.entity.MenuHeader;
-import com.c4c._2022server.entity.MenuHeader0001;
-import com.c4c._2022server.entity.MenuHeaderExample;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -17,7 +16,10 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
-import java.util.List;
+import com.c4c._2022server.entity.MenuHeader;
+import com.c4c._2022server.entity.MenuHeader0001;
+import com.c4c._2022server.entity.MenuHeaderExample;
+import com.c4c._2022server.form.SelectOptionMenuPriceReq;
 
 @Mapper
 public interface MenuHeaderMapper {
@@ -146,15 +148,25 @@ public interface MenuHeaderMapper {
      * SQLID: MenuHeader0001
      */
     @Select({
-        "SELECT DISTINCT",
-        "    MENU_HEADER.MENU",
+        "SELECT",
+        "    MENU_HEADER.MENU_ID",
+        "    , MENU_HEADER.MENU",
+        "    , MENU_DETAIL.PRICE",
         "FROM",
         "    MENU_HEADER",
+        "INNER JOIN",
+        "    MENU_DETAIL",
+        "    ON MENU_DETAIL.MENU_ID = MENU_HEADER.MENU_ID",
         "WHERE",
-        "    MENU_HEADER.DELETE_FLG = 0"
+        "    MENU_HEADER.STORE_ID = #{storeId}",
+        "    AND MENU_DETAIL.STORE_ID = #{storeId}",
+        "    AND MENU_DETAIL.RANK_ID = #{reqForm.rankId}",
+        "    AND MENU_HEADER.DELETE_FLG = 0"
     })
     @Results(value = {
-            @Result(column = "MENU", property = "menu", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column = "MENU_ID", property = "menuId", jdbcType=JdbcType.INTEGER, id=true),
+            @Result(column = "MENU", property = "menu", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "PRICE", property = "price", jdbcType=JdbcType.INTEGER),
     })
-    List<MenuHeader0001> select0001();
+    List<MenuHeader0001> select0001(int storeId, SelectOptionMenuPriceReq reqForm);
 }

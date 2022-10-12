@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.c4c._2022server.entity.Customer;
 import com.c4c._2022server.entity.CustomerExample;
 import com.c4c._2022server.entity.MenuHeader;
+import com.c4c._2022server.entity.MenuHeader0001;
 import com.c4c._2022server.entity.MenuHeaderExample;
 import com.c4c._2022server.entity.RankByStore;
 import com.c4c._2022server.entity.RankByStoreExample;
@@ -24,6 +25,7 @@ import com.c4c._2022server.enums.GenderEnum;
 import com.c4c._2022server.enums.PrefectureIdEnum;
 import com.c4c._2022server.enums.ReserveStateEnum;
 import com.c4c._2022server.form.SelectOption;
+import com.c4c._2022server.form.SelectOptionMenuPriceReq;
 import com.c4c._2022server.mapper.CustomerMapper;
 import com.c4c._2022server.mapper.MenuHeaderMapper;
 import com.c4c._2022server.mapper.RankByStoreMapper;
@@ -96,6 +98,29 @@ public class SelectOptionController {
             // selectOptionFormに以下の値を設定
             tempSelectOption.setCode(menu.getMenuId()); // メニューID
             tempSelectOption.setName(menu.getMenu()); // メニュー名称
+            // selectOptionListに追加
+            selectOptionList.add(tempSelectOption);
+        }
+        return ResponseEntity.ok(selectOptionList);
+    }
+
+    @GetMapping("/menuPrice")
+    public ResponseEntity<List<SelectOption>> getMenuPriceOptions(@RequestHeader("Authorization") String jwt, @RequestHeader("CustomerAuthorization") String customerJwt, SelectOptionMenuPriceReq reqForm) throws AuthenticationException {
+        // JWTから店舗IDを取得する
+        JWTUtils instance = JWTUtils.getInstance();
+        Integer storeId = jwt.length() > 7 ? instance.getStoreId(jwt) : instance.getStoreId(customerJwt);
+        
+        // 店舗IDに紐づくメニュー＆料金一覧を取得する
+        List<MenuHeader0001> menuPriceList = menuHeaderMapper.select0001(storeId, reqForm);
+        
+        // 選択肢一覧を格納するリストをnewする
+        List<SelectOption> selectOptionList = new ArrayList<>();
+        // 検索結果全件に対しての処理
+        for (MenuHeader0001 menuPrice : menuPriceList) {
+            SelectOption tempSelectOption = new SelectOption();
+            // selectOptionFormに以下の値を設定
+            tempSelectOption.setCode(menuPrice.getMenuId()); // メニューID
+            tempSelectOption.setName(menuPrice.getMenu() + " : " + menuPrice.getPrice() + "円"); // メニュー名称
             // selectOptionListに追加
             selectOptionList.add(tempSelectOption);
         }
