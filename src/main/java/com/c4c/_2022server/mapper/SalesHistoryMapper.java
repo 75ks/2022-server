@@ -23,11 +23,7 @@ import com.c4c._2022server.entity.SalesHistory0003;
 import com.c4c._2022server.entity.SalesHistory0004;
 import com.c4c._2022server.entity.SalesHistory0005;
 import com.c4c._2022server.entity.SalesHistoryExample;
-import com.c4c._2022server.form.SalesHistoryReq;
 import com.c4c._2022server.form.SalesTotalChartReq;
-import com.c4c._2022server.form.SalesTotalMonthReq;
-import com.c4c._2022server.form.SalesTotalPieChartReq;
-import com.c4c._2022server.form.SalesTotalYearReq;
 
 @Mapper
 public interface SalesHistoryMapper {
@@ -186,7 +182,7 @@ public interface SalesHistoryMapper {
         "    SALES_HISTORY",
         "WHERE",
         "    SALES_HISTORY.STORE_ID = #{storeId}",
-        "    AND DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%Y') = #{reqForm.salesYear}",
+        "    AND DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%Y') = #{salesYear}",
         "    AND SALES_HISTORY.DELETE_FLG = 0",
         "GROUP BY",
         "    DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%m月')"
@@ -197,7 +193,7 @@ public interface SalesHistoryMapper {
         @Result(column="SALES_AMOUNT", property="salesAmount", jdbcType=JdbcType.INTEGER),
         @Result(column="AVERAGE_AMOUNT", property="averageAmount", jdbcType=JdbcType.INTEGER)
     })
-    List<SalesHistory0001> select0001(int storeId, SalesTotalYearReq reqForm);
+    List<SalesHistory0001> select0001(int storeId, String salesYear);
 
     /**
      * SQLID: SalesHistory0002
@@ -211,7 +207,7 @@ public interface SalesHistoryMapper {
         "    SALES_HISTORY",
         "WHERE",
         "    SALES_HISTORY.STORE_ID = #{storeId}",
-        "    AND DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%Y%c') = #{reqForm.salesYearMonth}",
+        "    AND DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%Y%c') = #{salesYearMonth}",
         "    AND SALES_HISTORY.DELETE_FLG = 0"
     })
     @Results(value = {
@@ -219,7 +215,7 @@ public interface SalesHistoryMapper {
             @Result(column="SALES_AMOUNT", property="salesAmount", jdbcType=JdbcType.INTEGER),
             @Result(column="AVERAGE_AMOUNT", property="averageAmount", jdbcType=JdbcType.INTEGER)
     })
-    SalesHistory0002 select0002(int storeId, SalesTotalMonthReq reqForm);
+    SalesHistory0002 select0002(int storeId, String salesYearMonth);
 
     /**
      * SQLID: SalesHistory0003
@@ -256,7 +252,7 @@ public interface SalesHistoryMapper {
         "    ON MENU_HEADER.STORE_ID = SALES_HISTORY.STORE_ID AND MENU_HEADER.MENU = SALES_HISTORY.MENU",
         "WHERE",
         "    SALES_HISTORY.STORE_ID = #{storeId}",
-        "    AND DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%Y%c') = #{reqForm.salesYearMonth}",
+        "    AND DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%Y%c') = #{salesYearMonth}",
         "    AND SALES_HISTORY.DELETE_FLG = 0"
     })
     @Results(value = {
@@ -278,7 +274,7 @@ public interface SalesHistoryMapper {
             @Result(column = "STUFF_FIRST_NAME_KANA", property = "stuffFirstNameKana", jdbcType=JdbcType.VARCHAR),
             @Result(column = "MENU_ID", property = "menuId", jdbcType=JdbcType.INTEGER),
     })
-    List<SalesHistory0003> select0003(int storeId, SalesHistoryReq reqForm);
+    List<SalesHistory0003> select0003(int storeId, String salesYearMonth);
 
     /**
      * SQLID: SalesHistory0004
@@ -447,7 +443,7 @@ public interface SalesHistoryMapper {
         "    SALES_HISTORY",
         "WHERE",
         "    SALES_HISTORY.STORE_ID = #{storeId}",
-        "    AND DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%Y%c') = #{reqForm.salesYearMonth}",
+        "    AND DATE_FORMAT(SALES_HISTORY.SALES_DATETIME, '%Y%c') = #{salesYearMonth}",
         "    AND SALES_HISTORY.DELETE_FLG = 0",
         "GROUP BY",
         "    SALES_HISTORY.MENU"
@@ -456,5 +452,5 @@ public interface SalesHistoryMapper {
             @Result(column = "MENU", property = "menu", jdbcType=JdbcType.VARCHAR),
             @Result(column = "NUMBER_OF_ORDERS", property = "numberOfOrders", jdbcType=JdbcType.INTEGER),
     })
-    List<SalesHistory0005> select0005(int storeId, SalesTotalPieChartReq reqForm);
+    List<SalesHistory0005> select0005(int storeId, String salesYearMonth);
 }

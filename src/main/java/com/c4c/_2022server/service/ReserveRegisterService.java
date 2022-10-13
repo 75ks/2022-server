@@ -1,14 +1,13 @@
 package com.c4c._2022server.service;
 
-import com.c4c._2022server.form.RegisterReserveRankIdReq;
 import com.c4c._2022server.form.ReserveRegisterReq;
 
 public interface ReserveRegisterService {
     /**
      * ランクID取得
-     * @param reqForm
+     * @param stuffId
      */
-    public Integer getRankId(RegisterReserveRankIdReq reqForm);
+    public Integer getRankId(Integer stuffId);
     
     /**
      * 予約情報登録
