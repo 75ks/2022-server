@@ -10,7 +10,6 @@ import com.c4c._2022server.entity.ReserveHistory;
 import com.c4c._2022server.entity.ReserveHistory0002;
 import com.c4c._2022server.entity.Stuff;
 import com.c4c._2022server.enums.ReserveStateEnum;
-import com.c4c._2022server.form.RegisterReserveRankIdReq;
 import com.c4c._2022server.form.ReserveRegisterReq;
 import com.c4c._2022server.mapper.ReserveHistoryMapper;
 import com.c4c._2022server.mapper.StuffMapper;
@@ -30,9 +29,9 @@ public class ReserveRegisterServiceImpl implements ReserveRegisterService {
      * ランクID取得
      * @param stuffId
      */
-    public Integer getRankId(RegisterReserveRankIdReq reqForm) {
+    public Integer getRankId(Integer stuffId) {
         // SELECT文を実行し、データを取得する
-        Stuff stuff = stuffMapper.selectByPrimaryKey(reqForm.getStuffId());
+        Stuff stuff = stuffMapper.selectByPrimaryKey(stuffId);
         return stuff.getRankId();
     }
 

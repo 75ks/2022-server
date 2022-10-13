@@ -19,7 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 import com.c4c._2022server.entity.MenuHeader;
 import com.c4c._2022server.entity.MenuHeader0001;
 import com.c4c._2022server.entity.MenuHeaderExample;
-import com.c4c._2022server.form.SelectOptionMenuPriceReq;
 
 @Mapper
 public interface MenuHeaderMapper {
@@ -160,7 +159,7 @@ public interface MenuHeaderMapper {
         "WHERE",
         "    MENU_HEADER.STORE_ID = #{storeId}",
         "    AND MENU_DETAIL.STORE_ID = #{storeId}",
-        "    AND MENU_DETAIL.RANK_ID = #{reqForm.rankId}",
+        "    AND MENU_DETAIL.RANK_ID = #{rankId}",
         "    AND MENU_HEADER.DELETE_FLG = 0"
     })
     @Results(value = {
@@ -168,5 +167,5 @@ public interface MenuHeaderMapper {
             @Result(column = "MENU", property = "menu", jdbcType=JdbcType.VARCHAR),
             @Result(column = "PRICE", property = "price", jdbcType=JdbcType.INTEGER),
     })
-    List<MenuHeader0001> select0001(int storeId, SelectOptionMenuPriceReq reqForm);
+    List<MenuHeader0001> select0001(int storeId, Integer rankId);
 }
