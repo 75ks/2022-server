@@ -13,5 +13,4 @@ public class MenuManagementDetailUpdateReq {
 	 */
 	@NotNull(message = "{price}{NotEmpty}")
 	private Integer price;
-
 }

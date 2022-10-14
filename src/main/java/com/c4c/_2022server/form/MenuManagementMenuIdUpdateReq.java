@@ -14,4 +14,5 @@ public class MenuManagementMenuIdUpdateReq {
 	private Integer menuId;
 	
 	private List<MenuManagementDetailUpdateReq> detail;
+	
 }

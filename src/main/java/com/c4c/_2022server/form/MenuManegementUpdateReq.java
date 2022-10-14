@@ -9,5 +9,4 @@ public class MenuManegementUpdateReq {
 	
 	private List<MenuManagementMenuIdUpdateReq> MenuId;
 
-
 }
