@@ -8,5 +8,6 @@ import lombok.Data;
 public class MenuManegementUpdateReq {
 	
 	private List<MenuManagementMenuIdUpdateReq> MenuId;
+	
 
 }
