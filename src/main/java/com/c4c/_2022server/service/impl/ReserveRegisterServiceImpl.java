@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.c4c._2022server.entity.ReserveHistory;
 import com.c4c._2022server.entity.ReserveHistory0002;
+import com.c4c._2022server.entity.Stuff;
 import com.c4c._2022server.enums.ReserveStateEnum;
 import com.c4c._2022server.form.ReserveRegisterReq;
 import com.c4c._2022server.mapper.ReserveHistoryMapper;
+import com.c4c._2022server.mapper.StuffMapper;
 import com.c4c._2022server.service.ReserveRegisterService;
 import com.c4c._2022server.utils.EntityUtils;
 
@@ -19,7 +21,19 @@ public class ReserveRegisterServiceImpl implements ReserveRegisterService {
     @Autowired
     EntityUtils entityUtils;
     @Autowired
+    StuffMapper stuffMapper;
+    @Autowired
     ReserveHistoryMapper reserveHistoryMapper;
+
+    /**
+     * ランクID取得
+     * @param stuffId
+     */
+    public Integer getRankId(Integer stuffId) {
+        // SELECT文を実行し、データを取得する
+        Stuff stuff = stuffMapper.selectByPrimaryKey(stuffId);
+        return stuff.getRankId();
+    }
 
     /**
      * 予約情報登録
@@ -41,7 +55,7 @@ public class ReserveRegisterServiceImpl implements ReserveRegisterService {
         reserveHistory.setReserveDatetime(LocalDateTime.parse(reqForm.getReserveDateTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         reserveHistory.setReserveState(ReserveStateEnum.RESERVED.getCode());
         // INSERT時の共通設定
-        entityUtils.setColumns4Insert(reserveHistory, customerId);
+        entityUtils.setColumnsNonUser4Insert(reserveHistory);
         // INSERTを実行し、データを登録する
         reserveHistoryMapper.insert(reserveHistory);
     }
