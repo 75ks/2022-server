@@ -58,8 +58,7 @@ public class CustomerProfileController {
         // ReserveHistoryControllerクラスのupdateの処理を参考にしたが、
         // やっていることが分からないのでいったんコメントアウト
         // resForm.setMessages(messageSource.getMessage("success", new String[]{"更新"}, Locale.getDefault()));
-        CustomerListFormRes resForm2 = CustomerProfileServiceImpl.index(customerId);
-        return ResponseEntity.ok(resForm2);
+        return ResponseEntity.ok(resForm);
     }
 
 }
