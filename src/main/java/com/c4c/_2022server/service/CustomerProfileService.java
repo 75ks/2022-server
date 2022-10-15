@@ -1,11 +1,8 @@
 package com.c4c._2022server.service;
 
 
-
-
-
-import com.c4c._2022server.form.CustomerListFormRes;
-import com.c4c._2022server.form.CustomerListFormReq;
+import com.c4c._2022server.form.customer.CustomerProfileUpdateReq;
+import com.c4c._2022server.form.customer.CustomerProfileInitRes;
 
 public interface CustomerProfileService {
     /**
@@ -13,8 +10,8 @@ public interface CustomerProfileService {
      */
 
 
-    CustomerListFormRes index(int customerId);
+    CustomerProfileInitRes index(int customerId);
 
-    void update(int customerId,CustomerListFormReq reqForm);
+    void update(int customerId, CustomerProfileUpdateReq reqForm);
 
 }
