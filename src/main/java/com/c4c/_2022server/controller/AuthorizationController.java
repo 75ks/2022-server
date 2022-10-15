@@ -23,16 +23,6 @@ public class AuthorizationController {
     AuthorizationServiceImpl authorizationServiceImpl;
 
     /**
-     * 新規会員登録
-     * @param 
-     * @return List{@literal<String>}
-     */
-    @PostMapping("/signUp")
-    public ResponseEntity<String> signUp() {
-        return null;
-    }
-
-    /**
      * ログイン
      * @param LoginReq
      * @return LoginRes

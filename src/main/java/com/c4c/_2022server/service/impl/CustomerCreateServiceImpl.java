@@ -1,13 +1,16 @@
 package com.c4c._2022server.service.impl;
 
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import com.c4c._2022server.entity.Customer;
+import com.c4c._2022server.exception.DuplicationException;
 import com.c4c._2022server.form.CustomerCreateReq;
 import com.c4c._2022server.mapper.CustomerMapper;
 import com.c4c._2022server.service.CustomerCreateService;
@@ -23,9 +26,23 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
     EntityUtils entityUtils;
     @Autowired
     MailUtils mailUtils;
+    @Autowired
+    MessageSource messageSource;
 
+    /**
+     * 顧客登録
+     * @param storeId
+     * @param stuffId
+     * @param reqForm
+     */
     @Override
-    public void register(int storeId, int stuffId, CustomerCreateReq reqForm) {
+    public void register(int storeId, int stuffId, CustomerCreateReq reqForm) throws Exception {
+        // メールアドレスが登録済みかチェック
+        Customer checkCustomer = customerMapper.select0001(reqForm.getEmail());
+        if (checkCustomer != null) {
+            throw new DuplicationException(messageSource.getMessage("error.email.registered", new String[]{}, Locale.getDefault()));
+        }
+
     	Customer customer = new Customer();
     	customer.setStoreId(storeId);
         customer.setLastName(reqForm.getLastName());

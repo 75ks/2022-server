@@ -2,7 +2,6 @@ package com.c4c._2022server.controller;
 
 import java.util.Locale;
 
-import javax.security.sasl.AuthenticationException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class CustomerCreateController {
      * @param reqForm
      */
     @PostMapping("")
-    public ResponseEntity<CustomerCreateRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid CustomerCreateReq reqForm) throws AuthenticationException {
+    public ResponseEntity<CustomerCreateRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid CustomerCreateReq reqForm) throws Exception {
         // JWTから店舗IDを取得する
         JWTUtils instance = JWTUtils.getInstance();
         Integer storeId = instance.getStoreId(jwt);
