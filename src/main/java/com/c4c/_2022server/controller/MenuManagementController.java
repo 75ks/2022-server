@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.c4c._2022server.form.MenuDetailManagementRes;
-import com.c4c._2022server.form.MenuDetailManegementHIstoryUpdateReq;
 import com.c4c._2022server.form.MenuDetailManegementHIstoryUpdateRes;
+import com.c4c._2022server.form.MenuManegementUnityUpdateReq;
 import com.c4c._2022server.mapper.CustomerMapper;
 import com.c4c._2022server.mapper.MenuDetailMapper;
 import com.c4c._2022server.service.impl.MenuManagementServiceImpl;
@@ -28,13 +28,16 @@ import com.c4c._2022server.utils.JWTUtils;
 @RequestMapping("/menuManagement")
 public class MenuManagementController {
 	@Autowired
-	CustomerMapper CustomerMapper;
+	CustomerMapper customerMapper;
 
 	@Autowired
-	MenuManagementServiceImpl MenuManegementServiceImpI;
+	MenuManagementServiceImpl menuManegementServiceImpI;
 
 	@Autowired
-	MenuDetailMapper MenuDetailMapper;
+	MenuDetailMapper menuDetailMapper;
+	
+	@Autowired
+	MessageSource messageSource;
 
 	@GetMapping("/initialize")
 	public ResponseEntity<List<MenuDetailManagementRes>> index(@RequestHeader("Authorization") String jwt)
@@ -42,20 +45,19 @@ public class MenuManagementController {
 		JWTUtils instance = JWTUtils.getInstance();
 		Integer storeId = instance.getStoreId(jwt);
 
-		List<MenuDetailManagementRes> menuDetailManagementResList = MenuManegementServiceImpI.index(storeId);
+		List<MenuDetailManagementRes> menuDetailManagementResList = menuManegementServiceImpI.index(storeId);
 		return ResponseEntity.ok(menuDetailManagementResList);
 	}
 
+	//MenuDetailManegementHIstoryUpdateReqがリストになっているがクラスにしないといけない。
+	//MenuDetailManegementHIstoryUpdateReqを3階層にしないといけない。
 	
-	@Autowired
-	MessageSource messageSource;
-
 	@PutMapping("/update")
 	public ResponseEntity<MenuDetailManegementHIstoryUpdateRes> update(@RequestHeader("Authorization") String jwt,
-			@RequestBody @Valid List<MenuDetailManegementHIstoryUpdateReq> reqForm) throws AuthenticationException {
+			@RequestBody @Valid MenuManegementUnityUpdateReq reqForm) throws AuthenticationException {
 		JWTUtils instance = JWTUtils.getInstance();
 		int storeId = instance.getStoreId(jwt);
-		MenuManegementServiceImpI.deleteInsert(storeId, reqForm);
+		menuManegementServiceImpI.deleteInsert(storeId, reqForm);
 		// メッセージを設定
 		MenuDetailManegementHIstoryUpdateRes resForm = new MenuDetailManegementHIstoryUpdateRes();
 		resForm.setMessages(messageSource.getMessage("success", new String[] { "更新" }, Locale.getDefault()));
