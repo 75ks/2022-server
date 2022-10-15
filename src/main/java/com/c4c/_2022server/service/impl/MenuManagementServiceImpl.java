@@ -45,27 +45,25 @@ public class MenuManagementServiceImpl implements MenuManagementService {
 		for (MenuDetail MenuDetail : menuDetailList) {
 
 			if (map.containsKey(MenuDetail.getMenuId())) {
-				// List<MenuDetail> menuManagementList = map.get(MenuDetail.getMenuId());
-				// menuManagementList.add(MenuDetail);
+
 				map.get(MenuDetail.getMenuId()).add(MenuDetail);
 			} else {
-				// 値がない状態から値が取れないため、リストに値を入れる必要がある。
+
 				List<MenuDetail> menuManagementLists = new ArrayList<>();
 				menuManagementLists.add(MenuDetail);
-				// リストに値を入れることによって、マップの値のところに値がputすることが可能になる。
+
 				map.put(MenuDetail.getMenuId(), menuManagementLists);
 			}
 
 		}
-		// MenuDetailManagementResに値を入れるためにnewする。
+
 		List<MenuDetailManagementRes> menuManagementList = new ArrayList<>();
 		for (Map.Entry<Integer, List<MenuDetail>> entry : map.entrySet()) {
 			MenuDetailManagementRes tempResForms = new MenuDetailManagementRes();
-			// メニューIDにキーとして値をセットする。
+
 			tempResForms.setMenuId(entry.getKey());
-			// MenuDetailManagementResの中にMenuDetailResというリストがあるため、newする必要がある。
+
 			List<MenuDetailRes> menuDetailResList = new ArrayList<>();
-			// メニューIdのキーに対して、値が複数あるため、二重ループの必要がある。
 			for (MenuDetail menuDetail : entry.getValue()) {
 				MenuDetailRes tempRes = new MenuDetailRes();
 				tempRes.setRankId(menuDetail.getRankId());
@@ -79,62 +77,9 @@ public class MenuManagementServiceImpl implements MenuManagementService {
 	}
 	
 	
+
 	
-	
-	
-	
-	
-//
-//	@Override
-//	public void deleteInsert(int storeId, MenuManegementUnityUpdateReq reqForm) {
-//		// SELECT文を実行し、データを取得する
-//		// MenuDetailExampleをnewする
-//		MenuDetailExample menuDetail = new MenuDetailExample();
-//		// 検索条件に店舗IDを設定する
-//		menuDetail.createCriteria().andStoreIdEqualTo(storeId);
-//		// SELECTを実行する
-//		menuDetailMapper.deleteByExample(menuDetail);
-//		List<MenuManegementUnityUpdateReq> menuManagement = new ArrayList<>();
-//		List<MenuDetail> menuDetailList = menuDetailMapper.selectByExample(menuDetail);
-//
-//		Map<Integer, List<MenuDetail>> map = new HashMap<>();
-//		for (MenuDetail MenuDetail : menuDetailList) {
-//
-//			if (map.containsKey(MenuDetail.getMenuId())) {
-//				// List<MenuDetail> menuManagementList = map.get(MenuDetail.getMenuId());
-//				// menuManagementList.add(MenuDetail);
-//				map.get(MenuDetail.getMenuId()).add(MenuDetail);
-//			} else {
-//				// 値がない状態から値が取れないため、リストに値を入れる必要がある。
-//				List<MenuDetail> menuManagementLists = new ArrayList<>();
-//				menuManagementLists.add(MenuDetail);
-//				// リストに値を入れることによって、マップの値のところに値がputすることが可能になる。
-//				map.put(MenuDetail.getMenuId(), menuManagementLists);
-//			}
-//
-//		}
-//
-//		List<MenuManagementUpdateReq> menuIdList = new ArrayList<>();
-//		for (Map.Entry<Integer, List<MenuDetail>> entry : map.entrySet()) {
-//			MenuManagementUpdateReq menuIdLists = new MenuManagementUpdateReq();
-//			// メニューIDにキーとして値をセットする。
-//			menuIdLists.setMenuId(entry.getKey());
-//			// MenuDetailManagementResの中にMenuDetailResというリストがあるため、newする必要がある。
-//			List<MenuManagementDetailUpdateReq> menuDetailResList = new ArrayList<>();
-//			// メニューIdのキーに対して、値が複数あるため、二重ループの必要がある。
-//			for (MenuDetail menuDetails : entry.getValue()) {
-//				MenuManagementDetailUpdateReq tempRes = new MenuManagementDetailUpdateReq();
-//				tempRes.setRankId(menuDetails.getRankId());
-//				tempRes.setPrice(menuDetails.getPrice());
-//				menuDetailResList.add(tempRes);
-//			}
-//            menuIdLists.setDetail(menuDetailResList);
-//            menuIdList.add(menuIdLists);
-//            menuDetailMapper.selectByPrimaryKey(menuIdList);
-//		}
-//	}
-//}
-//
+
 	@Override
 	public void deleteInsert(int storeId, MenuManegementUnityUpdateReq reqForm) {
 		// SELECT文を実行し、データを取得する
@@ -144,8 +89,6 @@ public class MenuManagementServiceImpl implements MenuManagementService {
 		menuDetail.createCriteria().andStoreIdEqualTo(storeId);
 		// SELECTを実行する
 		menuDetailMapper.deleteByExample(menuDetail);
-//		List<MenuManegementUnityUpdateReq> menuManagement = new ArrayList<>();
-//		List<MenuManagementUpdateReq> menuIdList = new ArrayList<>();
 		
 		List<MenuManagementUpdateReq> unity = reqForm.getUnity();
 		for (MenuManagementUpdateReq req : unity) {
