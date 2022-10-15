@@ -6,33 +6,33 @@ import org.springframework.stereotype.Service;
 import com.c4c._2022server.entity.Customer;
 import com.c4c._2022server.form.CustomerDetailRes;
 import com.c4c._2022server.mapper.CustomerMapper;
+import com.c4c._2022server.utils.EntityUtils;
 
 @Service
 public class CustomerDetailServiceImpl {
     @Autowired
     CustomerMapper customerMapper;
-//    @Autowired
-//    EntityUtils entityUtils;
-//    @Autowired
-//    MailUtils mailUtils;
+    @Autowired
+    EntityUtils entityUtils;
     
 	/**
 	 * 
-	 * @param userId
+	 * @param customerId
 	 * @return
 	 */
 
 //    @Override
-    public CustomerDetailRes index(int userId) {
-    	// ログインユーザーIDに紐づく1件を取得する
-    	Customer customer = new Customer();
+    public CustomerDetailRes index(int customerId) {
+    	// 顧客IDに紐づく1件を取得する
+    	Customer customer = customerMapper.selectByPrimaryKey(customerId);
     	// Formにデータを詰める（レスポンスフォームに移送する）
     	CustomerDetailRes resForm = new CustomerDetailRes();
     	resForm.setLastName(customer.getLastName());
        	resForm.setFirstName(customer.getFirstName());
     	
     	return resForm;
-    }
+    }  
+}
     
 //    @Override
 //    public void register(int storeId, int stuffId, CustomerDetailReq reqForm) {
@@ -89,8 +89,4 @@ public class CustomerDetailServiceImpl {
 //    	}
 //    	
 //    	return password.toString();
-    
-    
-
-}
 
