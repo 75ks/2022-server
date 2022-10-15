@@ -1,26 +1,19 @@
 package com.c4c._2022server.controller;
 
 
-import java.util.Locale;
-
-import javax.security.sasl.AuthenticationException;
-import javax.validation.Valid;
-
+import com.c4c._2022server.form.customer.CustomerProfileUpdateReq;
+import com.c4c._2022server.form.customer.CustomerProfileInitRes;
+import com.c4c._2022server.form.customer.CustomerProfileUpdateRes;
+import com.c4c._2022server.service.impl.CustomerProfileServiceImpl;
+import com.c4c._2022server.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
-import com.c4c._2022server.form.CustomerListFormRes;
-import com.c4c._2022server.form.ReserveHistoryUpdateReq;
-import com.c4c._2022server.service.impl.CustomerProfileServiceImpl;
-import com.c4c._2022server.utils.JWTUtils;
-import com.c4c._2022server.form.CustomerListFormReq;
+import javax.security.sasl.AuthenticationException;
+import javax.validation.Valid;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/customer/profile")
@@ -35,10 +28,10 @@ public class CustomerProfileController {
      * @return List{@literal<CustomerListFormRes>}
      */
     @GetMapping("/initialize")
-    public ResponseEntity<CustomerListFormRes> index(@RequestHeader("CustomerAuthorization") String jwt) throws AuthenticationException {
+    public ResponseEntity<CustomerProfileInitRes> index(@RequestHeader("CustomerAuthorization") String jwt) throws AuthenticationException {
     	JWTUtils instance = JWTUtils.getInstance();
     	Integer customerId = instance.getId(jwt);
-    	CustomerListFormRes resForm = CustomerProfileServiceImpl.index(customerId);
+        CustomerProfileInitRes resForm = CustomerProfileServiceImpl.index(customerId);
         return ResponseEntity.ok(resForm);
     }
 
@@ -50,14 +43,14 @@ public class CustomerProfileController {
      * @throws AuthenticationException
      */
     @PutMapping("/update")
-    public ResponseEntity<CustomerListFormRes> update(@RequestHeader("CustomerAuthorization") String jwt, @RequestBody @Valid CustomerListFormReq reqForm) throws AuthenticationException{
+    public ResponseEntity<CustomerProfileUpdateRes> update(@RequestHeader("CustomerAuthorization") String jwt, @RequestBody @Valid CustomerProfileUpdateReq reqForm) throws AuthenticationException{
         JWTUtils instance = JWTUtils.getInstance();
         Integer customerId = instance.getId(jwt);
         CustomerProfileServiceImpl.update(customerId, reqForm);
-        CustomerListFormRes resForm = new CustomerListFormRes();
+        CustomerProfileUpdateRes resForm = new CustomerProfileUpdateRes();
         // ReserveHistoryControllerクラスのupdateの処理を参考にしたが、
         // やっていることが分からないのでいったんコメントアウト
-        // resForm.setMessages(messageSource.getMessage("success", new String[]{"更新"}, Locale.getDefault()));
+         resForm.setMessages(messageSource.getMessage("success", new String[]{"更新"}, Locale.getDefault()));
         return ResponseEntity.ok(resForm);
     }
 

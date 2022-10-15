@@ -1,20 +1,14 @@
 package com.c4c._2022server.service.impl;
 
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.c4c._2022server.entity.Customer;
-
-
-
-
-import com.c4c._2022server.form.CustomerListFormRes;
+import com.c4c._2022server.form.customer.CustomerProfileUpdateReq;
+import com.c4c._2022server.form.customer.CustomerProfileInitRes;
 import com.c4c._2022server.mapper.CustomerMapper;
 import com.c4c._2022server.service.CustomerProfileService;
 import com.c4c._2022server.utils.EntityUtils;
-import com.c4c._2022server.form.CustomerListFormReq;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerProfileServiceImpl implements CustomerProfileService {
@@ -28,13 +22,13 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
      * @return customerFormList
      */
     @Override
-    public CustomerListFormRes index(int customerId) {
+    public CustomerProfileInitRes index(int customerId) {
 
 
         // PKによるSELECTを実行し、データを取得する
 		Customer customer = customerMapper.selectByPrimaryKey(customerId);
 
-		CustomerListFormRes resForm = new CustomerListFormRes();
+        CustomerProfileInitRes resForm = new CustomerProfileInitRes();
 		resForm.setCustomerId(customer.getCustomerId());
 		resForm.setLastName(customer.getLastName());
 		resForm.setFirstName(customer.getFirstName());
@@ -55,7 +49,7 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
     }
 
     @Override
-    public void update(int customerId, CustomerListFormReq reqForm) {
+    public void update(int customerId, CustomerProfileUpdateReq reqForm) {
         Customer customer = customerMapper.selectByPrimaryKey(customerId);
         customer.setCustomerId(reqForm.getCustomerId());
         customer.setLastName(reqForm.getLastName());
