@@ -54,4 +54,18 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resForm);
     }
+
+    /**
+     * データ重複エラー(登録前の重複チェック時)の共通処理
+     * @return ResponseEntity
+     */
+    @ExceptionHandler(DuplicationException.class)
+    protected ResponseEntity<Object> handleDuplicationException(Exception ex) {
+        List<String> messageList = Collections.singletonList(ex.getMessage());
+
+        MessageRes resForm = new MessageRes();
+        resForm.setMessageList(messageList);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resForm);
+    }
 }
