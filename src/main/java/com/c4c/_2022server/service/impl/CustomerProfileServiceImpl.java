@@ -13,10 +13,13 @@ import com.c4c._2022server.entity.Customer;
 import com.c4c._2022server.form.CustomerListFormRes;
 import com.c4c._2022server.mapper.CustomerMapper;
 import com.c4c._2022server.service.CustomerProfileService;
+import com.c4c._2022server.utils.EntityUtils;
 import com.c4c._2022server.form.CustomerListFormReq;
 
 @Service
 public class CustomerProfileServiceImpl implements CustomerProfileService {
+    @Autowired
+    EntityUtils entityUtils;
     @Autowired
     CustomerMapper customerMapper;
 
@@ -52,7 +55,7 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
     }
 
     @Override
-    public void update(int customerId,CustomerListFormReq reqForm) {
+    public void update(int customerId, CustomerListFormReq reqForm) {
         Customer customer = customerMapper.selectByPrimaryKey(customerId);
         customer.setCustomerId(reqForm.getCustomerId());
         customer.setLastName(reqForm.getLastName());
@@ -70,6 +73,8 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
         customer.setPhoneNumber(reqForm.getPhoneNumber());
         customer.setEmail(reqForm.getEmail());
 
+        // UPDATE時の共通設定
+        entityUtils.setColumns4Update(customer, customerId);
         customerMapper.updateByPrimaryKey(customer);
     }
 }
