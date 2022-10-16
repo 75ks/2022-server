@@ -1,10 +1,13 @@
 package com.c4c._2022server.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.c4c._2022server.entity.Customer;
+import com.c4c._2022server.entity.CustomerExample;
 import com.c4c._2022server.form.CustomerDetailRes;
 import com.c4c._2022server.mapper.CustomerMapper;
 import com.c4c._2022server.service.CustomerDetailService;
@@ -24,12 +27,14 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
 	 */
 
 //    @Override
-    public CustomerDetailRes index(int customerId) {
+    public CustomerDetailRes index(int storeId, int customerId) {
     	// 顧客IDに紐づく1件を取得する
-    	Customer customer = customerMapper.selectByPrimaryKey(customerId);
+    	CustomerExample customerExample = new CustomerExample();
+    	customerExample.createCriteria().andStoreIdEqualTo(storeId).andCustomerIdEqualTo(customerId);
+    	List<Customer> customerList = customerMapper.selectByExample(customerExample);
     	// Formにデータを詰める（レスポンスフォームに移送する）
     	CustomerDetailRes resForm = new CustomerDetailRes();
-    	BeanUtils.copyProperties(customer, resForm);
+    	BeanUtils.copyProperties(customerList.get(0), resForm);
     	
     	return resForm;
     }  

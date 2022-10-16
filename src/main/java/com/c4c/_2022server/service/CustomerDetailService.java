@@ -9,6 +9,6 @@ public interface CustomerDetailService {
 	 * @param customerId
 	 * @return
 	 */
-    public CustomerDetailRes index(int customerId);
+    public CustomerDetailRes index(int storeId, int customerId);
 
 }

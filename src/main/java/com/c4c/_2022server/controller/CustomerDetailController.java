@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.c4c._2022server.form.CustomerDetailRes;
 import com.c4c._2022server.service.impl.CustomerDetailServiceImpl;
+import com.c4c._2022server.utils.JWTUtils;
 
 @RestController
 @RequestMapping("/customerDetail")
@@ -27,8 +28,10 @@ public class CustomerDetailController {
     
     @GetMapping("/initialize")
     public ResponseEntity<CustomerDetailRes> index(@RequestHeader("Authorization") String jwt, @RequestParam(name = "customerId", required = true) Integer givenCustomerId) throws AuthenticationException {
+        JWTUtils instance = JWTUtils.getInstance();
+        int storeId = instance.getStoreId(jwt);
 //	    レスポンスForm
-	    CustomerDetailRes resForm = customerDetailServiceImpl.index(givenCustomerId);    
+	    CustomerDetailRes resForm = customerDetailServiceImpl.index(storeId, givenCustomerId);    
 	    return ResponseEntity.ok(resForm);
     }
 }
