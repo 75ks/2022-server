@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.c4c._2022server.entity.Customer;
 import com.c4c._2022server.entity.CustomerExample;
+import com.c4c._2022server.form.CustomerDetailRegisterReq;
 import com.c4c._2022server.form.CustomerDetailRes;
 import com.c4c._2022server.mapper.CustomerMapper;
 import com.c4c._2022server.service.CustomerDetailService;
@@ -38,6 +39,23 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
     	
     	return resForm;
     }  
+
+    /**
+     * 顧客情報更新
+     * @param stuffId
+     * @param storeid
+     * @param reqForm
+     */
+    @Override
+    public void register(int stuffId, int storeId, CustomerDetailRegisterReq reqForm) {
+        // Formにデータを詰める
+        Customer customer = new Customer();
+        BeanUtils.copyProperties(reqForm, customer);
+        // UPDATE時の共通設定
+        entityUtils.setColumns4Update(customer, stuffId);
+        // UPDATEを実行し、データを登録する
+        customerMapper.updateByPrimaryKeySelective(customer);
+    }
 }
     
 //    @Override
