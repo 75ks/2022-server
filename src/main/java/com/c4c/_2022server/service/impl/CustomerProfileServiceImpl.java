@@ -29,7 +29,7 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
 		Customer customer = customerMapper.selectByPrimaryKey(customerId);
 
         CustomerProfileInitRes resForm = new CustomerProfileInitRes();
-		resForm.setCustomerId(customer.getCustomerId());
+		//resForm.setCustomerId(customer.getCustomerId());
 		resForm.setLastName(customer.getLastName());
 		resForm.setFirstName(customer.getFirstName());
 		resForm.setLastNameKana(customer.getLastNameKana());

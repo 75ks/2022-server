@@ -28,11 +28,27 @@ public class CustomerProfileUpdateReq {
     /** 性別 */
     private Integer gender;
 
+    /** 郵便番号 */
     private String postalCode;
+
+    /** 都道府県 */
     private Integer prefectureId;
+
+    /** 市区町村 */
     private String address1;
+
+    /** 市区町村以下 */
     private String address2;
+
+    /** 建物、部屋番号 */
     private String address3;
+
+    /** 電話番号 */
     private String phoneNumber;
+
+    /** メールアドレス */
     private String email;
+
+    /** 排他制御カラム */
+    private Integer versionExKey;
 }
