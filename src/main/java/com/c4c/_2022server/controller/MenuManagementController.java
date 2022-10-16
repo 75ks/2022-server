@@ -34,7 +34,7 @@ public class MenuManagementController {
     MenuManagementServiceImpl menuManegementServiceImpI;
 
     @Autowired
-    MenuDetailMapper MenuDetailMapper;
+    MenuDetailMapper menuDetailMapper;
     
 	@Autowired
 	MessageSource messageSource;
@@ -49,8 +49,6 @@ public class MenuManagementController {
     }
 
 
-	//MenuDetailManegementHIstoryUpdateReqがリストになっているがクラスにしないといけない。
-	//MenuDetailManegementHIstoryUpdateReqを3階層にしないといけない。
 	
 	@PutMapping("/update")
 	public ResponseEntity<MenuDetailManegementHIstoryUpdateRes> update(@RequestHeader("Authorization") String jwt,@RequestBody @Valid MenuManegementUnityUpdateReq reqForm) throws AuthenticationException {
