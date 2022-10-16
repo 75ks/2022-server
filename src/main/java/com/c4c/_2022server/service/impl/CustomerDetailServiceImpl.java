@@ -7,10 +7,11 @@ import org.springframework.stereotype.Service;
 import com.c4c._2022server.entity.Customer;
 import com.c4c._2022server.form.CustomerDetailRes;
 import com.c4c._2022server.mapper.CustomerMapper;
+import com.c4c._2022server.service.CustomerDetailService;
 import com.c4c._2022server.utils.EntityUtils;
 
 @Service
-public class CustomerDetailServiceImpl {
+public class CustomerDetailServiceImpl implements CustomerDetailService {
     @Autowired
     CustomerMapper customerMapper;
     @Autowired

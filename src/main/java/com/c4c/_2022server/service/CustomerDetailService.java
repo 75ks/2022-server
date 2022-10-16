@@ -9,7 +9,6 @@ public interface CustomerDetailService {
 	 * @param customerId
 	 * @return
 	 */
-//    public void resForm(int userId, CustomerDetailReq reqForm);
-	  CustomerDetailRes index(int storeId, int customerId);
+    public CustomerDetailRes index(int customerId);
 
 }
