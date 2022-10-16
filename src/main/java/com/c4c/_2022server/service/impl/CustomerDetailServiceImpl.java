@@ -1,5 +1,6 @@
 package com.c4c._2022server.service.impl;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,7 @@ public class CustomerDetailServiceImpl {
     	Customer customer = customerMapper.selectByPrimaryKey(customerId);
     	// Formにデータを詰める（レスポンスフォームに移送する）
     	CustomerDetailRes resForm = new CustomerDetailRes();
-    	resForm.setLastName(customer.getLastName());
-       	resForm.setFirstName(customer.getFirstName());
+    	BeanUtils.copyProperties(customer, resForm);
     	
     	return resForm;
     }  
