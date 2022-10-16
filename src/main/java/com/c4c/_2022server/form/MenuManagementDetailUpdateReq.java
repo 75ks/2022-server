@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class MenuManagementDetailUpdateReq {
 	/**
-	 * プライス
+	 * ランクId
 	 */
 	@NotNull(message = "{rankId}{NotEmpty}")
 	private Integer rankId;

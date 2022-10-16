@@ -27,34 +27,33 @@ import com.c4c._2022server.utils.JWTUtils;
 @RestController
 @RequestMapping("/menuManagement")
 public class MenuManagementController {
-	@Autowired
-	CustomerMapper customerMapper;
+    @Autowired
+    CustomerMapper CustomerMapper;
 
-	@Autowired
-	MenuManagementServiceImpl menuManegementServiceImpI;
+    @Autowired
+    MenuManagementServiceImpl menuManegementServiceImpI;
 
-	@Autowired
-	MenuDetailMapper menuDetailMapper;
-	
+    @Autowired
+    MenuDetailMapper MenuDetailMapper;
+    
 	@Autowired
 	MessageSource messageSource;
 
-	@GetMapping("/initialize")
-	public ResponseEntity<List<MenuDetailManagementRes>> index(@RequestHeader("Authorization") String jwt)
-			throws AuthenticationException {
-		JWTUtils instance = JWTUtils.getInstance();
-		Integer storeId = instance.getStoreId(jwt);
+    @GetMapping("/initialize")
+    public ResponseEntity<List<MenuDetailManagementRes>> index(@RequestHeader("Authorization") String jwt) throws AuthenticationException {
+        JWTUtils instance = JWTUtils.getInstance();
+        Integer storeId = instance.getStoreId(jwt);
 
-		List<MenuDetailManagementRes> menuDetailManagementResList = menuManegementServiceImpI.index(storeId);
-		return ResponseEntity.ok(menuDetailManagementResList);
-	}
+        List<MenuDetailManagementRes> menuDetailManagementResList = menuManegementServiceImpI.index(storeId);
+        return ResponseEntity.ok(menuDetailManagementResList);
+    }
+
 
 	//MenuDetailManegementHIstoryUpdateReqがリストになっているがクラスにしないといけない。
 	//MenuDetailManegementHIstoryUpdateReqを3階層にしないといけない。
 	
 	@PutMapping("/update")
-	public ResponseEntity<MenuDetailManegementHIstoryUpdateRes> update(@RequestHeader("Authorization") String jwt,
-			@RequestBody @Valid MenuManegementUnityUpdateReq reqForm) throws AuthenticationException {
+	public ResponseEntity<MenuDetailManegementHIstoryUpdateRes> update(@RequestHeader("Authorization") String jwt,@RequestBody @Valid MenuManegementUnityUpdateReq reqForm) throws AuthenticationException {
 		JWTUtils instance = JWTUtils.getInstance();
 		int storeId = instance.getStoreId(jwt);
 		menuManegementServiceImpI.deleteInsert(storeId, reqForm);
