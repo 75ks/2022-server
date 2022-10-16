@@ -48,8 +48,6 @@ public class CustomerProfileController {
         Integer customerId = instance.getId(jwt);
         CustomerProfileServiceImpl.update(customerId, reqForm);
         CustomerProfileUpdateRes resForm = new CustomerProfileUpdateRes();
-        // ReserveHistoryControllerクラスのupdateの処理を参考にしたが、
-        // やっていることが分からないのでいったんコメントアウト
          resForm.setMessages(messageSource.getMessage("success", new String[]{"更新"}, Locale.getDefault()));
         return ResponseEntity.ok(resForm);
     }

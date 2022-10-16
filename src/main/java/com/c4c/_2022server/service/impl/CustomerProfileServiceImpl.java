@@ -29,7 +29,7 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
 		Customer customer = customerMapper.selectByPrimaryKey(customerId);
 
         CustomerProfileInitRes resForm = new CustomerProfileInitRes();
-		//resForm.setCustomerId(customer.getCustomerId());
+		resForm.setCustomerId(customer.getCustomerId());
 		resForm.setLastName(customer.getLastName());
 		resForm.setFirstName(customer.getFirstName());
 		resForm.setLastNameKana(customer.getLastNameKana());
@@ -51,7 +51,7 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
     @Override
     public void update(int customerId, CustomerProfileUpdateReq reqForm) {
         Customer customer = customerMapper.selectByPrimaryKey(customerId);
-        customer.setCustomerId(reqForm.getCustomerId());
+        //customer.setCustomerId(reqForm.getCustomerId());
         customer.setLastName(reqForm.getLastName());
         customer.setFirstName(reqForm.getFirstName());
         customer.setLastNameKana(reqForm.getLastNameKana());
