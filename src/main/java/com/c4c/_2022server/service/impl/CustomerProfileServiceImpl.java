@@ -44,6 +44,7 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
 		resForm.setAddress3(customer.getAddress3());
 		resForm.setPhoneNumber(customer.getPhoneNumber());
 		resForm.setEmail(customer.getEmail());
+		resForm.setVersionExKey(customer.getVersionExKey());
 
         return resForm;
     }
