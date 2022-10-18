@@ -52,7 +52,6 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
     @Override
     public void update(int customerId, CustomerProfileUpdateReq reqForm) {
         Customer customer = customerMapper.selectByPrimaryKey(customerId);
-        //customer.setCustomerId(reqForm.getCustomerId());
         customer.setLastName(reqForm.getLastName());
         customer.setFirstName(reqForm.getFirstName());
         customer.setLastNameKana(reqForm.getLastNameKana());
