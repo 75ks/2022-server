@@ -43,11 +43,11 @@ public class CustomerProfileController {
      * @throws AuthenticationException
      */
     @PutMapping("/update")
-    public ResponseEntity<CustomerProfileUpdateRes> update(@RequestHeader("CustomerAuthorization") String jwt, @RequestBody @Valid CustomerProfileUpdateReq reqForm, @RequestHeader("CustomerAuthorization") Integer versionExKey) throws AuthenticationException{
+    public ResponseEntity<CustomerProfileUpdateRes> update(@RequestHeader("CustomerAuthorization") String jwt, @RequestBody @Valid CustomerProfileUpdateReq reqForm) throws AuthenticationException{
         JWTUtils instance = JWTUtils.getInstance();
         Integer customerId = instance.getId(jwt);
         //以下の1行で、ProfileScreenObjが保持しているversionExKeyをCustomerProfileUpdateReqにsetできるのではと思いました
-        reqForm.setVersionExKey(versionExKey);
+        //reqForm.setVersionExKey(versionExKey);
         CustomerProfileServiceImpl.update(customerId, reqForm);
         CustomerProfileUpdateRes resForm = new CustomerProfileUpdateRes();
          resForm.setMessages(messageSource.getMessage("success", new String[]{"更新"}, Locale.getDefault()));
