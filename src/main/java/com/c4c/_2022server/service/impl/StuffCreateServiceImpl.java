@@ -1,13 +1,16 @@
 package com.c4c._2022server.service.impl;
 
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.c4c._2022server.entity.Stuff;
+import com.c4c._2022server.exception.DuplicationException;
 import com.c4c._2022server.form.StuffCreateReq;
 import com.c4c._2022server.mapper.StuffMapper;
 import com.c4c._2022server.service.StuffCreateService;
@@ -19,9 +22,16 @@ public class StuffCreateServiceImpl implements StuffCreateService {
     StuffMapper stuffMapper;
     @Autowired
     EntityUtils entityUtils;
+    @Autowired
+    MessageSource messageSource;
 
     @Override
-    public void register(int storeId, int stuffId, StuffCreateReq reqForm) {
+    public void register(int storeId, int stuffId, StuffCreateReq reqForm) throws Exception {
+        // メールアドレスが登録済みかチェック
+        Stuff checkStuff = stuffMapper.select0001(reqForm.getEmail());
+        if (checkStuff != null) {
+            throw new DuplicationException(messageSource.getMessage("error.email.registered", new String[]{}, Locale.getDefault()));
+        }
     	Stuff stuff = new Stuff();
     	stuff.setStoreId(storeId);
     	stuff.setLastName(reqForm.getLastName());

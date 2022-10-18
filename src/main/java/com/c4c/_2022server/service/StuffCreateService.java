@@ -9,5 +9,5 @@ public interface StuffCreateService {
      * @param stuffId
      * @param reqForm
      */
-    public void register(int storeId, int stuffId, StuffCreateReq reqForm);
+    public void register(int storeId, int stuffId, StuffCreateReq reqForm) throws Exception;
 }
