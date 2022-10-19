@@ -1,6 +1,6 @@
 package com.c4c._2022server.form;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.Data;
 
@@ -52,7 +52,7 @@ public class CustomerDetailRes {
      * Type: DATE
      * Remark: 生年月日
      */
-    private Date birthday;
+    private LocalDate birthday;
 
     /**
      * Table: CUSTOMER
@@ -69,4 +69,53 @@ public class CustomerDetailRes {
      * Remark: 性別
      */
     private Integer gender;
+    /**
+     * Table: CUSTOMER
+     * Column: POSTAL_CODE
+     * Type: VARCHAR(7)
+     * Remark: 郵便番号
+     */
+    private String postalCode;
+    /**
+     * Table: CUSTOMER
+     * Column: PREFECTURE_ID
+     * Type: INT
+     * Remark: 都道府県
+     */
+    private Integer prefectureId;
+    /**
+     * Table: CUSTOMER
+     * Column: ADDRESS1
+     * Type: VARCHAR(45)
+     * Remark: 住所1
+     */
+    private String address1;
+    /**
+     * Table: CUSTOMER
+     * Column: ADDRESS2
+     * Type: VARCHAR(45)
+     * Remark: 住所2
+     */
+    private String address2;
+    /**
+     * Table: CUSTOMER
+     * Column: ADDRESS3
+     * Type: VARCHAR(45)
+     * Remark: 住所3
+     */
+    private String address3;
+    /**
+     * Table: CUSTOMER
+     * Column: PHONE_NUMBER
+     * Type: VARCHAR(11)
+     * Remark: 電話番号
+     */
+    private String phoneNumber;
+    /**
+     * Table: CUSTOMER
+     * Column: EMAIL
+     * Type: VARCHAR(255)
+     * Remark: メールアドレス
+     */
+    private String email;
 }
