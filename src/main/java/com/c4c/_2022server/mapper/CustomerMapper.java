@@ -198,7 +198,7 @@ public interface CustomerMapper {
           "CREATED_USER = #{createdUser,jdbcType=INTEGER},",
           "UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP},",
           "UPDATE_USER = #{updateUser,jdbcType=INTEGER},",
-          "VERSION_EX_KEY = #{versionExKey,jdbcType=INTEGER}",
+          "VERSION_EX_KEY = #{versionExKey,jdbcType=INTEGER} + 1",
         "where CUSTOMER_ID = #{customerId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Customer row);
