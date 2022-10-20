@@ -2,16 +2,23 @@ package com.c4c._2022server.service.impl;
 
 
 import com.c4c._2022server.entity.Customer;
+import com.c4c._2022server.entity.CustomerExample;
+import com.c4c._2022server.exception.ExclusiveException;
 import com.c4c._2022server.form.customer.CustomerProfileUpdateReq;
 import com.c4c._2022server.form.customer.CustomerProfileInitRes;
 import com.c4c._2022server.mapper.CustomerMapper;
 import com.c4c._2022server.service.CustomerProfileService;
 import com.c4c._2022server.utils.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+
+import java.util.Locale;
 
 @Service
 public class CustomerProfileServiceImpl implements CustomerProfileService {
+    @Autowired
+    MessageSource messageSource;
     @Autowired
     EntityUtils entityUtils;
     @Autowired
@@ -50,8 +57,23 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
     }
 
     @Override
-    public void update(int customerId, CustomerProfileUpdateReq reqForm) {
-        Customer customer = customerMapper.selectByPrimaryKey(customerId);
+    public void update(int customerId, CustomerProfileUpdateReq reqForm) throws ExclusiveException {
+        // バージョンチェック
+        CustomerExample customerExample = new CustomerExample();
+        customerExample.createCriteria()
+                .andCustomerIdEqualTo(customerId) // 顧客ID
+                .andVersionExKeyEqualTo(reqForm.getVersionExKey()); // 排他制御カラム
+        Customer customer = customerMapper.selectByExample(customerExample) // 検索を行う
+                .stream() // streamに変換する
+                .findFirst() // 先頭の1件を取得する
+                .orElse(null); // 先頭の1件が取得できない場合は、nullを返す
+
+        // 検索結果が取得できなかった場合
+        if (customer == null) {
+            // ExclusiveExceptionをスローする
+            throw new ExclusiveException(messageSource.getMessage("error.exclusive", new String[]{}, Locale.getDefault()));
+        }
+
         customer.setLastName(reqForm.getLastName());
         customer.setFirstName(reqForm.getFirstName());
         customer.setLastNameKana(reqForm.getLastNameKana());

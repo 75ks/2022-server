@@ -1,6 +1,7 @@
 package com.c4c._2022server.service;
 
 
+import com.c4c._2022server.exception.ExclusiveException;
 import com.c4c._2022server.form.customer.CustomerProfileUpdateReq;
 import com.c4c._2022server.form.customer.CustomerProfileInitRes;
 
@@ -12,6 +13,6 @@ public interface CustomerProfileService {
 
     CustomerProfileInitRes index(int customerId);
 
-    void update(int customerId, CustomerProfileUpdateReq reqForm);
+    void update(int customerId, CustomerProfileUpdateReq reqForm) throws ExclusiveException;
 
 }

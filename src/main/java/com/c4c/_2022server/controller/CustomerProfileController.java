@@ -1,6 +1,7 @@
 package com.c4c._2022server.controller;
 
 
+import com.c4c._2022server.exception.ExclusiveException;
 import com.c4c._2022server.form.customer.CustomerProfileUpdateReq;
 import com.c4c._2022server.form.customer.CustomerProfileInitRes;
 import com.c4c._2022server.form.customer.CustomerProfileUpdateRes;
@@ -43,7 +44,7 @@ public class CustomerProfileController {
      * @throws AuthenticationException
      */
     @PutMapping("/update")
-    public ResponseEntity<CustomerProfileUpdateRes> update(@RequestHeader("CustomerAuthorization") String jwt, @RequestBody @Valid CustomerProfileUpdateReq reqForm) throws AuthenticationException{
+    public ResponseEntity<CustomerProfileUpdateRes> update(@RequestHeader("CustomerAuthorization") String jwt, @RequestBody @Valid CustomerProfileUpdateReq reqForm) throws AuthenticationException, ExclusiveException {
         JWTUtils instance = JWTUtils.getInstance();
         Integer customerId = instance.getId(jwt);
         CustomerProfileServiceImpl.update(customerId, reqForm);
