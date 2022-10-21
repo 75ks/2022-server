@@ -8,7 +8,7 @@ import lombok.Data;
 
 
 @Data
-public class CustomerCreateReq {
+public class StuffCreateReq {
     /**
      * 姓
      */
@@ -47,6 +47,11 @@ public class CustomerCreateReq {
     @NotNull(message = "{gender}{NotNull}")
     private Integer gender;
     /**
+     * ランク
+     */
+    @NotNull(message = "{rank}{NotNull}")
+    private Integer rankId;
+    /**
      * 郵便番号
      */
     @Size(min = 7, max = 7, message = "{postalCode}{Size}")
@@ -77,4 +82,9 @@ public class CustomerCreateReq {
      */
     @NotEmpty(message = "{email}{NotEmpty}")
     private String email;
+    /**
+     * パスワード
+     */
+    @NotEmpty(message = "{password}{NotEmpty}")
+    private String password;
 }
