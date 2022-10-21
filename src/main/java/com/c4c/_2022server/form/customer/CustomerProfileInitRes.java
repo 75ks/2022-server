@@ -1,11 +1,11 @@
-package com.c4c._2022server.form;
-
-import java.time.LocalDateTime;
+package com.c4c._2022server.form.customer;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
-public class CustomerListFormRes {
+public class CustomerProfileInitRes {
 	/**
 	 * Table: CUSTOMER
      * Column: CUSTOMER_ID

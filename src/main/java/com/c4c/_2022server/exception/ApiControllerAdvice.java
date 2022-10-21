@@ -36,6 +36,16 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(resForm);
     }
 
+    @ExceptionHandler(ExclusiveException.class)
+    protected ResponseEntity<Object> handleExclusiveException(ExclusiveException ex) {
+        List<String> messageList = Collections.singletonList(ex.getMessage());
+
+        MessageRes resForm = new MessageRes();
+        resForm.setMessageList(messageList);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resForm);
+    }
+
     /**
      * バリデーションエラーの共通処理
      * @return ResponseEntity

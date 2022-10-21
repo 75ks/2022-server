@@ -1,36 +1,56 @@
 package com.c4c._2022server.controller;
 
-import java.util.List;
 
-import javax.security.sasl.AuthenticationException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.c4c._2022server.form.CustomerListFormReq;
-import com.c4c._2022server.form.CustomerListFormRes;
+import com.c4c._2022server.exception.ExclusiveException;
+import com.c4c._2022server.form.customer.CustomerProfileUpdateReq;
+import com.c4c._2022server.form.customer.CustomerProfileInitRes;
+import com.c4c._2022server.form.customer.CustomerProfileUpdateRes;
 import com.c4c._2022server.service.impl.CustomerProfileServiceImpl;
 import com.c4c._2022server.utils.JWTUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.security.sasl.AuthenticationException;
+import javax.validation.Valid;
+import java.util.Locale;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/customer/profile")
 public class CustomerProfileController {
+    @Autowired
+    MessageSource messageSource;
     @Autowired
     CustomerProfileServiceImpl CustomerProfileServiceImpl;
 
     /**
-     * スタッフ一覧取得
-     * @return List{@literal<StuffListRes>}
+     * 顧客情報取得
+     * @return List{@literal<CustomerListFormRes>}
      */
-    @GetMapping("/profile")
-    public ResponseEntity<List<CustomerListFormRes>> index(@RequestHeader("Authorization") String jwt, CustomerListFormReq reqForm) throws AuthenticationException {
+    @GetMapping("/initialize")
+    public ResponseEntity<CustomerProfileInitRes> index(@RequestHeader("CustomerAuthorization") String jwt) throws AuthenticationException {
     	JWTUtils instance = JWTUtils.getInstance();
     	Integer customerId = instance.getId(jwt);
-    	List<CustomerListFormRes> customerFormList = CustomerProfileServiceImpl.index(customerId, reqForm);
-        return ResponseEntity.ok(customerFormList);
+        CustomerProfileInitRes resForm = CustomerProfileServiceImpl.index(customerId);
+        return ResponseEntity.ok(resForm);
     }
+
+    /**
+     * 顧客情報更新
+     * @param jwt
+     * @param reqForm
+     * @return
+     * @throws AuthenticationException
+     */
+    @PutMapping("/update")
+    public ResponseEntity<CustomerProfileUpdateRes> update(@RequestHeader("CustomerAuthorization") String jwt, @RequestBody @Valid CustomerProfileUpdateReq reqForm) throws AuthenticationException, ExclusiveException {
+        JWTUtils instance = JWTUtils.getInstance();
+        Integer customerId = instance.getId(jwt);
+        CustomerProfileServiceImpl.update(customerId, reqForm);
+        CustomerProfileUpdateRes resForm = new CustomerProfileUpdateRes();
+         resForm.setMessages(messageSource.getMessage("success", new String[]{"更新"}, Locale.getDefault()));
+        return ResponseEntity.ok(resForm);
+    }
+
 }

@@ -1,11 +1,11 @@
-package com.c4c._2022server.form;
+package com.c4c._2022server.form.customer;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
-public class CustomerListFormReq {
+public class CustomerProfileUpdateReq {
     /** 顧客ID */
     private Integer customerId;
 
@@ -28,11 +28,27 @@ public class CustomerListFormReq {
     /** 性別 */
     private Integer gender;
 
+    /** 郵便番号 */
     private String postalCode;
+
+    /** 都道府県 */
     private Integer prefectureId;
+
+    /** 市区町村 */
     private String address1;
+
+    /** 市区町村以下 */
     private String address2;
+
+    /** 建物、部屋番号 */
     private String address3;
+
+    /** 電話番号 */
     private String phoneNumber;
+
+    /** メールアドレス */
     private String email;
+
+    /** 排他制御カラム */
+    private Integer versionExKey;
 }
