@@ -2,6 +2,7 @@ package com.c4c._2022server.form;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -49,7 +50,7 @@ public class CustomerCreateReq {
     /**
      * 郵便番号
      */
-    @Size(min = 7, max = 7, message = "{postalCode}{Size}")
+    @Pattern(regexp = "^(\\d{7})?$", message = "{Pattern.postalCode}")
     private String postalCode;
     /**
      * 都道府県
@@ -70,7 +71,7 @@ public class CustomerCreateReq {
     /**
      * 電話番号
      */
-    @Size(min = 11, max = 11, message = "{phoneNumber}{Size}")
+    @Pattern(regexp = "^(\\d{11})?$", message = "{Pattern.phoneNumber}")
     private String phoneNumber;
     /**
      * メールアドレス
