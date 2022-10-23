@@ -90,8 +90,14 @@ public class MenuManagementServiceImpl implements MenuManagementService {
 		// SELECTを実行する
 		menuDetailMapper.deleteByExample(menuDetail);
 		
+		if(reqForm == null) {
+			return;
+		}
 		List<MenuManagementUpdateReq> unity = reqForm.getUnity();
 		for (MenuManagementUpdateReq req : unity) {
+			if(req == null) {
+				continue;
+			}
 			MenuDetail menuDetailInsert = new MenuDetail();
 			menuDetailInsert.setStoreId(storeId);
 			menuDetailInsert.setMenuId(req.getMenuId());
@@ -100,10 +106,11 @@ public class MenuManagementServiceImpl implements MenuManagementService {
 			for (MenuManagementDetailUpdateReq menuManagementDetailUpdateReq : menuDetailList) {
 				menuDetailInsert.setRankId(menuManagementDetailUpdateReq.getRankId());
 				menuDetailInsert.setPrice(menuManagementDetailUpdateReq.getPrice());
+				entityUtils.setColumns4Insert(menuDetailInsert, storeId);
+				menuDetailMapper.insert(menuDetailInsert);
 			}
-			entityUtils.setColumns4Insert(menuDetailInsert, storeId);
-			menuDetailMapper.insert(menuDetailInsert);
 
 		}
+		
 	}
 }
