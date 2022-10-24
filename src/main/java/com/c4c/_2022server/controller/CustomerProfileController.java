@@ -34,12 +34,14 @@ public class CustomerProfileController {
 
     /**
      * 顧客情報取得
-     * @return List{@literal<CustomerListFormRes>}
+     * @param jwt
+     * @return CustomerListFormRes
+     * @throws AuthenticationException
      */
     @GetMapping("/initialize")
     public ResponseEntity<CustomerProfileInitRes> index(@RequestHeader("CustomerAuthorization") String jwt) throws AuthenticationException {
-    	JWTUtils instance = JWTUtils.getInstance();
-    	Integer customerId = instance.getId(jwt);
+        JWTUtils instance = JWTUtils.getInstance();
+        Integer customerId = instance.getId(jwt);
         CustomerProfileInitRes resForm = CustomerProfileServiceImpl.index(customerId);
         return ResponseEntity.ok(resForm);
     }
@@ -48,8 +50,10 @@ public class CustomerProfileController {
      * 顧客情報更新
      * @param jwt
      * @param reqForm
-     * @return
-     * @throws AuthenticationException, ExclusiveException
+     * @return CustomerProfileUpdateRes
+     * @throws AuthenticationException
+     * @throws ExclusiveException
+     * @throws DuplicationException
      */
     @PutMapping("/update")
     public ResponseEntity<CustomerProfileUpdateRes> update(@RequestHeader("CustomerAuthorization") String jwt, @RequestBody @Valid CustomerProfileUpdateReq reqForm) throws AuthenticationException, ExclusiveException, DuplicationException {
@@ -57,8 +61,7 @@ public class CustomerProfileController {
         Integer customerId = instance.getId(jwt);
         CustomerProfileServiceImpl.update(customerId, reqForm);
         CustomerProfileUpdateRes resForm = new CustomerProfileUpdateRes();
-         resForm.setMessages(messageSource.getMessage("success", new String[]{"更新"}, Locale.getDefault()));
+        resForm.setMessages(messageSource.getMessage("success", new String[]{"更新"}, Locale.getDefault()));
         return ResponseEntity.ok(resForm);
     }
-
 }

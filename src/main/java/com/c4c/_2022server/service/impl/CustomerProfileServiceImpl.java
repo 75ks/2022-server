@@ -27,37 +27,43 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
     CustomerMapper customerMapper;
 
     /**
-     * スタッフ一覧取得
-     * @return customerFormList
+     * 顧客情報取得
+     * @param customerId
+     * @return CustomerProfileInitRes
      */
     @Override
     public CustomerProfileInitRes index(int customerId) {
-
-
         // PKによるSELECTを実行し、データを取得する
-		Customer customer = customerMapper.selectByPrimaryKey(customerId);
+        Customer customer = customerMapper.selectByPrimaryKey(customerId);
 
         CustomerProfileInitRes resForm = new CustomerProfileInitRes();
-		resForm.setCustomerId(customer.getCustomerId());
-		resForm.setLastName(customer.getLastName());
-		resForm.setFirstName(customer.getFirstName());
-		resForm.setLastNameKana(customer.getLastNameKana());
-		resForm.setFirstNameKana(customer.getFirstNameKana());
-		resForm.setBirthday(customer.getBirthday().toString());
-		resForm.setAge(customer.getAge());
-		resForm.setGender(customer.getGender());
-		resForm.setPostalCode(customer.getPostalCode());
-		resForm.setPrefectureId(customer.getPrefectureId());
-		resForm.setAddress1(customer.getAddress1());
-		resForm.setAddress2(customer.getAddress2());
-		resForm.setAddress3(customer.getAddress3());
-		resForm.setPhoneNumber(customer.getPhoneNumber());
-		resForm.setEmail(customer.getEmail());
-		resForm.setVersionExKey(customer.getVersionExKey());
+        resForm.setCustomerId(customer.getCustomerId());
+        resForm.setLastName(customer.getLastName());
+        resForm.setFirstName(customer.getFirstName());
+        resForm.setLastNameKana(customer.getLastNameKana());
+        resForm.setFirstNameKana(customer.getFirstNameKana());
+        resForm.setBirthday(customer.getBirthday().toString());
+        resForm.setAge(customer.getAge());
+        resForm.setGender(customer.getGender());
+        resForm.setPostalCode(customer.getPostalCode());
+        resForm.setPrefectureId(customer.getPrefectureId());
+        resForm.setAddress1(customer.getAddress1());
+        resForm.setAddress2(customer.getAddress2());
+        resForm.setAddress3(customer.getAddress3());
+        resForm.setPhoneNumber(customer.getPhoneNumber());
+        resForm.setEmail(customer.getEmail());
+        resForm.setVersionExKey(customer.getVersionExKey());
 
         return resForm;
     }
 
+    /**
+     * 顧客情報更新
+     * @param customerId
+     * @param reqForm
+     * @throws ExclusiveException
+     * @throws DuplicationException
+     */
     @Override
     public void update(int customerId, CustomerProfileUpdateReq reqForm) throws ExclusiveException, DuplicationException {
         // バージョンチェック
