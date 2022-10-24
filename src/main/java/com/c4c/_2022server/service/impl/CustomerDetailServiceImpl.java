@@ -1,13 +1,16 @@
 package com.c4c._2022server.service.impl;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import com.c4c._2022server.entity.Customer;
 import com.c4c._2022server.entity.CustomerExample;
+import com.c4c._2022server.exception.DuplicationException;
 import com.c4c._2022server.form.CustomerDetailRegisterReq;
 import com.c4c._2022server.form.CustomerDetailRes;
 import com.c4c._2022server.mapper.CustomerMapper;
@@ -20,6 +23,8 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
     CustomerMapper customerMapper;
     @Autowired
     EntityUtils entityUtils;
+    @Autowired
+    MessageSource messageSource;
 
 	/**
 	 * 
@@ -47,7 +52,12 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
      * @param reqForm
      */
     @Override
-    public void register(int stuffId, int storeId, CustomerDetailRegisterReq reqForm) {
+    public void register(int stuffId, int storeId, CustomerDetailRegisterReq reqForm) throws DuplicationException {
+        // メールアドレスが登録済みかチェック
+        Customer checkCustomer = customerMapper.select0001(reqForm.getEmail());
+        if (checkCustomer != null) {
+            throw new DuplicationException(messageSource.getMessage("error.email.registered", new String[]{}, Locale.getDefault()));
+        }
         // Formにデータを詰める
         Customer customer = new Customer();
         BeanUtils.copyProperties(reqForm, customer);

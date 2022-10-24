@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.c4c._2022server.exception.DuplicationException;
 import com.c4c._2022server.form.CustomerDetailRegisterReq;
 import com.c4c._2022server.form.CustomerDetailRegisterRes;
 import com.c4c._2022server.form.CustomerDetailRes;
@@ -51,10 +52,10 @@ public class CustomerDetailController {
      * @param jwt
      * @param reqForm
      * @return
-     * @throws AuthenticationException
+     * @throws AuthenticationException, DuplicationException
      */
     @PostMapping("/")
-    public ResponseEntity<CustomerDetailRegisterRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid CustomerDetailRegisterReq reqForm) throws AuthenticationException {
+    public ResponseEntity<CustomerDetailRegisterRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid CustomerDetailRegisterReq reqForm) throws AuthenticationException, DuplicationException {
         JWTUtils instance = JWTUtils.getInstance();
         int stuffId = instance.getId(jwt);
         int storeId = instance.getStoreId(jwt);

@@ -1,19 +1,21 @@
 package com.c4c._2022server.service.impl;
 
 
-import com.c4c._2022server.entity.Customer;
-import com.c4c._2022server.entity.CustomerExample;
-import com.c4c._2022server.exception.ExclusiveException;
-import com.c4c._2022server.form.customer.CustomerProfileUpdateReq;
-import com.c4c._2022server.form.customer.CustomerProfileInitRes;
-import com.c4c._2022server.mapper.CustomerMapper;
-import com.c4c._2022server.service.CustomerProfileService;
-import com.c4c._2022server.utils.EntityUtils;
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
-import java.util.Locale;
+import com.c4c._2022server.entity.Customer;
+import com.c4c._2022server.entity.CustomerExample;
+import com.c4c._2022server.exception.DuplicationException;
+import com.c4c._2022server.exception.ExclusiveException;
+import com.c4c._2022server.form.customer.CustomerProfileInitRes;
+import com.c4c._2022server.form.customer.CustomerProfileUpdateReq;
+import com.c4c._2022server.mapper.CustomerMapper;
+import com.c4c._2022server.service.CustomerProfileService;
+import com.c4c._2022server.utils.EntityUtils;
 
 @Service
 public class CustomerProfileServiceImpl implements CustomerProfileService {
@@ -57,7 +59,7 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
     }
 
     @Override
-    public void update(int customerId, CustomerProfileUpdateReq reqForm) throws ExclusiveException {
+    public void update(int customerId, CustomerProfileUpdateReq reqForm) throws ExclusiveException, DuplicationException {
         // バージョンチェック
         CustomerExample customerExample = new CustomerExample();
         customerExample.createCriteria()
@@ -72,6 +74,11 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
         if (customer == null) {
             // ExclusiveExceptionをスローする
             throw new ExclusiveException(messageSource.getMessage("error.exclusive", new String[]{}, Locale.getDefault()));
+        }
+        // メールアドレスが登録済みかチェック
+        Customer checkCustomer = customerMapper.select0001(reqForm.getEmail());
+        if (checkCustomer != null) {
+            throw new DuplicationException(messageSource.getMessage("error.email.registered", new String[]{}, Locale.getDefault()));
         }
 
         customer.setLastName(reqForm.getLastName());

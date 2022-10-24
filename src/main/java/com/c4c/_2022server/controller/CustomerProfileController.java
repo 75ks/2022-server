@@ -1,20 +1,28 @@
 package com.c4c._2022server.controller;
 
 
-import com.c4c._2022server.exception.ExclusiveException;
-import com.c4c._2022server.form.customer.CustomerProfileUpdateReq;
-import com.c4c._2022server.form.customer.CustomerProfileInitRes;
-import com.c4c._2022server.form.customer.CustomerProfileUpdateRes;
-import com.c4c._2022server.service.impl.CustomerProfileServiceImpl;
-import com.c4c._2022server.utils.JWTUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import java.util.Locale;
 
 import javax.security.sasl.AuthenticationException;
 import javax.validation.Valid;
-import java.util.Locale;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.c4c._2022server.exception.DuplicationException;
+import com.c4c._2022server.exception.ExclusiveException;
+import com.c4c._2022server.form.customer.CustomerProfileInitRes;
+import com.c4c._2022server.form.customer.CustomerProfileUpdateReq;
+import com.c4c._2022server.form.customer.CustomerProfileUpdateRes;
+import com.c4c._2022server.service.impl.CustomerProfileServiceImpl;
+import com.c4c._2022server.utils.JWTUtils;
 
 @RestController
 @RequestMapping("/customer/profile")
@@ -41,10 +49,10 @@ public class CustomerProfileController {
      * @param jwt
      * @param reqForm
      * @return
-     * @throws AuthenticationException
+     * @throws AuthenticationException, ExclusiveException
      */
     @PutMapping("/update")
-    public ResponseEntity<CustomerProfileUpdateRes> update(@RequestHeader("CustomerAuthorization") String jwt, @RequestBody @Valid CustomerProfileUpdateReq reqForm) throws AuthenticationException, ExclusiveException {
+    public ResponseEntity<CustomerProfileUpdateRes> update(@RequestHeader("CustomerAuthorization") String jwt, @RequestBody @Valid CustomerProfileUpdateReq reqForm) throws AuthenticationException, ExclusiveException, DuplicationException {
         JWTUtils instance = JWTUtils.getInstance();
         Integer customerId = instance.getId(jwt);
         CustomerProfileServiceImpl.update(customerId, reqForm);
