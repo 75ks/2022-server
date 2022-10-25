@@ -31,9 +31,10 @@ public class ReserveRegisterController {
 
     /**
      * ランクID取得
-     * @param jwt
-     * @param stuffId
-     * @return rankId
+     * @param jwt トークン
+     * @param stuffId スタッフID
+     * @return ランクID
+     * @throws AuthenticationException
      */
     @GetMapping("/")
     public ResponseEntity<Integer> getRankId(@RequestHeader("CustomerAuthorization") String jwt, @RequestParam(name = "stuffId", required = true) Integer stuffId) throws AuthenticationException {
@@ -43,9 +44,10 @@ public class ReserveRegisterController {
 
     /**
      * 予約情報登録
-     * @param jwt
-     * @param reqForm
-     * @return ReserveRegisterRes
+     * @param jwt トークン
+     * @param reqForm 画面からの入力値
+     * @return 成功メッセージ
+     * @throws AuthenticationException
      */
     @PostMapping("/")
     public ResponseEntity<ReserveRegisterRes> register(@RequestHeader("CustomerAuthorization") String jwt, @RequestBody @Valid ReserveRegisterReq reqForm) throws AuthenticationException {

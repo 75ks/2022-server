@@ -27,7 +27,8 @@ public class ReserveRegisterServiceImpl implements ReserveRegisterService {
 
     /**
      * ランクID取得
-     * @param stuffId
+     * @param stuffId スタッフID
+     * @return ランクID
      */
     public Integer getRankId(Integer stuffId) {
         // SELECT文を実行し、データを取得する
@@ -37,9 +38,9 @@ public class ReserveRegisterServiceImpl implements ReserveRegisterService {
 
     /**
      * 予約情報登録
-     * @param customerId
-     * @param storeId
-     * @param reqForm
+     * @param customerId 顧客ID
+     * @param storeId 店舗ID
+     * @param reqForm 画面からの入力値
      */
     public void register(int customerId, int storeId, ReserveRegisterReq reqForm) {
         // SELECT文を実行し、データを取得する
