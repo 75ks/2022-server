@@ -24,9 +24,9 @@ public class CustomerListController {
 
     /**
      * 顧客一覧取得
-     * @param jwt
-     * @param reqForm
-     * @return List{@literal<CustomerListRes>}
+     * @param jwt トークン
+     * @param reqForm 画面からの入力値
+     * @return 顧客情報一覧
      * @throws AuthenticationException
      */
     @GetMapping("/")

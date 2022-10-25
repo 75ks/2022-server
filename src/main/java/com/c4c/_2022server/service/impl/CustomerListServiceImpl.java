@@ -19,9 +19,9 @@ public class CustomerListServiceImpl implements CustomerListService {
 
     /**
      * 顧客一覧取得
-     * @param storeId
-     * @param reqForm
-     * @return List{@literal<CustomerListRes>}
+     * @param storeId 店舗ID
+     * @param reqForm 画面からの入力値
+     * @return 顧客情報一覧
      */
     @Override
     public List<CustomerListFormRes> index(int storeId, CustomerListFormReq reqForm) {

@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class CustomerListFormRes {
-	/**
-	 * Table: CUSTOMER
+    /**
+     * Table: CUSTOMER
      * Column: CUSTOMER_ID
      * Type: INT
      * Remark: 顧客ID
