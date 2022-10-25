@@ -33,9 +33,9 @@ public class CustomerDetailController {
 
     /**
      * 初期表示
-     * @param jwt
-     * @param givenCustomerId
-     * @return CustomerDetailRes
+     * @param jwt トークン
+     * @param givenCustomerId 顧客ID
+     * @return 顧客詳細情報
      * @throws AuthenticationException
      */
     @GetMapping("/initialize")
@@ -50,10 +50,11 @@ public class CustomerDetailController {
 
     /**
      * 顧客情報更新
-     * @param jwt
-     * @param reqForm
-     * @return CustomerDetailRegisterRes
-     * @throws AuthenticationException, DuplicationException
+     * @param jwt トークン
+     * @param reqForm 画面からの入力値
+     * @return 成功メッセージ
+     * @throws AuthenticationException
+     * @throws DuplicationException
      */
     @PostMapping("/")
     public ResponseEntity<CustomerDetailRegisterRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid CustomerDetailRegisterReq reqForm) throws AuthenticationException, DuplicationException {

@@ -28,9 +28,9 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
 
     /**
      * 初期表示
-     * @param storeId
-     * @param customerId
-     * @return CustomerDetailRes
+     * @param storeId 店舗ID
+     * @param customerId 顧客ID
+     * @return 顧客詳細情報
      */
     @Override
     public CustomerDetailRes index(int storeId, int customerId) {
@@ -47,9 +47,9 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
 
     /**
      * 顧客情報更新
-     * @param stuffId
-     * @param storeid
-     * @param reqForm
+     * @param stuffId スタッフID
+     * @param storeid 店舗ID
+     * @param reqForm 画面からの入力値
      * @throws DuplicationException
      */
     @Override
