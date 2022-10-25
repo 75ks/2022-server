@@ -14,6 +14,10 @@ public class RegisterSampleServiceImpl implements RegisterSampleService {
     @Autowired
     StuffMapper stuffMapper;
 
+    /**
+     * スタッフ登録サンプル
+     * @param reqForm 画面からの入力値
+     */
     @Override
     public void register(RegisterSampleReq reqForm) {
         Stuff stuff = new Stuff();
@@ -32,5 +36,4 @@ public class RegisterSampleServiceImpl implements RegisterSampleService {
         // INSERTを実行し、データを登録する
         stuffMapper.insert(stuff);
     }
-
 }
