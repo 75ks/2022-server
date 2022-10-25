@@ -24,13 +24,16 @@ public class CustomerListController {
 
     /**
      * 顧客一覧取得
+     * @param jwt
+     * @param reqForm
      * @return List{@literal<CustomerListRes>}
+     * @throws AuthenticationException
      */
     @GetMapping("/")
     public ResponseEntity<List<CustomerListFormRes>> index(@RequestHeader("Authorization") String jwt, CustomerListFormReq reqForm) throws AuthenticationException {
-    	JWTUtils instance = JWTUtils.getInstance();
-    	int storeId = instance.getStoreId(jwt);
-    	List<CustomerListFormRes> customerFormList = customerListServiceImpl.index(storeId, reqForm);
+        JWTUtils instance = JWTUtils.getInstance();
+        int storeId = instance.getStoreId(jwt);
+        List<CustomerListFormRes> customerFormList = customerListServiceImpl.index(storeId, reqForm);
         return ResponseEntity.ok(customerFormList);
     }
 }
