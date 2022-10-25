@@ -30,9 +30,9 @@ public class StuffCreateController {
 
     /**
      * スタッフ登録
-     * @param jwt
-     * @param reqForm
-     * @return StuffCreateRes
+     * @param jwt トークン
+     * @param reqForm 画面からの入力値
+     * @return 成功メッセージ
      * @throws AuthenticationException
      * @throws DuplicationException
      */

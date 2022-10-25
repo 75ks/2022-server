@@ -27,9 +27,9 @@ public class StuffCreateServiceImpl implements StuffCreateService {
 
     /**
      * スタッフ登録
-     * @param storeId
-     * @param stuffId
-     * @param reqForm
+     * @param storeId 店舗ID
+     * @param stuffId スタッフID
+     * @param reqForm 画面からの入力値
      * @throws DuplicationException
      */
     @Override
@@ -69,5 +69,4 @@ public class StuffCreateServiceImpl implements StuffCreateService {
         // INSERTを実行し、データを登録する
         stuffMapper.insert(stuff);
     }
-    
 }
