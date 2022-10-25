@@ -43,15 +43,15 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
             throw new DuplicationException(messageSource.getMessage("error.email.registered", new String[]{}, Locale.getDefault()));
         }
 
-    	Customer customer = new Customer();
-    	customer.setStoreId(storeId);
+        Customer customer = new Customer();
+        customer.setStoreId(storeId);
         customer.setLastName(reqForm.getLastName());
         customer.setFirstName(reqForm.getFirstName());
         customer.setLastNameKana(reqForm.getLastNameKana());
         customer.setFirstNameKana(reqForm.getFirstNameKana());
         // 生年月日がnullまたは空文字でない場合
         if (!(Objects.equals(reqForm.getBirthday(), null) || Objects.equals(reqForm.getBirthday(), ""))) {
-        	customer.setBirthday(LocalDate.parse(reqForm.getBirthday()));
+            customer.setBirthday(LocalDate.parse(reqForm.getBirthday()));
         }
         customer.setAge(reqForm.getAge());
         customer.setGender(reqForm.getGender());
