@@ -1,6 +1,5 @@
 package com.c4c._2022server.controller;
 
-
 import java.util.Locale;
 
 import javax.security.sasl.AuthenticationException;
@@ -34,8 +33,8 @@ public class CustomerProfileController {
 
     /**
      * 顧客情報取得
-     * @param jwt
-     * @return CustomerListFormRes
+     * @param jwt トークン
+     * @return 顧客詳細情報
      * @throws AuthenticationException
      */
     @GetMapping("/initialize")
@@ -48,9 +47,9 @@ public class CustomerProfileController {
 
     /**
      * 顧客情報更新
-     * @param jwt
-     * @param reqForm
-     * @return CustomerProfileUpdateRes
+     * @param jwt トークン
+     * @param reqForm 画面からの入力値
+     * @return 成功メッセージ
      * @throws AuthenticationException
      * @throws ExclusiveException
      * @throws DuplicationException

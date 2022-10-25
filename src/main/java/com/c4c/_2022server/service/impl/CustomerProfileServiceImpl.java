@@ -1,6 +1,5 @@
 package com.c4c._2022server.service.impl;
 
-
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +27,8 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
 
     /**
      * 顧客情報取得
-     * @param customerId
-     * @return CustomerProfileInitRes
+     * @param customerId 顧客ID
+     * @return 顧客詳細情報
      */
     @Override
     public CustomerProfileInitRes index(int customerId) {
@@ -59,8 +58,8 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
 
     /**
      * 顧客情報更新
-     * @param customerId
-     * @param reqForm
+     * @param customerId 顧客ID
+     * @param reqForm 画面からの入力値
      * @throws ExclusiveException
      * @throws DuplicationException
      */
