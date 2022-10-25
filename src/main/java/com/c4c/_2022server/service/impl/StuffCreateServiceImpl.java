@@ -25,22 +25,29 @@ public class StuffCreateServiceImpl implements StuffCreateService {
     @Autowired
     MessageSource messageSource;
 
+    /**
+     * スタッフ登録
+     * @param storeId
+     * @param stuffId
+     * @param reqForm
+     * @throws DuplicationException
+     */
     @Override
-    public void register(int storeId, int stuffId, StuffCreateReq reqForm) throws Exception {
+    public void register(int storeId, int stuffId, StuffCreateReq reqForm) throws DuplicationException {
         // メールアドレスが登録済みかチェック
         Stuff checkStuff = stuffMapper.select0001(reqForm.getEmail());
         if (checkStuff != null) {
             throw new DuplicationException(messageSource.getMessage("error.email.registered", new String[]{}, Locale.getDefault()));
         }
-    	Stuff stuff = new Stuff();
-    	stuff.setStoreId(storeId);
-    	stuff.setLastName(reqForm.getLastName());
-    	stuff.setFirstName(reqForm.getFirstName());
-    	stuff.setLastNameKana(reqForm.getLastNameKana());
-    	stuff.setFirstNameKana(reqForm.getFirstNameKana());
+        Stuff stuff = new Stuff();
+        stuff.setStoreId(storeId);
+        stuff.setLastName(reqForm.getLastName());
+        stuff.setFirstName(reqForm.getFirstName());
+        stuff.setLastNameKana(reqForm.getLastNameKana());
+        stuff.setFirstNameKana(reqForm.getFirstNameKana());
         // 生年月日がnullまたは空文字でない場合
         if (!(Objects.equals(reqForm.getBirthday(), null) || Objects.equals(reqForm.getBirthday(), ""))) {
-        	stuff.setBirthday(LocalDate.parse(reqForm.getBirthday()));
+            stuff.setBirthday(LocalDate.parse(reqForm.getBirthday()));
         }
         stuff.setAge(reqForm.getAge());
         stuff.setGender(reqForm.getGender());
