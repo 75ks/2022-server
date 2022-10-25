@@ -10,13 +10,17 @@ import com.c4c._2022server.form.LoginRes;
 public interface AuthorizationService {
     /**
      * ログイン
-     * @param SignInReq
+     * @param reqForm 画面からの入力値
+     * @param response レスポンス
+     * @return ログイン情報
+     * @throws AuthenticationException
      */
     public LoginRes signIn(LoginReq reqForm, HttpServletResponse response) throws AuthenticationException;
 
     /**
      * ログアウト
-     * @param response
+     * @param request リクエスト
+     * @param response レスポンス
      */
     public void logout(HttpServletRequest request, HttpServletResponse response);
 }

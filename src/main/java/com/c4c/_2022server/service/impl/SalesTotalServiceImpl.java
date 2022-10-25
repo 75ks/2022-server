@@ -28,9 +28,9 @@ public class SalesTotalServiceImpl implements SalesTotalService {
 
     /**
      * 売上情報取得(年)
-     * @param storeId
-     * @param salesYear
-     * @return SalesTotalYearRes
+     * @param storeId 店舗ID
+     * @param salesYear 年(YYYY)
+     * @return パラメータ年の一年分の売上データ
      */
     @Override
     public List<SalesTotalYearRes> getSalesYear(int storeId, String salesYear) {
@@ -51,9 +51,9 @@ public class SalesTotalServiceImpl implements SalesTotalService {
 
     /**
      * 売上情報取得(月)
-     * @param storeId
-     * @param salesYearMonth
-     * @return SalesTotalMonthRes
+     * @param storeId 店舗ID
+     * @param salesYearMonth 月(M)
+     * @return パラメータ月の売上データ
      */
     @Override
     public SalesTotalMonthRes getSalesMonth(int storeId, String salesYearMonth) {
@@ -69,9 +69,9 @@ public class SalesTotalServiceImpl implements SalesTotalService {
 
     /**
      * 売上情報取得(グラフ)
-     * @param storeId
-     * @param salesYear
-     * @return SalesTotalChartRes
+     * @param storeId 店舗ID
+     * @param salesYear 年(YYYY)
+     * @return パラメータ年の一年分の売上データ(グラフ)
      */
     @Override
     public List<SalesTotalChartRes> getSalesChart(int storeId, String salesYear) {
@@ -106,10 +106,10 @@ public class SalesTotalServiceImpl implements SalesTotalService {
     }
 
     /**
-     * 売上情報取得(円グラフ)
-     * @param storeId
-     * @param salesYearMonth
-     * @return SalesTotalPieChartRes
+     * 売上情報取得(グラフ)
+     * @param storeId 店舗ID
+     * @param salesYearMonth 月(M)
+     * @return パラメータ月の売上データ(グラフ)
      */
     @Override
     public List<SalesTotalPieChartRes> getSalesPieChart(int storeId, String salesYearMonth) {
@@ -128,9 +128,9 @@ public class SalesTotalServiceImpl implements SalesTotalService {
 
     /**
      * 売上情報一覧取得
-     * @param storeId
-     * @param salesYearMonth
-     * @return List{@literal<SalesHistoryRes>}
+     * @param storeId 店舗ID
+     * @param salesYearMonth 月(M)
+     * @return 売上情報一覧
      */
     @Override
     public List<SalesHistoryRes> index(int storeId, String salesYearMonth) {

@@ -47,6 +47,12 @@ public class SelectOptionController {
     @Autowired
     StuffMapper stuffMapper;
 
+    /**
+     * ランクプルダウン取得
+     * @param jwt トークン
+     * @return ランク情報
+     * @throws AuthenticationException
+     */
     @GetMapping("/ranks")
     public ResponseEntity<List<SelectOption>> getRanksOptions(@RequestHeader("Authorization") String jwt) throws AuthenticationException {
         // JWTから店舗IDを取得する
@@ -60,12 +66,6 @@ public class SelectOptionController {
 
         // 選択肢一覧を格納するリストをnewする
         List<SelectOption> selectOptionList = new ArrayList<>();
-//        // 初期値の選択肢を追加
-//        SelectOption selectOption = new SelectOption();
-//        selectOption.setCode(null);
-//        selectOption.setName("");
-//        selectOptionList.add(selectOption);
-
         // 検索結果全件に対しての処理
         for (RankByStore rank : rankList) {
             SelectOption tempSelectOption = new SelectOption();
@@ -75,10 +75,16 @@ public class SelectOptionController {
             // selectOptionListに追加
             selectOptionList.add(tempSelectOption);
         }
-
         return ResponseEntity.ok(selectOptionList);
     }
 
+    /**
+     * メニュープルダウン取得
+     * @param jwt トークン(スタッフ用)
+     * @param customerJwt トークン(顧客用)
+     * @return　メニュー情報
+     * @throws AuthenticationException
+     */
     @GetMapping("/menus")
     public ResponseEntity<List<SelectOption>> getMenusOptions(@RequestHeader("Authorization") String jwt, @RequestHeader("CustomerAuthorization") String customerJwt) throws AuthenticationException {
         // JWTから店舗IDを取得する
@@ -104,6 +110,14 @@ public class SelectOptionController {
         return ResponseEntity.ok(selectOptionList);
     }
 
+    /**
+     * メニュー料金プルダウン取得
+     * @param jwt トークン(スタッフ用)
+     * @param customerJwt トークン(顧客用)
+     * @param rankId ランクID
+     * @return メニュー料金情報
+     * @throws AuthenticationException
+     */
     @GetMapping("/menuPrice")
     public ResponseEntity<List<SelectOption>> getMenuPriceOptions(@RequestHeader("Authorization") String jwt, @RequestHeader("CustomerAuthorization") String customerJwt, @RequestParam(name = "rankId", required = true) Integer rankId) throws AuthenticationException {
         // JWTから店舗IDを取得する
@@ -127,6 +141,10 @@ public class SelectOptionController {
         return ResponseEntity.ok(selectOptionList);
     }
 
+    /**
+     * 予約状態プルダウン取得
+     * @return 予約状態情報
+     */
     @GetMapping("/reserveStates")
     public ResponseEntity<List<SelectOption>> getReserveStatesOptions() {
         // 予約状態Enum取得
@@ -146,6 +164,10 @@ public class SelectOptionController {
         return ResponseEntity.ok(selectOptionList);
     }
 
+    /**
+     * 性別プルダウン取得
+     * @return 性別情報
+     */
     @GetMapping("/gender")
     public ResponseEntity<List<SelectOption>> getGenderOptions() {
         // 性別Enum取得
@@ -165,6 +187,10 @@ public class SelectOptionController {
         return ResponseEntity.ok(selectOptionList);
     }
 
+    /**
+     * 都道府県プルダウン取得
+     * @return 都道府県情報
+     */
     @GetMapping("/prefectureId")
     public ResponseEntity<List<SelectOption>> getPrefectureIdOptions() {
         // 都道府県Enum取得
@@ -184,6 +210,12 @@ public class SelectOptionController {
         return ResponseEntity.ok(selectOptionList);
     }
 
+    /**
+     * 顧客プルダウン取得
+     * @param jwt トークン
+     * @return 顧客情報
+     * @throws AuthenticationException
+     */
     @GetMapping("/customers")
     public ResponseEntity<List<SelectOption>> getCustomersOptions(@RequestHeader("Authorization") String jwt) throws AuthenticationException {
         // JWTから店舗IDを取得する
@@ -209,6 +241,13 @@ public class SelectOptionController {
         return ResponseEntity.ok(selectOptionList);
     }
 
+    /**
+     * スタッフプルダウン取得
+     * @param jwt トークン(スタッフ用)
+     * @param customerJwt トークン(顧客用)
+     * @return スタッフ情報
+     * @throws AuthenticationException
+     */
     @GetMapping("/stuffs")
     public ResponseEntity<List<SelectOption>> getStuffsOptions(@RequestHeader("Authorization") String jwt, @RequestHeader("CustomerAuthorization") String customerJwt) throws AuthenticationException {
         // JWTから店舗IDを取得する

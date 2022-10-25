@@ -24,18 +24,21 @@ public class AuthorizationController {
 
     /**
      * ログイン
-     * @param LoginReq
-     * @return LoginRes
+     * @param response レスポンス 
+     * @param reqForm 画面からの入力値
+     * @return ログイン情報
+     * @throws AuthenticationException
      */
     @PostMapping("/login")
     public ResponseEntity<LoginRes> login(HttpServletResponse response, @RequestBody LoginReq reqForm) throws AuthenticationException {
         LoginRes resForm = authorizationServiceImpl.signIn(reqForm, response);
         return ResponseEntity.ok(resForm);
     }
-    
+
     /**
      * ログアウト
-     * @param request, response
+     * @param request リクエスト
+     * @param response レスポンス
      */
     @GetMapping("/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response) {
