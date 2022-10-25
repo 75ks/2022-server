@@ -31,12 +31,13 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
 
     /**
      * 顧客登録
-     * @param storeId
-     * @param stuffId
-     * @param reqForm
+     * @param storeId 店舗ID
+     * @param stuffId スタッフID
+     * @param reqForm 画面からの入力値
+     * @throws DuplicationException
      */
     @Override
-    public void register(int storeId, int stuffId, CustomerCreateReq reqForm) throws Exception {
+    public void register(int storeId, int stuffId, CustomerCreateReq reqForm) throws DuplicationException {
         // メールアドレスが登録済みかチェック
         Customer checkCustomer = customerMapper.select0001(reqForm.getEmail());
         if (checkCustomer != null) {
@@ -79,7 +80,7 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
 
     /**
      * 10桁のランダムなパスワードを生成
-     * @return password パスワード
+     * @return パスワード
      */
     private String createRandomPassword() {
         StringBuilder sb = new StringBuilder("abcdefghijklmnopqrstuvwxyz")
