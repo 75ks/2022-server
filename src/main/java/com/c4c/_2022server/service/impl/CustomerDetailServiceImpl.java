@@ -26,23 +26,23 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
     @Autowired
     MessageSource messageSource;
 
-	/**
-	 * 
-	 * @param customerId
-	 * @return
-	 */
-
-//    @Override
+    /**
+     * 初期表示
+     * @param storeId
+     * @param customerId
+     * @return CustomerDetailRes
+     */
+    @Override
     public CustomerDetailRes index(int storeId, int customerId) {
-    	// 顧客ID・店舗IDに紐づく1件を取得する
-    	CustomerExample customerExample = new CustomerExample();
-    	customerExample.createCriteria().andStoreIdEqualTo(storeId).andCustomerIdEqualTo(customerId);
-    	List<Customer> customerList = customerMapper.selectByExample(customerExample);
-    	// Formにデータを詰める（レスポンスフォームに移送する）
-    	CustomerDetailRes resForm = new CustomerDetailRes();
-    	BeanUtils.copyProperties(customerList.get(0), resForm);
+        // 顧客ID・店舗IDに紐づく1件を取得する
+        CustomerExample customerExample = new CustomerExample();
+        customerExample.createCriteria().andStoreIdEqualTo(storeId).andCustomerIdEqualTo(customerId);
+        List<Customer> customerList = customerMapper.selectByExample(customerExample);
+        // Formにデータを詰める（レスポンスフォームに移送する）
+        CustomerDetailRes resForm = new CustomerDetailRes();
+        BeanUtils.copyProperties(customerList.get(0), resForm);
 
-    	return resForm;
+        return resForm;
     }  
 
     /**
@@ -50,6 +50,7 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
      * @param stuffId
      * @param storeid
      * @param reqForm
+     * @throws DuplicationException
      */
     @Override
     public void register(int stuffId, int storeId, CustomerDetailRegisterReq reqForm) throws DuplicationException {

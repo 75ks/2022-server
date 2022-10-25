@@ -34,24 +34,25 @@ public class CustomerDetailController {
     /**
      * 初期表示
      * @param jwt
-     * @return
+     * @param givenCustomerId
+     * @return CustomerDetailRes
+     * @throws AuthenticationException
      */
-
     @GetMapping("/initialize")
     public ResponseEntity<CustomerDetailRes> index(@RequestHeader("Authorization") String jwt, @RequestParam(name = "customerId", required = true) Integer givenCustomerId) throws AuthenticationException {
-    	// JWTから店舗IDを取得する
+        // JWTから店舗IDを取得する
         JWTUtils instance = JWTUtils.getInstance();
         int storeId = instance.getStoreId(jwt);
         // レスポンスForm
-	    CustomerDetailRes resForm = customerDetailServiceImpl.index(storeId, givenCustomerId);    
-	    return ResponseEntity.ok(resForm);
+        CustomerDetailRes resForm = customerDetailServiceImpl.index(storeId, givenCustomerId);    
+        return ResponseEntity.ok(resForm);
     }
 
     /**
      * 顧客情報更新
      * @param jwt
      * @param reqForm
-     * @return
+     * @return CustomerDetailRegisterRes
      * @throws AuthenticationException, DuplicationException
      */
     @PostMapping("/")

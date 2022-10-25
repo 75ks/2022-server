@@ -5,12 +5,12 @@ import com.c4c._2022server.form.CustomerDetailRegisterReq;
 import com.c4c._2022server.form.CustomerDetailRes;
 
 public interface CustomerDetailService {
-	/**
-	 * 
-	 * @param storeId
-	 * @param customerId
-	 * @return
-	 */
+    /**
+     * 初期表示
+     * @param storeId
+     * @param customerId
+     * @return CustomerDetailRes
+     */
     public CustomerDetailRes index(int storeId, int customerId);
 
     /**
@@ -18,6 +18,7 @@ public interface CustomerDetailService {
      * @param stuffId
      * @param storeId
      * @param reqForm
+     * @throws DuplicationException
      */
     public void register(int stuffId, int storeId, CustomerDetailRegisterReq reqForm) throws DuplicationException;
 }
