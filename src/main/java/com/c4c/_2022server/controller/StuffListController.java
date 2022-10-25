@@ -24,13 +24,16 @@ public class StuffListController {
 
     /**
      * スタッフ一覧取得
+     * @param jwt
+     * @param reqForm
      * @return List{@literal<StuffListRes>}
+     * @throws AuthenticationException
      */
     @GetMapping("/")
     public ResponseEntity<List<StuffListFormRes>> index(@RequestHeader("Authorization") String jwt, StuffListFormReq reqForm) throws AuthenticationException {
-    	JWTUtils instance = JWTUtils.getInstance();
-    	int storeId = instance.getStoreId(jwt);
-    	List<StuffListFormRes> stuffFormList = stuffListServiceImpl.index(storeId, reqForm);
+        JWTUtils instance = JWTUtils.getInstance();
+        int storeId = instance.getStoreId(jwt);
+        List<StuffListFormRes> stuffFormList = stuffListServiceImpl.index(storeId, reqForm);
         return ResponseEntity.ok(stuffFormList);
     }
 }
