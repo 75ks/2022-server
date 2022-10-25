@@ -19,9 +19,9 @@ public class StuffListServiceImpl implements StuffListService {
 
     /**
      * スタッフ一覧取得
-     * @param stuffId
-     * @param reqForm
-     * @return List{@literal<StuffListRes>}
+     * @param storeId 店舗ID
+     * @param reqForm 画面からの入力値
+     * @return スタッフ一覧
      */
     @Override
     public List<StuffListFormRes> index(int storeId, StuffListFormReq reqForm) {

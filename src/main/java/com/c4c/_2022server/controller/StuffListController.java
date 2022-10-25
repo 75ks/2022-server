@@ -24,9 +24,9 @@ public class StuffListController {
 
     /**
      * スタッフ一覧取得
-     * @param jwt
-     * @param reqForm
-     * @return List{@literal<StuffListRes>}
+     * @param jwt トークン
+     * @param reqForm 画面からの入力値
+     * @return スタッフ一覧
      * @throws AuthenticationException
      */
     @GetMapping("/")
