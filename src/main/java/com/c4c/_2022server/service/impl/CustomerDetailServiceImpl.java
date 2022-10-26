@@ -1,13 +1,16 @@
 package com.c4c._2022server.service.impl;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import com.c4c._2022server.entity.Customer;
 import com.c4c._2022server.entity.CustomerExample;
+import com.c4c._2022server.exception.ExclusiveException;
 import com.c4c._2022server.form.CustomerDetailRegisterReq;
 import com.c4c._2022server.form.CustomerDetailRes;
 import com.c4c._2022server.mapper.CustomerMapper;
@@ -20,6 +23,8 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
     CustomerMapper customerMapper;
     @Autowired
     EntityUtils entityUtils;
+    @Autowired
+    MessageSource messageSource;
 
 	/**
 	 * 
@@ -27,7 +32,7 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
 	 * @return
 	 */
 
-//    @Override
+    @Override
     public CustomerDetailRes index(int storeId, int customerId) {
     	// 顧客ID・店舗IDに紐づく1件を取得する
     	CustomerExample customerExample = new CustomerExample();
@@ -47,9 +52,25 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
      * @param reqForm
      */
     @Override
-    public void register(int stuffId, int storeId, CustomerDetailRegisterReq reqForm) {
+    public void register(int stuffId, int storeId, CustomerDetailRegisterReq reqForm) throws ExclusiveException {
+        // バージョンチェック
+        CustomerExample customerExample = new CustomerExample();
+        customerExample.createCriteria()
+        		.andCustomerIdEqualTo(stuffId) // スタッフID
+        		.andStoreIdEqualTo(storeId) // 店舗ID
+                .andVersionExKeyEqualTo(reqForm.getVersionExKey()); // 排他制御カラム
+        Customer customer = customerMapper.selectByExample(customerExample) // 検索を行う
+                .stream() // streamに変換する
+                .findFirst() // 先頭の1件を取得する
+                .orElse(null); // 先頭の1件が取得できない場合は、nullを返す
+
+        // 検索結果が取得できなかった場合
+        if (customer == null) {
+            // ExclusiveExceptionをスローする
+            throw new ExclusiveException(messageSource.getMessage("error.exclusive", new String[]{}, Locale.getDefault()));
+        }
         // Formにデータを詰める
-        Customer customer = new Customer();
+//        Customer customer = new Customer();
         BeanUtils.copyProperties(reqForm, customer);
         // UPDATE時の共通設定
         entityUtils.setColumns4Update(customer, stuffId);

@@ -1,5 +1,6 @@
 package com.c4c._2022server.service;
 
+import com.c4c._2022server.exception.ExclusiveException;
 import com.c4c._2022server.form.CustomerDetailRegisterReq;
 import com.c4c._2022server.form.CustomerDetailRes;
 
@@ -18,5 +19,5 @@ public interface CustomerDetailService {
      * @param storeId
      * @param reqForm
      */
-    public void register(int stuffId, int storeId, CustomerDetailRegisterReq reqForm);
+    public void register(int stuffId, int storeId, CustomerDetailRegisterReq reqForm) throws ExclusiveException;
 }

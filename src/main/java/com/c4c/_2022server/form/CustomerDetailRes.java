@@ -118,4 +118,12 @@ public class CustomerDetailRes {
      * Remark: メールアドレス
      */
     private String email;
+    
+    /**
+     * Column: VERSION_EX_KEY
+     * Type: INT
+     * Default value: 0
+     * Remark: 排他制御カラム
+     */
+    private Integer versionExKey;
 }
