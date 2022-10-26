@@ -82,9 +82,9 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
             // ExclusiveExceptionをスローする
             throw new ExclusiveException(messageSource.getMessage("error.exclusive", new String[]{}, Locale.getDefault()));
         }
-        // メールアドレスが登録済みかチェック
+        // メールアドレスが登録済み かつ 別顧客のメールアドレスかチェック
         Customer checkCustomer = customerMapper.select0001(reqForm.getEmail());
-        if (checkCustomer != null) {
+        if (checkCustomer != null && !(checkCustomer.getEmail().equals(customer.getEmail()))) {
             throw new DuplicationException(messageSource.getMessage("error.email.registered", new String[]{}, Locale.getDefault()));
         }
 

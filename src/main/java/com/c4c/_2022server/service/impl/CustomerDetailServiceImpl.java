@@ -54,13 +54,21 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
      */
     @Override
     public void register(int stuffId, int storeId, CustomerDetailRegisterReq reqForm) throws DuplicationException {
-        // メールアドレスが登録済みかチェック
+        // 更新対象の顧客情報を取得
+        CustomerExample customerExample = new CustomerExample();
+        customerExample.createCriteria()
+                .andCustomerIdEqualTo(reqForm.getCustomerId()); // 顧客ID
+        Customer customer = customerMapper.selectByExample(customerExample) // 検索を行う
+                .stream() // streamに変換する
+                .findFirst() // 先頭の1件を取得する
+                .orElse(null); // 先頭の1件が取得できない場合は、nullを返す
+        
+        // メールアドレスが登録済み かつ 別顧客のメールアドレスかチェック
         Customer checkCustomer = customerMapper.select0001(reqForm.getEmail());
-        if (checkCustomer != null) {
+        if (checkCustomer != null && !(checkCustomer.getEmail().equals(customer.getEmail()))) {
             throw new DuplicationException(messageSource.getMessage("error.email.registered", new String[]{}, Locale.getDefault()));
         }
         // Formにデータを詰める
-        Customer customer = new Customer();
         BeanUtils.copyProperties(reqForm, customer);
         // UPDATE時の共通設定
         entityUtils.setColumns4Update(customer, stuffId);
