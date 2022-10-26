@@ -19,27 +19,29 @@ public class StuffListServiceImpl implements StuffListService {
 
     /**
      * スタッフ一覧取得
-     * @return stuffFormList
+     * @param storeId 店舗ID
+     * @param reqForm 画面からの入力値
+     * @return スタッフ一覧
      */
     @Override
     public List<StuffListFormRes> index(int storeId, StuffListFormReq reqForm) {
         // SELECT文を実行し、データを取得する
-    	List<StuffList0001> stuffList = stuffMapper.select0002(storeId, reqForm);
+        List<StuffList0001> stuffList = stuffMapper.select0002(storeId, reqForm);
         // Formにデータを詰める
         List<StuffListFormRes> stuffFormList = new ArrayList<>();
         for (StuffList0001 stuffList0001 : stuffList) {
-        	StuffListFormRes stuffForm = new StuffListFormRes();
-        	stuffForm.setStuffId(stuffList0001.getStuffId());
-        	stuffForm.setStoreId(stuffList0001.getStoreId());
-        	stuffForm.setLastName(stuffList0001.getLastName());
-        	stuffForm.setFirstName(stuffList0001.getFirstName());
-        	stuffForm.setLastNameKana(stuffList0001.getLastNameKana());
-        	stuffForm.setFirstNameKana(stuffList0001.getFirstNameKana());
-        	stuffForm.setRank(stuffList0001.getRank());
-        	stuffForm.setBirthday(stuffList0001.getBirthday());
-        	stuffForm.setAge(stuffList0001.getAge());
-        	stuffForm.setGender(stuffList0001.getGender());
-        	stuffFormList.add(stuffForm);
+            StuffListFormRes stuffForm = new StuffListFormRes();
+            stuffForm.setStuffId(stuffList0001.getStuffId());
+            stuffForm.setStoreId(stuffList0001.getStoreId());
+            stuffForm.setLastName(stuffList0001.getLastName());
+            stuffForm.setFirstName(stuffList0001.getFirstName());
+            stuffForm.setLastNameKana(stuffList0001.getLastNameKana());
+            stuffForm.setFirstNameKana(stuffList0001.getFirstNameKana());
+            stuffForm.setRank(stuffList0001.getRank());
+            stuffForm.setBirthday(stuffList0001.getBirthday());
+            stuffForm.setAge(stuffList0001.getAge());
+            stuffForm.setGender(stuffList0001.getGender());
+            stuffFormList.add(stuffForm);
         }
         return stuffFormList;
     }

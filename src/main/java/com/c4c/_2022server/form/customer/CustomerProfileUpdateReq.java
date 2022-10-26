@@ -1,54 +1,100 @@
 package com.c4c._2022server.form.customer;
 
-import lombok.Data;
-
 import java.time.LocalDate;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import lombok.Data;
 
 @Data
 public class CustomerProfileUpdateReq {
-    /** 顧客ID */
-    private Integer customerId;
-
-    /** 顧客名 */
-    private String customerName;
+    /**
+     * 姓
+     */
+    @NotEmpty(message = "{lastName}{NotEmpty}")
+    @Size(max = 30, message = "{lastName}{Size.less_max}")
     private String lastName;
+
+    /**
+     * 名
+     */
+    @NotEmpty(message = "{firstName}{NotEmpty}")
+    @Size(max = 30, message = "{firstName}{Size.less_max}")
     private String firstName;
 
-
-    /** 顧客名(カナ) */
-    private String customerNameKana;
+    /**
+     * セイ
+     */
+    @NotEmpty(message = "{lastNameKana}{NotEmpty}")
+    @Size(max = 30, message = "{lastNameKana}{Size.less_max}")
     private String lastNameKana;
+
+    /**
+     * メイ
+     */
+    @NotEmpty(message = "{firstNameKana}{NotEmpty}")
+    @Size(max = 30, message = "{firstNameKana}{Size.less_max}")
     private String firstNameKana;
 
+    /**
+     * 生年月日
+     */
     private LocalDate birthday;
 
-    /** 年齢 */
+    /**
+     * 年齢
+     */
     private Integer age;
 
-    /** 性別 */
+    /**
+     * 性別
+     */
+    @NotNull(message = "{gender}{NotNull}")
     private Integer gender;
 
-    /** 郵便番号 */
+    /**
+     * 郵便番号
+     */
+    @Pattern(regexp = "^(\\d{7})?$", message = "{Pattern.postalCode}")
     private String postalCode;
 
-    /** 都道府県 */
+    /**
+     * 都道府県
+     */
     private Integer prefectureId;
 
-    /** 市区町村 */
+    /**
+     * 市区町村
+     */
     private String address1;
 
-    /** 市区町村以下 */
+    /**
+     * 市区町村以下
+     */
     private String address2;
 
-    /** 建物、部屋番号 */
+    /**
+     * 建物、部屋番号
+     */
     private String address3;
 
-    /** 電話番号 */
+    /**
+     * 電話番号
+     */
+    @Pattern(regexp = "^(\\d{11})?$", message = "{Pattern.phoneNumber}")
     private String phoneNumber;
 
-    /** メールアドレス */
+    /**
+     * メールアドレス
+     */
+    @NotEmpty(message = "{email}{NotEmpty}")
     private String email;
 
-    /** 排他制御カラム */
+    /**
+     * 排他制御カラム
+     */
     private Integer versionExKey;
 }

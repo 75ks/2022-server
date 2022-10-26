@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.c4c._2022server.exception.DuplicationException;
 import com.c4c._2022server.form.CustomerDetailRegisterReq;
 import com.c4c._2022server.form.CustomerDetailRegisterRes;
 import com.c4c._2022server.form.CustomerDetailRes;
@@ -32,29 +33,31 @@ public class CustomerDetailController {
 
     /**
      * 初期表示
-     * @param jwt
-     * @return
+     * @param jwt トークン
+     * @param givenCustomerId 顧客ID
+     * @return 顧客詳細情報
+     * @throws AuthenticationException
      */
-
     @GetMapping("/initialize")
     public ResponseEntity<CustomerDetailRes> index(@RequestHeader("Authorization") String jwt, @RequestParam(name = "customerId", required = true) Integer givenCustomerId) throws AuthenticationException {
-    	// JWTから店舗IDを取得する
+        // JWTから店舗IDを取得する
         JWTUtils instance = JWTUtils.getInstance();
         int storeId = instance.getStoreId(jwt);
         // レスポンスForm
-	    CustomerDetailRes resForm = customerDetailServiceImpl.index(storeId, givenCustomerId);    
-	    return ResponseEntity.ok(resForm);
+        CustomerDetailRes resForm = customerDetailServiceImpl.index(storeId, givenCustomerId);    
+        return ResponseEntity.ok(resForm);
     }
 
     /**
      * 顧客情報更新
-     * @param jwt
-     * @param reqForm
-     * @return
+     * @param jwt トークン
+     * @param reqForm 画面からの入力値
+     * @return 成功メッセージ
      * @throws AuthenticationException
+     * @throws DuplicationException
      */
     @PostMapping("/")
-    public ResponseEntity<CustomerDetailRegisterRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid CustomerDetailRegisterReq reqForm) throws AuthenticationException {
+    public ResponseEntity<CustomerDetailRegisterRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid CustomerDetailRegisterReq reqForm) throws AuthenticationException, DuplicationException {
         JWTUtils instance = JWTUtils.getInstance();
         int stuffId = instance.getId(jwt);
         int storeId = instance.getStoreId(jwt);

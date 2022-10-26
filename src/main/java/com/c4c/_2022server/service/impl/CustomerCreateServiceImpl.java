@@ -31,27 +31,28 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
 
     /**
      * 顧客登録
-     * @param storeId
-     * @param stuffId
-     * @param reqForm
+     * @param storeId 店舗ID
+     * @param stuffId スタッフID
+     * @param reqForm 画面からの入力値
+     * @throws DuplicationException
      */
     @Override
-    public void register(int storeId, int stuffId, CustomerCreateReq reqForm) throws Exception {
+    public void register(int storeId, int stuffId, CustomerCreateReq reqForm) throws DuplicationException {
         // メールアドレスが登録済みかチェック
         Customer checkCustomer = customerMapper.select0001(reqForm.getEmail());
         if (checkCustomer != null) {
             throw new DuplicationException(messageSource.getMessage("error.email.registered", new String[]{}, Locale.getDefault()));
         }
 
-    	Customer customer = new Customer();
-    	customer.setStoreId(storeId);
+        Customer customer = new Customer();
+        customer.setStoreId(storeId);
         customer.setLastName(reqForm.getLastName());
         customer.setFirstName(reqForm.getFirstName());
         customer.setLastNameKana(reqForm.getLastNameKana());
         customer.setFirstNameKana(reqForm.getFirstNameKana());
         // 生年月日がnullまたは空文字でない場合
         if (!(Objects.equals(reqForm.getBirthday(), null) || Objects.equals(reqForm.getBirthday(), ""))) {
-        	customer.setBirthday(LocalDate.parse(reqForm.getBirthday()));
+            customer.setBirthday(LocalDate.parse(reqForm.getBirthday()));
         }
         customer.setAge(reqForm.getAge());
         customer.setGender(reqForm.getGender());
@@ -79,7 +80,7 @@ public class CustomerCreateServiceImpl implements CustomerCreateService {
 
     /**
      * 10桁のランダムなパスワードを生成
-     * @return password パスワード
+     * @return パスワード
      */
     private String createRandomPassword() {
         StringBuilder sb = new StringBuilder("abcdefghijklmnopqrstuvwxyz")

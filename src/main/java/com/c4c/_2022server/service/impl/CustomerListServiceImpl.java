@@ -24,7 +24,7 @@ public class CustomerListServiceImpl implements CustomerListService {
     @Override
     public List<CustomerListFormRes> index(int storeId, CustomerListFormReq reqForm) {
         // SELECT文を実行し、データを取得する
-    	List<CustomerList0001> customerList = customerMapper.select0002(storeId, reqForm);
+        List<CustomerList0001> customerList = customerMapper.select0002(storeId, reqForm);
         // Formにデータを詰める
         List<CustomerListFormRes> customerFormList = new ArrayList<>();
         for (CustomerList0001 customerList0001 : customerList) {
@@ -34,11 +34,12 @@ public class CustomerListServiceImpl implements CustomerListService {
         	customerForm.setFirstName(customerList0001.getFirstName());
         	customerForm.setLastNameKana(customerList0001.getLastNameKana());
         	customerForm.setFirstNameKana(customerList0001.getFirstNameKana());
-        	customerForm.setBirthday(customerList0001.getBirthday().toString());
+        	customerForm.setBirthday(customerList0001.getBirthday());
         	customerForm.setAge(customerList0001.getAge());
         	customerForm.setGender(customerList0001.getGender());
         	customerFormList.add(customerForm);
+
         }
         return customerFormList;
-	}
+    }
 }
