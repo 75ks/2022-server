@@ -41,7 +41,9 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
         resForm.setFirstName(customer.getFirstName());
         resForm.setLastNameKana(customer.getLastNameKana());
         resForm.setFirstNameKana(customer.getFirstNameKana());
-        resForm.setBirthday(customer.getBirthday().toString());
+        if (customer.getBirthday() != null) {
+            resForm.setBirthday(customer.getBirthday().toString());
+        }
         resForm.setAge(customer.getAge());
         resForm.setGender(customer.getGender());
         resForm.setPostalCode(customer.getPostalCode());
@@ -80,9 +82,9 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
             // ExclusiveExceptionをスローする
             throw new ExclusiveException(messageSource.getMessage("error.exclusive", new String[]{}, Locale.getDefault()));
         }
-        // メールアドレスが登録済みかチェック
+        // メールアドレスが登録済み かつ 別顧客のメールアドレスかチェック
         Customer checkCustomer = customerMapper.select0001(reqForm.getEmail());
-        if (checkCustomer != null) {
+        if (checkCustomer != null && !(checkCustomer.getEmail().equals(customer.getEmail()))) {
             throw new DuplicationException(messageSource.getMessage("error.email.registered", new String[]{}, Locale.getDefault()));
         }
 
