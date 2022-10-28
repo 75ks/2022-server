@@ -23,6 +23,7 @@ import com.c4c._2022server.entity.RankByStoreExample;
 import com.c4c._2022server.entity.Stuff;
 import com.c4c._2022server.entity.StuffExample;
 import com.c4c._2022server.enums.GenderEnum;
+import com.c4c._2022server.enums.NumberOfDisplayEnum;
 import com.c4c._2022server.enums.PrefectureIdEnum;
 import com.c4c._2022server.enums.ReserveStateEnum;
 import com.c4c._2022server.form.SelectOption;
@@ -200,6 +201,29 @@ public class SelectOptionController {
         List<SelectOption> selectOptionList = new ArrayList<>();
         // 検索結果全件に対しての処理
         for (PrefectureIdEnum e : enumArray) {
+            // SelectOptionに以下の値を設定する
+            SelectOption tempSelectOption = new SelectOption();
+            tempSelectOption.setCode(e.getCode()); // コード値
+            tempSelectOption.setName(e.getName()); // 名称
+            // selectOptionListに追加
+            selectOptionList.add(tempSelectOption);
+        }
+        return ResponseEntity.ok(selectOptionList);
+    }
+
+    /**
+     * 表示件数プルダウン取得
+     * @return 表示件数情報
+     */
+    @GetMapping("/numberOfDisplay")
+    public ResponseEntity<List<SelectOption>> getNumberOfDisplayOptions() {
+        // 表示件数Enum取得
+        NumberOfDisplayEnum[] enumArray = NumberOfDisplayEnum.values();
+        
+        // 選択肢一覧を格納するリストをnewする
+        List<SelectOption> selectOptionList = new ArrayList<>();
+        // 検索結果全件に対しての処理
+        for (NumberOfDisplayEnum e : enumArray) {
             // SelectOptionに以下の値を設定する
             SelectOption tempSelectOption = new SelectOption();
             tempSelectOption.setCode(e.getCode()); // コード値
