@@ -27,31 +27,32 @@ import com.c4c._2022server.utils.JWTUtils;
 @RestController
 @RequestMapping("/menuManagement")
 public class MenuManagementController {
-    @Autowired
-    CustomerMapper CustomerMapper;
 
-    @Autowired
-    MenuManagementServiceImpl menuManegementServiceImpI;
+	@Autowired
+	CustomerMapper CustomerMapper;
 
-    @Autowired
-    MenuDetailMapper menuDetailMapper;
-    
+	@Autowired
+	MenuManagementServiceImpl menuManegementServiceImpI;
+
+	@Autowired
+	MenuDetailMapper menuDetailMapper;
+
+	@GetMapping("/initialize")
+	public ResponseEntity<List<MenuDetailManagementRes>> index(@RequestHeader("Authorization") String jwt)
+			throws AuthenticationException {
+		JWTUtils instance = JWTUtils.getInstance();
+		Integer storeId = instance.getStoreId(jwt);
+
+		List<MenuDetailManagementRes> menuDetailManagementResList = menuManegementServiceImpI.index(storeId);
+		return ResponseEntity.ok(menuDetailManagementResList);
+	}
+
 	@Autowired
 	MessageSource messageSource;
 
-    @GetMapping("/initialize")
-    public ResponseEntity<List<MenuDetailManagementRes>> index(@RequestHeader("Authorization") String jwt) throws AuthenticationException {
-        JWTUtils instance = JWTUtils.getInstance();
-        Integer storeId = instance.getStoreId(jwt);
-
-        List<MenuDetailManagementRes> menuDetailManagementResList = menuManegementServiceImpI.index(storeId);
-        return ResponseEntity.ok(menuDetailManagementResList);
-    }
-
-
-	
 	@PutMapping("/update")
-	public ResponseEntity<MenuDetailManegementHIstoryUpdateRes> update(@RequestHeader("Authorization") String jwt,@RequestBody @Valid MenuManegementUnityUpdateReq reqForm) throws AuthenticationException {
+	public ResponseEntity<MenuDetailManegementHIstoryUpdateRes> update(@RequestHeader("Authorization") String jwt,
+			@RequestBody @Valid MenuManegementUnityUpdateReq reqForm) throws AuthenticationException {
 		JWTUtils instance = JWTUtils.getInstance();
 		int storeId = instance.getStoreId(jwt);
 		menuManegementServiceImpI.deleteInsert(storeId, reqForm);
@@ -60,4 +61,5 @@ public class MenuManagementController {
 		resForm.setMessages(messageSource.getMessage("success", new String[] { "更新" }, Locale.getDefault()));
 		return ResponseEntity.ok(resForm);
 	}
+
 }

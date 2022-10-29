@@ -16,6 +16,7 @@ import com.c4c._2022server.form.MenuManagementDetailUpdateReq;
 import com.c4c._2022server.form.MenuManagementUpdateReq;
 import com.c4c._2022server.form.MenuManegementUnityUpdateReq;
 import com.c4c._2022server.mapper.MenuDetailMapper;
+import com.c4c._2022server.mapper.MenuHeaderMapper;
 import com.c4c._2022server.mapper.ReserveHistoryMapper;
 import com.c4c._2022server.service.MenuManagementService;
 import com.c4c._2022server.utils.EntityUtils;
@@ -27,6 +28,9 @@ public class MenuManagementServiceImpl implements MenuManagementService {
 
 	@Autowired
 	MenuDetailMapper menuDetailMapper;
+	
+	@Autowired
+	MenuHeaderMapper menuHeaderMapper;
 
 	@Autowired
 	ReserveHistoryMapper reserveHistoryMapper;
@@ -75,10 +79,6 @@ public class MenuManagementServiceImpl implements MenuManagementService {
 		}
 		return menuManagementList;
 	}
-	
-	
-
-	
 
 	@Override
 	public void deleteInsert(int storeId, MenuManegementUnityUpdateReq reqForm) {
@@ -89,10 +89,10 @@ public class MenuManagementServiceImpl implements MenuManagementService {
 		menuDetail.createCriteria().andStoreIdEqualTo(storeId);
 		// SELECTを実行する
 		menuDetailMapper.deleteByExample(menuDetail);
-		
+
 		List<MenuManagementUpdateReq> unity = reqForm.getUnity();
 		for (MenuManagementUpdateReq req : unity) {
-			if(req.getMenuId() == null) {
+			if (req.getMenuId() == null) {
 				continue;
 			}
 			MenuDetail menuDetailInsert = new MenuDetail();
@@ -101,7 +101,8 @@ public class MenuManagementServiceImpl implements MenuManagementService {
 
 			List<MenuManagementDetailUpdateReq> menuDetailList = req.getDetail();
 			for (MenuManagementDetailUpdateReq menuManagementDetailUpdateReq : menuDetailList) {
-				if(menuManagementDetailUpdateReq.getRankId() == null || menuManagementDetailUpdateReq.getPrice() == null) {
+				if (menuManagementDetailUpdateReq.getRankId() == null
+						|| menuManagementDetailUpdateReq.getPrice() == null) {
 					continue;
 				}
 				menuDetailInsert.setRankId(menuManagementDetailUpdateReq.getRankId());
@@ -111,6 +112,6 @@ public class MenuManagementServiceImpl implements MenuManagementService {
 			}
 
 		}
-		
+
 	}
 }

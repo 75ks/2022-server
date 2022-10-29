@@ -15,6 +15,7 @@ public interface MenuManagementService {
 	public void deleteInsert(int storeId, MenuManegementUnityUpdateReq reqForm);
 
 	// public void register(int storeId, ReserveHistoryRegisterReq reqForm);
+	
 
 
 }
