@@ -6,7 +6,7 @@ import com.c4c._2022server.form.CustomerDetailRes;
 
 public interface CustomerDetailService {
 	/**
-	 * 
+	 * 初期表示
 	 * @param storeId
 	 * @param customerId
 	 * @return
@@ -15,9 +15,10 @@ public interface CustomerDetailService {
 
     /**
      * 顧客情報更新
-     * @param stuffId
      * @param storeId
+     * @param customerId
      * @param reqForm
+     * @throws ExclusiveException
      */
-    public void register(int stuffId, int storeId, CustomerDetailRegisterReq reqForm) throws ExclusiveException;
+    public void register(int storeId, int customerId, CustomerDetailRegisterReq reqForm) throws ExclusiveException;
 }

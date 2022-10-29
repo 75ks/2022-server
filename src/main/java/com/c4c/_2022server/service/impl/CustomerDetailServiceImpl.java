@@ -52,11 +52,11 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
      * @param reqForm
      */
     @Override
-    public void register(int stuffId, int storeId, CustomerDetailRegisterReq reqForm) throws ExclusiveException {
+    public void register(int storeId, int customerId, CustomerDetailRegisterReq reqForm) throws ExclusiveException {
         // バージョンチェック
         CustomerExample customerExample = new CustomerExample();
         customerExample.createCriteria()
-        		.andCustomerIdEqualTo(stuffId) // スタッフID
+        		.andCustomerIdEqualTo(customerId) // 顧客ID
         		.andStoreIdEqualTo(storeId) // 店舗ID
                 .andVersionExKeyEqualTo(reqForm.getVersionExKey()); // 排他制御カラム
         Customer customer = customerMapper.selectByExample(customerExample) // 検索を行う
@@ -73,8 +73,8 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
 //        Customer customer = new Customer();
         BeanUtils.copyProperties(reqForm, customer);
         // UPDATE時の共通設定
-        entityUtils.setColumns4Update(customer, stuffId);
+        entityUtils.setColumns4Update(customer, customerId);
         // UPDATEを実行し、データを登録する
-        customerMapper.updateByPrimaryKeySelective(customer);
+        customerMapper.updateByPrimaryKey(customer);
     }
 }
