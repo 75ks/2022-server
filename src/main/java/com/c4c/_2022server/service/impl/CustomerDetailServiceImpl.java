@@ -56,7 +56,7 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
         // バージョンチェック
         CustomerExample customerExample = new CustomerExample();
         customerExample.createCriteria()
-        		.andCustomerIdEqualTo(customerId) // 顧客ID
+        		.andCustomerIdEqualTo(reqForm.getCustomerId()) // 顧客ID
         		.andStoreIdEqualTo(storeId) // 店舗ID
                 .andVersionExKeyEqualTo(reqForm.getVersionExKey()); // 排他制御カラム
         Customer customer = customerMapper.selectByExample(customerExample) // 検索を行う
@@ -69,9 +69,6 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
             // ExclusiveExceptionをスローする
             throw new ExclusiveException(messageSource.getMessage("error.exclusive", new String[]{}, Locale.getDefault()));
         }
-        // Formにデータを詰める
-//        Customer customer = new Customer();
-        BeanUtils.copyProperties(reqForm, customer);
         // UPDATE時の共通設定
         entityUtils.setColumns4Update(customer, customerId);
         // UPDATEを実行し、データを登録する
