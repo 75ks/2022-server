@@ -17,18 +17,4 @@ public class MenuManagementCreateRes {
      * Remark: メニュー
      */
     private String menu;
-//    /**
-//     * Column: RANK_ID
-//     * Type: INT
-//     * Remark: ランクID
-//     */
-//    private Integer rankId;
-//
-//    /**
-//     * Column: RANK
-//     * Type: VARCHAR(255)
-//     * Remark: ランク
-//     */
-//    private String rank;
-
 }

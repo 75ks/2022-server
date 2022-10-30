@@ -3,7 +3,7 @@ package com.c4c._2022server.form;
 import lombok.Data;
 
 @Data
-public class MenuManagementCreateReq {
+public class MenuManagementCreateUpdateReq {
     /**
      * Column: MENU_ID
      * Type: INT
