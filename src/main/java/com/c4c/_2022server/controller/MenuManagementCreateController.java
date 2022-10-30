@@ -22,25 +22,26 @@ import com.c4c._2022server.form.MenuManagementCreateUpdateRes;
 import com.c4c._2022server.mapper.MenuHeaderMapper;
 import com.c4c._2022server.service.impl.MenuManagementCreateImpl;
 import com.c4c._2022server.utils.JWTUtils;
+
 @RestController
 @RequestMapping("/menuRegister")
 public class MenuManagementCreateController {
-	
-    @Autowired
-    MenuManagementCreateImpl menuManagementCreateImpl;
-    
+
+	@Autowired
+	MenuManagementCreateImpl menuManagementCreateImpl;
+
 	@Autowired
 	MenuHeaderMapper menuHeaderMapper;
-	
-    
-    @GetMapping("/Create")
-    public ResponseEntity<List<MenuManagementCreateRes>> index(@RequestHeader("Authorization") String jwt) throws AuthenticationException {
-    	JWTUtils instance = JWTUtils.getInstance();
-    	int storeId = instance.getStoreId(jwt);
-    	List<MenuManagementCreateRes> menuFormList = menuManagementCreateImpl.index(storeId);
-        return ResponseEntity.ok(menuFormList);
-    }
-    
+
+	@GetMapping("/Create")
+	public ResponseEntity<List<MenuManagementCreateRes>> index(@RequestHeader("Authorization") String jwt)
+			throws AuthenticationException {
+		JWTUtils instance = JWTUtils.getInstance();
+		int storeId = instance.getStoreId(jwt);
+		List<MenuManagementCreateRes> menuFormList = menuManagementCreateImpl.index(storeId);
+		return ResponseEntity.ok(menuFormList);
+	}
+
 	@Autowired
 	MessageSource messageSource;
 
