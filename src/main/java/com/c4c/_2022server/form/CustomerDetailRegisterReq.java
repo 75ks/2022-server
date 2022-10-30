@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -18,24 +20,28 @@ public class CustomerDetailRegisterReq {
      * 姓
      */
     @NotEmpty(message = "{lastName}{NotEmpty}")
+    @Size(max = 30, message = "{lastName}{Size.less_max}")
     private String lastName;
 
     /**
      * 名
      */
     @NotEmpty(message = "{firstName}{NotEmpty}")
+    @Size(max = 30, message = "{firstName}{Size.less_max}")
     private String firstName;
 
     /**
      * セイ
      */
     @NotEmpty(message = "{lastNameKana}{NotEmpty}")
+    @Size(max = 30, message = "{lastNameKana}{Size.less_max}")
     private String lastNameKana;
 
     /**
      * メイ
      */
     @NotEmpty(message = "{firstNameKana}{NotEmpty}")
+    @Size(max = 30, message = "{firstNameKana}{Size.less_max}")
     private String firstNameKana;
 
     /**
@@ -57,6 +63,7 @@ public class CustomerDetailRegisterReq {
     /**
      * 郵便番号
      */
+    @Pattern(regexp = "^(\\d{7})?$", message = "{Pattern.postalCode}")
     private String postalCode;
 
     /**
@@ -82,6 +89,7 @@ public class CustomerDetailRegisterReq {
     /**
      * 電話番号
      */
+    @Pattern(regexp = "^(\\d{11})?$", message = "{Pattern.phoneNumber}")
     private String phoneNumber;
 
     /**

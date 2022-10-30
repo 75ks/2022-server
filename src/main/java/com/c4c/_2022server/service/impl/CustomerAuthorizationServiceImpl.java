@@ -35,8 +35,10 @@ public class CustomerAuthorizationServiceImpl implements CustomerAuthorizationSe
 
     /**
      * ログイン
-     * @param reqForm
-     * @return loginRes
+     * @param reqForm 画面からの入力値
+     * @param response レスポンス
+     * @return ログイン情報
+     * @throws AuthenticationException
      */
     @Override
     public LoginRes signIn(LoginReq reqForm, HttpServletResponse response) throws AuthenticationException {
@@ -77,7 +79,8 @@ public class CustomerAuthorizationServiceImpl implements CustomerAuthorizationSe
 
     /**
      * ログアウト
-     * @param request, response
+     * @param request リクエスト
+     * @param response レスポンス
      */
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response) {
@@ -86,9 +89,10 @@ public class CustomerAuthorizationServiceImpl implements CustomerAuthorizationSe
 
     /**
      * パスワード登録
-     * @param customerId
-     * @param reqForm
+     * @param customerId 顧客ID
+     * @param reqForm 画面からの入力値
      */
+    @Override
     public void registerPassword(int customerId, RegisterPasswordReq reqForm) {
         // パスワードをハッシュ化
         BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.c4c._2022server.entity.Customer;
 import com.c4c._2022server.entity.CustomerExample;
+import com.c4c._2022server.exception.DuplicationException;
 import com.c4c._2022server.exception.ExclusiveException;
 import com.c4c._2022server.form.CustomerDetailRegisterReq;
 import com.c4c._2022server.form.CustomerDetailRes;
@@ -26,38 +27,40 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
     @Autowired
     MessageSource messageSource;
 
-	/**
-	 * 
-	 * @param customerId
-	 * @return
-	 */
-
+    /**
+     * 初期表示
+     * @param storeId 店舗ID
+     * @param customerId 顧客ID
+     * @return 顧客詳細情報
+     */
     @Override
     public CustomerDetailRes index(int storeId, int customerId) {
-    	// 顧客ID・店舗IDに紐づく1件を取得する
-    	CustomerExample customerExample = new CustomerExample();
-    	customerExample.createCriteria().andStoreIdEqualTo(storeId).andCustomerIdEqualTo(customerId);
-    	List<Customer> customerList = customerMapper.selectByExample(customerExample);
-    	// Formにデータを詰める（レスポンスフォームに移送する）
-    	CustomerDetailRes resForm = new CustomerDetailRes();
-    	BeanUtils.copyProperties(customerList.get(0), resForm);
+        // 顧客ID・店舗IDに紐づく1件を取得する
+        CustomerExample customerExample = new CustomerExample();
+        customerExample.createCriteria().andStoreIdEqualTo(storeId).andCustomerIdEqualTo(customerId);
+        List<Customer> customerList = customerMapper.selectByExample(customerExample);
+        // Formにデータを詰める（レスポンスフォームに移送する）
+        CustomerDetailRes resForm = new CustomerDetailRes();
+        BeanUtils.copyProperties(customerList.get(0), resForm);
 
-    	return resForm;
+        return resForm;
     }  
 
     /**
      * 顧客情報更新
-     * @param stuffId
-     * @param storeid
-     * @param reqForm
+     * @param storeid 店舗ID
+     * @param stuffId スタッフID
+     * @param reqForm 画面からの入力値
+     * @throws ExclusiveException
+     * @throws DuplicationException
      */
     @Override
-    public void register(int storeId, int customerId, CustomerDetailRegisterReq reqForm) throws ExclusiveException {
+    public void register(int storeId, int stuffId, CustomerDetailRegisterReq reqForm) throws ExclusiveException, DuplicationException {
         // バージョンチェック
         CustomerExample customerExample = new CustomerExample();
         customerExample.createCriteria()
-        		.andCustomerIdEqualTo(reqForm.getCustomerId()) // 顧客ID
-        		.andStoreIdEqualTo(storeId) // 店舗ID
+                .andCustomerIdEqualTo(reqForm.getCustomerId()) // 顧客ID
+                .andStoreIdEqualTo(storeId) // 店舗ID
                 .andVersionExKeyEqualTo(reqForm.getVersionExKey()); // 排他制御カラム
         Customer customer = customerMapper.selectByExample(customerExample) // 検索を行う
                 .stream() // streamに変換する
@@ -69,8 +72,15 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
             // ExclusiveExceptionをスローする
             throw new ExclusiveException(messageSource.getMessage("error.exclusive", new String[]{}, Locale.getDefault()));
         }
+
+        // メールアドレスが登録済み かつ 別顧客のメールアドレスかチェック
+        Customer checkCustomer = customerMapper.select0001(reqForm.getEmail());
+        if (checkCustomer != null && !(checkCustomer.getEmail().equals(customer.getEmail()))) {
+            throw new DuplicationException(messageSource.getMessage("error.email.registered", new String[]{}, Locale.getDefault()));
+        }
+
         // UPDATE時の共通設定
-        entityUtils.setColumns4Update(customer, customerId);
+        entityUtils.setColumns4Update(customer, stuffId);
         // UPDATEを実行し、データを登録する
         customerMapper.updateByPrimaryKey(customer);
     }
