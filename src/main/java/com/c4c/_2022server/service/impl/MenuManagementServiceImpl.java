@@ -28,7 +28,7 @@ public class MenuManagementServiceImpl implements MenuManagementService {
 
 	@Autowired
 	MenuDetailMapper menuDetailMapper;
-	
+
 	@Autowired
 	MenuHeaderMapper menuHeaderMapper;
 
