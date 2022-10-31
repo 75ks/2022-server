@@ -35,7 +35,9 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
 
     /**
      * 予約履歴一覧取得
-     * @return resFormList
+     * @param storeId 店舗ID
+     * @param reqForm 画面からの入力値
+     * @return 予約履歴一覧
      */
     @Override
     public List<ReserveHistoryRes> index(int storeId, ReserveHistoryReq reqForm) {
@@ -54,9 +56,9 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
 
     /**
      * 予約情報登録
-     * @param stuffId
-     * @param storeId
-     * @param reqForm
+     * @param stuffId スタッフID
+     * @param storeId 店舗ID
+     * @param reqForm 画面からの入力値
      */
     @Override
     public void register(int stuffId, int storeId, ReserveHistoryRegisterReq reqForm) {
@@ -80,9 +82,9 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
 
     /**
      * 予約情報更新
-     * @param stuffId
-     * @param storeId
-     * @param reqForm
+     * @param stuffId スタッフID
+     * @param storeId 店舗ID
+     * @param reqForm 画面からの入力値
      */
     @Override
     public void update(int stuffId, int storeId, ReserveHistoryUpdateReq reqForm) {
@@ -122,8 +124,8 @@ public class ReserveHistoryServiceImpl implements ReserveHistoryService {
 
     /**
      * 予約情報削除
-     * @param stuffId
-     * @param reqForm
+     * @param stuffId スタッフID
+     * @param reqForm 画面からの入力値
      */
     @Override
     public void delete(int stuffId, ReserveHistoryUpdateReq reqForm) {

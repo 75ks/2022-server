@@ -18,7 +18,7 @@ import org.apache.ibatis.type.JdbcType;
 
 import com.c4c._2022server.entity.Customer;
 import com.c4c._2022server.entity.CustomerExample;
-import com.c4c._2022server.entity.CustomerList0001;
+import com.c4c._2022server.entity.Customer0002;
 import com.c4c._2022server.form.CustomerListFormReq;
 
 @Mapper
@@ -198,7 +198,7 @@ public interface CustomerMapper {
           "CREATED_USER = #{createdUser,jdbcType=INTEGER},",
           "UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP},",
           "UPDATE_USER = #{updateUser,jdbcType=INTEGER},",
-          "VERSION_EX_KEY = #{versionExKey,jdbcType=INTEGER}",
+          "VERSION_EX_KEY = #{versionExKey,jdbcType=INTEGER} + 1",
         "where CUSTOMER_ID = #{customerId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Customer row);
@@ -277,9 +277,8 @@ public interface CustomerMapper {
         @Result(column="FIRST_NAME", property="firstName", jdbcType=JdbcType.VARCHAR),
         @Result(column="LAST_NAME_KANA", property="lastNameKana", jdbcType=JdbcType.VARCHAR),
         @Result(column="FIRST_NAME_KANA", property="firstNameKana", jdbcType=JdbcType.VARCHAR),
-        @Result(column="BIRTHDAY", property="birthday", jdbcType=JdbcType.DATE),
         @Result(column="AGE", property="age", jdbcType=JdbcType.INTEGER),
         @Result(column="GENDER", property="gender", jdbcType=JdbcType.INTEGER),
     })
-    List<CustomerList0001> select0002(@Param("storeId") int storeId, @Param("reqForm") CustomerListFormReq reqForm);
+    List<Customer0002> select0002(@Param("storeId") int storeId, @Param("reqForm") CustomerListFormReq reqForm);
 }

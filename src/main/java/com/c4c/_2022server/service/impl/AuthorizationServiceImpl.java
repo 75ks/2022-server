@@ -7,15 +7,15 @@ import javax.security.sasl.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.c4c._2022server.entity.StuffExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.c4c._2022server.enums.AuthenticationTypeEnum;
 import com.c4c._2022server.entity.LoginUser;
 import com.c4c._2022server.entity.Stuff;
+import com.c4c._2022server.entity.StuffExample;
+import com.c4c._2022server.enums.AuthenticationTypeEnum;
 import com.c4c._2022server.form.LoginReq;
 import com.c4c._2022server.form.LoginRes;
 import com.c4c._2022server.mapper.StuffMapper;
@@ -32,9 +32,9 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
     /**
      * ログイン
-     * @param reqForm
-     * @param response
-     * @return loginRes
+     * @param reqForm 画面からの入力値
+     * @param response レスポンス
+     * @return ログイン情報
      * @throws AuthenticationException
      */
     @Override
@@ -49,7 +49,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             throw new AuthenticationException(messageSource.getMessage("error.email.not.registered", new String[]{}, Locale.getDefault()));
         }
         Stuff stuff = stuffList.get(0);
-                // 入力されたパスワードとDBのパスワード(ハッシュ化済み)を比較
+        // 入力されたパスワードとDBのパスワード(ハッシュ化済み)を比較
         BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
         if (!bcpe.matches(reqForm.getPassword(), stuff.getPassword())) {
             throw new AuthenticationException(messageSource.getMessage("error.password.not.match", new String[]{}, Locale.getDefault()));
@@ -71,7 +71,8 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
     /**
      * ログアウト
-     * @param request, response
+     * @param request リクエスト
+     * @param response レスポンス
      */
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response) {

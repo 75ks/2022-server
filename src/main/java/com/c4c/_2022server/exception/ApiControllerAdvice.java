@@ -36,6 +36,16 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(resForm);
     }
 
+    @ExceptionHandler(ExclusiveException.class)
+    protected ResponseEntity<Object> handleExclusiveException(ExclusiveException ex) {
+        List<String> messageList = Collections.singletonList(ex.getMessage());
+
+        MessageRes resForm = new MessageRes();
+        resForm.setMessageList(messageList);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resForm);
+    }
+
     /**
      * バリデーションエラーの共通処理
      * @return ResponseEntity
@@ -48,6 +58,20 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
                 .map(e -> e.getDefaultMessage())
                 // 上記を右記に書き換えも可能 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
+
+        MessageRes resForm = new MessageRes();
+        resForm.setMessageList(messageList);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resForm);
+    }
+
+    /**
+     * データ重複エラー(登録前の重複チェック時)の共通処理
+     * @return ResponseEntity
+     */
+    @ExceptionHandler(DuplicationException.class)
+    protected ResponseEntity<Object> handleDuplicationException(Exception ex) {
+        List<String> messageList = Collections.singletonList(ex.getMessage());
 
         MessageRes resForm = new MessageRes();
         resForm.setMessageList(messageList);
