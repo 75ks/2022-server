@@ -27,34 +27,34 @@ import com.c4c._2022server.utils.JWTUtils;
 @RequestMapping("/menuRegister")
 public class MenuManagementCreateController {
 
-	@Autowired
-	MenuManagementCreateImpl menuManagementCreateImpl;
+    @Autowired
+    MenuManagementCreateImpl menuManagementCreateImpl;
 
-	@Autowired
-	MenuHeaderMapper menuHeaderMapper;
+    @Autowired
+    MenuHeaderMapper menuHeaderMapper;
 
-	@GetMapping("/Create")
-	public ResponseEntity<List<MenuManagementCreateRes>> index(@RequestHeader("Authorization") String jwt)
-			throws AuthenticationException {
-		JWTUtils instance = JWTUtils.getInstance();
-		int storeId = instance.getStoreId(jwt);
-		List<MenuManagementCreateRes> menuFormList = menuManagementCreateImpl.index(storeId);
-		return ResponseEntity.ok(menuFormList);
-	}
+    @GetMapping("/Create")
+    public ResponseEntity<List<MenuManagementCreateRes>> index(@RequestHeader("Authorization") String jwt)
+            throws AuthenticationException {
+        JWTUtils instance = JWTUtils.getInstance();
+        int storeId = instance.getStoreId(jwt);
+        List<MenuManagementCreateRes> menuFormList = menuManagementCreateImpl.index(storeId);
+        return ResponseEntity.ok(menuFormList);
+    }
 
-	@Autowired
-	MessageSource messageSource;
+    @Autowired
+    MessageSource messageSource;
 
-	@PutMapping("/update")
-	public ResponseEntity<MenuManagementCreateUpdateRes> update(@RequestHeader("Authorization") String jwt,
-			@RequestBody @Valid MenuManagementCreateUpdateReq reqForm) throws AuthenticationException {
-		JWTUtils instance = JWTUtils.getInstance();
-		int storeId = instance.getStoreId(jwt);
-		menuManagementCreateImpl.deleteInsert(storeId, reqForm);
-		// メッセージを設定
-		MenuManagementCreateUpdateRes resForm = new MenuManagementCreateUpdateRes();
-		resForm.setMessages(messageSource.getMessage("success", new String[] { "更新" }, Locale.getDefault()));
-		return ResponseEntity.ok(resForm);
-	}
+    @PutMapping("/update")
+    public ResponseEntity<MenuManagementCreateUpdateRes> update(@RequestHeader("Authorization") String jwt,
+                                                                @RequestBody @Valid MenuManagementCreateUpdateReq reqForm) throws AuthenticationException {
+        JWTUtils instance = JWTUtils.getInstance();
+        int storeId = instance.getStoreId(jwt);
+        menuManagementCreateImpl.deleteInsert(storeId, reqForm);
+        // メッセージを設定
+        MenuManagementCreateUpdateRes resForm = new MenuManagementCreateUpdateRes();
+        resForm.setMessages(messageSource.getMessage("success", new String[]{"更新"}, Locale.getDefault()));
+        return ResponseEntity.ok(resForm);
+    }
 
 }

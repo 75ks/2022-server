@@ -17,48 +17,47 @@ import com.c4c._2022server.utils.EntityUtils;
 
 @Service
 public class MenuManagementCreateImpl implements MenuManagementCreateService {
-	@Autowired
-	EntityUtils entityUtils;
+    @Autowired
+    EntityUtils entityUtils;
 
-	@Autowired
-	MenuHeaderMapper menuHeaderMapper;
+    @Autowired
+    MenuHeaderMapper menuHeaderMapper;
 
-	@Override
-	public List<MenuManagementCreateRes> index(int storeId) {
+    @Override
+    public List<MenuManagementCreateRes> index(int storeId) {
+        MenuHeaderExample menuHeaderExample = new MenuHeaderExample();
+        menuHeaderExample.createCriteria().andStoreIdEqualTo(storeId);
+        // SELECT文を実行し、データを取得する
+        List<MenuHeader> menuCreate = menuHeaderMapper.selectByExample(menuHeaderExample);
 
-		MenuHeaderExample menuHeaderExample = new MenuHeaderExample();
-		menuHeaderExample.createCriteria().andStoreIdEqualTo(storeId);
-		// SELECT文を実行し、データを取得する
-		List<MenuHeader> menuCreate = menuHeaderMapper.selectByExample(menuHeaderExample);
+        // Formにデータを詰める
+        List<MenuManagementCreateRes> menuFormList = new ArrayList<>();
+        for (MenuHeader menu : menuCreate) {
+            MenuManagementCreateRes MenuForm = new MenuManagementCreateRes();
+            MenuForm.setMenuId(menu.getMenuId());
+            MenuForm.setMenu(menu.getMenu());
+            menuFormList.add(MenuForm);
+        }
+        return menuFormList;
+    }
 
-		// Formにデータを詰める
-		List<MenuManagementCreateRes> menuFormList = new ArrayList<>();
-		for (MenuHeader menu : menuCreate) {
-			MenuManagementCreateRes MenuForm = new MenuManagementCreateRes();
-			MenuForm.setMenuId(menu.getMenuId());
-			MenuForm.setMenu(menu.getMenu());
-			menuFormList.add(MenuForm);
-		}
-		return menuFormList;
-	}
+    @Override
+    public void deleteInsert(int storeId, MenuManagementCreateUpdateReq reqForm) {
+        MenuHeaderExample menuHeaderExample = new MenuHeaderExample();
+        menuHeaderExample.createCriteria().andStoreIdEqualTo(storeId);
+        menuHeaderMapper.deleteByExample(menuHeaderExample);
 
-	@Override
-	public void deleteInsert(int storeId, MenuManagementCreateUpdateReq reqForm) {
-		MenuHeaderExample menuHeaderExample = new MenuHeaderExample();
-		menuHeaderExample.createCriteria().andStoreIdEqualTo(storeId);
-		menuHeaderMapper.deleteByExample(menuHeaderExample);
-
-		List<MenuManagementCreate> createMenu = reqForm.getCreateMenu();
-		for (MenuManagementCreate menuManagementCreate : createMenu) {
-			if (menuManagementCreate.getMenu() == "") {
-				continue;
-			}
-			MenuHeader menuHeader = new MenuHeader();
-			menuHeader.setStoreId(storeId);
-			menuHeader.setMenuId(menuManagementCreate.getMenuId());
-			menuHeader.setMenu(menuManagementCreate.getMenu());
-			entityUtils.setColumns4Insert(menuHeader, storeId);
-			menuHeaderMapper.insert(menuHeader);
-		}
-	}
+        List<MenuManagementCreate> createMenu = reqForm.getCreateMenu();
+        for (MenuManagementCreate menuManagementCreate : createMenu) {
+            if (menuManagementCreate.getMenu() == "") {
+                continue;
+            }
+            MenuHeader menuHeader = new MenuHeader();
+            menuHeader.setStoreId(storeId);
+            menuHeader.setMenuId(menuManagementCreate.getMenuId());
+            menuHeader.setMenu(menuManagementCreate.getMenu());
+            entityUtils.setColumns4Insert(menuHeader, storeId);
+            menuHeaderMapper.insert(menuHeader);
+        }
+    }
 }
