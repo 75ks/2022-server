@@ -48,8 +48,8 @@ public class MenuManagementCreateImpl implements MenuManagementCreateService {
         menuHeaderExample.createCriteria().andStoreIdEqualTo(storeId);
         menuHeaderMapper.deleteByExample(menuHeaderExample);
 
-        List<MenuManagementCreate> createMenu = reqForm.getCreateMenu();
-        for (MenuManagementCreate menuManagementCreate : createMenu) {
+        int menuId = 1;
+        for (MenuManagementCreate menuManagementCreate : reqForm.getCreateMenu()) {
             // メニューの入力値がnull、または空文字の場合
             if (menuManagementCreate.getMenu() == null || Objects.equals(menuManagementCreate.getMenu(), "")) {
                 // 後続の処理をスキップする。
@@ -57,10 +57,11 @@ public class MenuManagementCreateImpl implements MenuManagementCreateService {
             }
             MenuHeader menuHeader = new MenuHeader();
             menuHeader.setStoreId(storeId);
-            menuHeader.setMenuId(menuManagementCreate.getMenuId());
+            menuHeader.setMenuId(menuId);
             menuHeader.setMenu(menuManagementCreate.getMenu());
             entityUtils.setColumns4Insert(menuHeader, storeId);
             menuHeaderMapper.insert(menuHeader);
+            menuId++;
         }
     }
 }
