@@ -246,15 +246,15 @@ public interface ReserveHistoryMapper {
         "    STUFF",
         "    ON STUFF.STUFF_ID = RESERVE_HISTORY.STUFF_ID",
         "WHERE",
-        "    CUSTOMER.CUSTOMER_ID = #{customerId}"
+        "    RESERVE_HISTORY.CUSTOMER_ID = #{customerId}"
     })
     @Results({
         @Result(column="RESERVE_DATETIME", property="reserveDatetime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="MENU", property="menu", jdbcType=JdbcType.VARCHAR),
         @Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER),
         @Result(column="RESERVE_STATE", property="reserveState", jdbcType=JdbcType.INTEGER),
-        @Result(column="STUFF_LAST_NAME", property="stuffLastName", jdbcType=JdbcType.VARCHAR),
-        @Result(column="STUFF_FIRST_NAME", property="stuffFirstName", jdbcType=JdbcType.VARCHAR)
+        @Result(column="LAST_NAME", property="stuffLastName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FIRST_NAME", property="stuffFirstName", jdbcType=JdbcType.VARCHAR)
     })
     List<ReserveHistory0003> select0003(int customerId);
 }
