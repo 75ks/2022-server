@@ -35,9 +35,10 @@ public class ReserveHistoryController {
 
     /**
      * 予約履歴一覧取得
-     * @param jwt
-     * @param reqForm
-     * @return List{@literal<ReserveHistoryRes>}
+     * @param jwt トークン
+     * @param reqForm 画面からの入力値
+     * @return 予約履歴一覧
+     * @throws AuthenticationException
      */
     @GetMapping("/")
     public ResponseEntity<List<ReserveHistoryRes>> index(@RequestHeader("Authorization") String jwt, ReserveHistoryReq reqForm) throws AuthenticationException {
@@ -49,9 +50,10 @@ public class ReserveHistoryController {
 
     /**
      * 予約情報登録
-     * @param jwt
-     * @param reqForm
-     * @return ReserveHistoryRegisterRes
+     * @param jwt トークン
+     * @param reqForm 画面からの入力値
+     * @return 成功メッセージ
+     * @throws AuthenticationException
      */
     @PostMapping("/register")
     public ResponseEntity<ReserveHistoryRegisterRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid ReserveHistoryRegisterReq reqForm) throws AuthenticationException {
@@ -67,9 +69,10 @@ public class ReserveHistoryController {
 
     /**
      * 予約情報更新
-     * @param jwt
-     * @param reqForm
-     * @return ReserveHistoryUpdateReq
+     * @param jwt トークン
+     * @param reqForm 画面からの入力値
+     * @return 成功メッセージ
+     * @throws AuthenticationException
      */
     @PutMapping("/update")
     public ResponseEntity<ReserveHistoryRegisterRes> update(@RequestHeader("Authorization") String jwt, @RequestBody @Valid ReserveHistoryUpdateReq reqForm) throws AuthenticationException {
@@ -85,9 +88,10 @@ public class ReserveHistoryController {
 
     /**
      * 予約情報削除
-     * @param jwt
-     * @param reqForm
-     * @return ReserveHistoryUpdateReq
+     * @param jwt トークン
+     * @param reqForm 画面からの入力値
+     * @return 成功メッセージ
+     * @throws AuthenticationException
      */
     @PutMapping("/delete")
     public ResponseEntity<ReserveHistoryRegisterRes> delete(@RequestHeader("Authorization") String jwt, @RequestBody @Valid ReserveHistoryUpdateReq reqForm) throws AuthenticationException {

@@ -26,7 +26,8 @@ public class RegisterSampleController {
 
     /**
      * スタッフ登録サンプル
-     * @param reqForm
+     * @param reqForm 画面からの入力値
+     * @return 成功メッセージ
      */
     @PostMapping("/")
     public ResponseEntity<RegisterSampleRes> register(@RequestBody @Valid RegisterSampleReq reqForm) {

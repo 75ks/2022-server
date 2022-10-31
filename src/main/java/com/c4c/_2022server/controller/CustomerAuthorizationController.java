@@ -34,18 +34,21 @@ public class CustomerAuthorizationController {
 
     /**
      * ログイン
-     * @param LoginReq
-     * @return LoginRes
+     * @param response レスポンス
+     * @param reqForm 画面からの入力値
+     * @return ログイン情報
+     * @throws AuthenticationException
      */
     @PostMapping("/login")
     public ResponseEntity<LoginRes> login(HttpServletResponse response, @RequestBody LoginReq reqForm) throws AuthenticationException {
         LoginRes resForm = customerAuthorizationServiceImpl.signIn(reqForm, response);
         return ResponseEntity.ok(resForm);
     }
-    
+
     /**
      * ログアウト
-     * @param request, response
+     * @param request リクエスト
+     * @param response レスポンス
      */
     @GetMapping("/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response) {
@@ -54,8 +57,10 @@ public class CustomerAuthorizationController {
 
     /**
      * パスワード登録
-     * @param jwt
-     * @param RegisterPasswordReq
+     * @param jwt トークン
+     * @param reqForm 画面からの入力値
+     * @return 成功メッセージ
+     * @throws AuthenticationException
      */
     @PostMapping("/registerPassword")
     public ResponseEntity<RegisterPasswordRes> registerPassword(@RequestHeader("CustomerAuthorization") String jwt, @RequestBody @Valid RegisterPasswordReq reqForm) throws AuthenticationException {
