@@ -2,6 +2,7 @@ package com.c4c._2022server.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,9 @@ public class MenuManagementCreateImpl implements MenuManagementCreateService {
 
         List<MenuManagementCreate> createMenu = reqForm.getCreateMenu();
         for (MenuManagementCreate menuManagementCreate : createMenu) {
-            if (menuManagementCreate.getMenu() == "") {
+            // メニューの入力値がnull、または空文字の場合
+            if (menuManagementCreate.getMenu() == null || Objects.equals(menuManagementCreate.getMenu(), "")) {
+                // 後続の処理をスキップする。
                 continue;
             }
             MenuHeader menuHeader = new MenuHeader();
