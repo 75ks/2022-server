@@ -78,7 +78,8 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
         if (checkCustomer != null && !(checkCustomer.getEmail().equals(customer.getEmail()))) {
             throw new DuplicationException(messageSource.getMessage("error.email.registered", new String[]{}, Locale.getDefault()));
         }
-
+        // Formにデータを詰める
+        BeanUtils.copyProperties(reqForm, customer);
         // UPDATE時の共通設定
         entityUtils.setColumns4Update(customer, storeId);
         // UPDATEを実行し、データを登録する
