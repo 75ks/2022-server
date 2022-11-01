@@ -28,9 +28,10 @@ public class SalesTotalController {
 
     /**
      * 売上情報取得(年)
-     * @param jwt
-     * @param salesYear
-     * @return SalesTotalYearRes
+     * @param jwt トークン
+     * @param salesYear 年(YYYY)
+     * @return パラメータ年の一年分の売上データ
+     * @throws AuthenticationException
      */
     @GetMapping("/year")
     public ResponseEntity<List<SalesTotalYearRes>> getSalesYear(@RequestHeader("Authorization") String jwt, @RequestParam(name = "salesYear", required = true) String salesYear) throws AuthenticationException {
@@ -42,9 +43,10 @@ public class SalesTotalController {
 
     /**
      * 売上情報取得(月)
-     * @param jwt
-     * @param salesYearMonth
-     * @return SalesTotalMonthRes
+     * @param jwt トークン
+     * @param salesYearMonth 月(M)
+     * @return パラメータ月の売上データ
+     * @throws AuthenticationException
      */
     @GetMapping("/month")
     public ResponseEntity<SalesTotalMonthRes> getSalesMonth(@RequestHeader("Authorization") String jwt, @RequestParam(name = "salesYearMonth", required = true) String salesYearMonth) throws AuthenticationException {
@@ -56,9 +58,10 @@ public class SalesTotalController {
 
     /**
      * 売上情報取得(グラフ)
-     * @param jwt
-     * @param salesYear
-     * @return SalesTotalChartRes
+     * @param jwt トークン
+     * @param salesYear 年(YYYY)
+     * @return パラメータ年の一年分の売上データ(グラフ)
+     * @throws AuthenticationException
      */
     @GetMapping("/charts")
     public ResponseEntity<List<SalesTotalChartRes>> getSalesChart(@RequestHeader("Authorization") String jwt, @RequestParam(name = "salesYear", required = true) String salesYear) throws AuthenticationException {
@@ -69,10 +72,11 @@ public class SalesTotalController {
     }
 
     /**
-     * 売上情報取得(円グラフ)
-     * @param jwt
-     * @param salesYearMonth
-     * @return SalesTotalChartRes
+     * 売上情報取得(グラフ)
+     * @param jwt トークン
+     * @param salesYearMonth 月(M)
+     * @return パラメータ月の売上データ(グラフ)
+     * @throws AuthenticationException
      */
     @GetMapping("/pieCharts")
     public ResponseEntity<List<SalesTotalPieChartRes>> getSalesPieChart(@RequestHeader("Authorization") String jwt, @RequestParam(name = "salesYearMonth", required = true) String salesYearMonth) throws AuthenticationException {
@@ -84,9 +88,10 @@ public class SalesTotalController {
 
     /**
      * 売上情報一覧取得
-     * @param jwt
-     * @param salesYearMonth
-     * @return List{@literal<SalesHistoryRes>}
+     * @param jwt トークン
+     * @param salesYearMonth 月(M)
+     * @return 売上情報一覧
+     * @throws AuthenticationException
      */
     @GetMapping("/")
     public ResponseEntity<List<SalesHistoryRes>> index(@RequestHeader("Authorization") String jwt, @RequestParam(name = "salesYearMonth", required = true) String salesYearMonth) throws AuthenticationException {

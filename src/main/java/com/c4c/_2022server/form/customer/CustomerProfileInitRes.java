@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 
 @Data
 public class CustomerProfileInitRes {
-	/**
-	 * Table: CUSTOMER
+    /**
+     * Table: CUSTOMER
      * Column: CUSTOMER_ID
      * Type: INT
      * Remark: 顧客ID

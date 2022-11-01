@@ -1,11 +1,9 @@
 package com.c4c._2022server.entity;
 
-import java.util.Date;
-
 import lombok.Data;
 
 @Data
-public class CustomerList0001 {
+public class Customer0002 {
     /**
      * Table: CUSTOMER
      * Column: CUSTOMER_ID
@@ -53,14 +51,6 @@ public class CustomerList0001 {
      * Remark: メイ
      */
     private String firstNameKana;
-
-    /**
-     * Table: CUSTOMER
-     * Column: BIRTHDAY
-     * Type: DATE
-     * Remark: 生年月日
-     */
-    private Date birthday;
 
     /**
      * Table: CUSTOMER
