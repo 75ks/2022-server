@@ -124,11 +124,4 @@ public class StuffDetailRes {
      * Remark: メールアドレス
      */
     private String email;
-
-    /**
-     * Column: PASSWORD
-     * Type: VARCHAR(255)
-     * Remark: パスワード
-     */
-    private String password;
 }
