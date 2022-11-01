@@ -479,12 +479,11 @@ public interface SalesHistoryMapper {
         "    SALES_HISTORY.RESERVE_DATETIME",
     })
     @Results(value = {
-            @Result(column = "RANK", property = "rank", jdbcType=JdbcType.VARCHAR),
             @Result(column = "MENU", property = "menu", jdbcType=JdbcType.VARCHAR),
             @Result(column = "PRICE", property = "price", jdbcType=JdbcType.INTEGER),
-            @Result(column = "SALES_DATETIME", property = "salesDatetime", jdbcType=JdbcType.TIMESTAMP),
-            @Result(column = "STUFF_LAST_NAME", property = "stuffLastName", jdbcType=JdbcType.VARCHAR),
-            @Result(column = "STUFF_FIRST_NAME", property = "stuffFirstName", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "SALES_DATETIME", property = "reserveDatetime", jdbcType=JdbcType.TIMESTAMP),
+            @Result(column = "LAST_NAME", property = "stuffLastName", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "FIRST_NAME", property = "stuffFirstName", jdbcType=JdbcType.VARCHAR),
     })
     List<SalesHistory0006> select0006(int customerId);
 }
