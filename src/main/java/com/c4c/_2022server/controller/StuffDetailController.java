@@ -37,8 +37,8 @@ public class StuffDetailController {
      */
     @GetMapping("/initialize")
     public ResponseEntity<StuffDetailRes> initialize(@RequestHeader("Authorization") String jwt, @RequestParam(name = "stuffId", required = true) Integer givenStuffId) throws AuthenticationException {
-    	// JWTから店舗IDを取得する
-    	JWTUtils instance = JWTUtils.getInstance();
+        // JWTから店舗IDを取得する
+        JWTUtils instance = JWTUtils.getInstance();
         Integer storeId = instance.getStoreId(jwt);
         // レスポンスForm
         StuffDetailRes resForm = stuffDetailServiceImpl.initialize(storeId, givenStuffId);
