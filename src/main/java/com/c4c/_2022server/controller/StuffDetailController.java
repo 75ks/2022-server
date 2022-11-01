@@ -57,7 +57,7 @@ public class StuffDetailController {
      * @throws DuplicationException
      */
     @PostMapping("/")
-    public ResponseEntity<StuffDetailRegisterRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid StuffDetailRegisterReq reqForm) throws AuthenticationException {
+    public ResponseEntity<StuffDetailRegisterRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid StuffDetailRegisterReq reqForm) throws AuthenticationException, DuplicationException {
         JWTUtils instance = JWTUtils.getInstance();
         int stuffId = instance.getId(jwt);
         int storeId = instance.getStoreId(jwt);

@@ -49,7 +49,7 @@ public class StuffDetailServiceImpl implements StuffDetailService {
      * @throws DuplicationException
      */
     @Override
-    public void register(int stuffId, int storeId, StuffDetailRegisterReq reqForm) {
+    public void register(int stuffId, int storeId, StuffDetailRegisterReq reqForm) throws DuplicationException {
         // Formにデータを詰める
         Stuff stuff = new Stuff();
         BeanUtils.copyProperties(reqForm, stuff);
