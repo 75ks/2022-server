@@ -53,7 +53,7 @@ public class StuffDetailRes {
      * Type: INT
      * Remark: ランクID
      */
-    private String rank;
+    private Integer rankId;
 
     /**
      * Column: BIRTHDAY
