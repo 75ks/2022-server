@@ -285,65 +285,65 @@ public interface StuffMapper {
     })
     List<StuffList0001> select0002(@Param("storeId") int storeId, @Param("reqForm") StuffListFormReq reqForm);
 
-	/**
-	 * SQLID: Stuff0003
-	 */
-	@Select({
-	    "SELECT",
-	    "    STUFF.STUFF_ID",
-	    "    , STUFF.STORE_ID",
-	    "    , STUFF.LAST_NAME",
-	    "    , STUFF.FIRST_NAME",
-	    "    , STUFF.LAST_NAME_KANA",
-	    "    , STUFF.FIRST_NAME_KANA",
-	    "    , STUFF.RANK_ID",
-	    "    , RANK_BY_STORE.RANK",
-	    "    , STUFF.BIRTHDAY",
-	    "    , STUFF.AGE",
-	    "    , STUFF.GENDER",
-	    "    , STUFF.POSTAL_CODE",
-	    "    , STUFF.PREFECTURE_ID",
-	    "    , STUFF.ADDRESS1",
-	    "    , STUFF.ADDRESS2",
-	    "    , STUFF.ADDRESS3",
-	    "    , STUFF.PHONE_NUMBER",
-	    "    , STUFF.EMAIL",
-	    "    , STUFF.PASSWORD",
-	    "    , STUFF.DELETE_FLG",
-	    "    , STUFF.CREATED_DATETIME",
-	    "    , STUFF.CREATED_USER",
-	    "    , STUFF.UPDATE_DATETIME",
-	    "    , STUFF.UPDATE_USER",
-	    "    , STUFF.VERSION_EX_KEY",
-	    "FROM",
-	    "    STUFF",
-	    "INNER JOIN",
+    /**
+     * SQLID: Stuff0003
+     */
+    @Select({
+        "SELECT",
+        "    STUFF.STUFF_ID",
+        "    , STUFF.STORE_ID",
+        "    , STUFF.LAST_NAME",
+        "    , STUFF.FIRST_NAME",
+        "    , STUFF.LAST_NAME_KANA",
+        "    , STUFF.FIRST_NAME_KANA",
+        "    , STUFF.RANK_ID",
+        "    , RANK_BY_STORE.RANK",
+        "    , STUFF.BIRTHDAY",
+        "    , STUFF.AGE",
+        "    , STUFF.GENDER",
+        "    , STUFF.POSTAL_CODE",
+        "    , STUFF.PREFECTURE_ID",
+        "    , STUFF.ADDRESS1",
+        "    , STUFF.ADDRESS2",
+        "    , STUFF.ADDRESS3",
+        "    , STUFF.PHONE_NUMBER",
+        "    , STUFF.EMAIL",
+        "    , STUFF.PASSWORD",
+        "    , STUFF.DELETE_FLG",
+        "    , STUFF.CREATED_DATETIME",
+        "    , STUFF.CREATED_USER",
+        "    , STUFF.UPDATE_DATETIME",
+        "    , STUFF.UPDATE_USER",
+        "    , STUFF.VERSION_EX_KEY",
+        "FROM",
+        "    STUFF",
+        "INNER JOIN",
         "    RANK_BY_STORE",
         "    ON RANK_BY_STORE.STORE_ID = STUFF.STORE_ID AND RANK_BY_STORE.RANK_ID = STUFF.RANK_ID",
-	    "WHERE",
-	    "    STUFF.STORE_ID = #{storeId}",
-	    "    AND STUFF.DELETE_FLG = 0"
-	})
-	@Results(value = {
-	    @Result(column="STUFF_ID", property="stuffId", jdbcType=JdbcType.INTEGER, id=true),
-	    @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER),
-	    @Result(column="LAST_NAME", property="lastName", jdbcType=JdbcType.VARCHAR),
-	    @Result(column="FIRST_NAME", property="firstName", jdbcType=JdbcType.VARCHAR),
-	    @Result(column="LAST_NAME_KANA", property="lastNameKana", jdbcType=JdbcType.VARCHAR),
-	    @Result(column="FIRST_NAME_KANA", property="firstNameKana", jdbcType=JdbcType.VARCHAR),
-	    @Result(column="RANK_ID", property="rankId", jdbcType=JdbcType.INTEGER),
-	    @Result(column="RANK", property="rank", jdbcType=JdbcType.VARCHAR),
-	    @Result(column="BIRTHDAY", property="birthday", jdbcType=JdbcType.DATE),
-	    @Result(column="AGE", property="age", jdbcType=JdbcType.INTEGER),
-	    @Result(column="GENDER", property="gender", jdbcType=JdbcType.INTEGER),
-	    @Result(column="POSTAL_CODE", property="postalCode", jdbcType=JdbcType.VARCHAR),
-	    @Result(column="PREFECTURE_ID", property="prefectureId", jdbcType=JdbcType.INTEGER),
-	    @Result(column="ADDRESS1", property="address1", jdbcType=JdbcType.VARCHAR),
-	    @Result(column="ADDRESS2", property="address2", jdbcType=JdbcType.VARCHAR),
-	    @Result(column="ADDRESS3", property="address3", jdbcType=JdbcType.VARCHAR),
-	    @Result(column="PHONE_NUMBER", property="phoneNumber", jdbcType=JdbcType.VARCHAR),
-	    @Result(column="EMAIL", property="email", jdbcType=JdbcType.VARCHAR),
-	    @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR)
-	})
-	List<StuffList0002> select0003(int storeId, int stuffId);
+        "WHERE",
+        "    STUFF.STORE_ID = #{storeId}",
+        "    AND STUFF.DELETE_FLG = 0"
+    })
+    @Results(value = {
+        @Result(column="STUFF_ID", property="stuffId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="STORE_ID", property="storeId", jdbcType=JdbcType.INTEGER),
+        @Result(column="LAST_NAME", property="lastName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FIRST_NAME", property="firstName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="LAST_NAME_KANA", property="lastNameKana", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FIRST_NAME_KANA", property="firstNameKana", jdbcType=JdbcType.VARCHAR),
+        @Result(column="RANK_ID", property="rankId", jdbcType=JdbcType.INTEGER),
+        @Result(column="RANK", property="rank", jdbcType=JdbcType.VARCHAR),
+        @Result(column="BIRTHDAY", property="birthday", jdbcType=JdbcType.DATE),
+        @Result(column="AGE", property="age", jdbcType=JdbcType.INTEGER),
+        @Result(column="GENDER", property="gender", jdbcType=JdbcType.INTEGER),
+        @Result(column="POSTAL_CODE", property="postalCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="PREFECTURE_ID", property="prefectureId", jdbcType=JdbcType.INTEGER),
+        @Result(column="ADDRESS1", property="address1", jdbcType=JdbcType.VARCHAR),
+        @Result(column="ADDRESS2", property="address2", jdbcType=JdbcType.VARCHAR),
+        @Result(column="ADDRESS3", property="address3", jdbcType=JdbcType.VARCHAR),
+        @Result(column="PHONE_NUMBER", property="phoneNumber", jdbcType=JdbcType.VARCHAR),
+        @Result(column="EMAIL", property="email", jdbcType=JdbcType.VARCHAR),
+        @Result(column="PASSWORD", property="password", jdbcType=JdbcType.VARCHAR)
+    })
+    List<StuffList0002> select0003(int storeId, int stuffId);
 }
