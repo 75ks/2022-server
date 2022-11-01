@@ -55,7 +55,7 @@ public class StuffListFormRes {
     private String firstNameKana;
 
     /**
-     * Table: STUFF
+     * Table: RANK_BY_STORE
      * Column: RANK
      * Type: VARCHAR(255)
      * Remark: ランク

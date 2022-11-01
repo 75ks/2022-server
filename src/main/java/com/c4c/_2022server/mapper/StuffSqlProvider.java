@@ -537,7 +537,6 @@ public class StuffSqlProvider {
                 "STUFF.FIRST_NAME",
                 "STUFF.LAST_NAME_KANA",
                 "STUFF.FIRST_NAME_KANA",
-                "STUFF.RANK_ID",
                 "STUFF.AGE",
                 "STUFF.GENDER",
                 "RANK_BY_STORE.RANK"
@@ -578,7 +577,7 @@ public class StuffSqlProvider {
         // ランク名
         if (!(reqForm.getRankName() == null || reqForm.getRankName().isEmpty() || reqForm.getRankName().equals("指定なし"))) {
             sql.AND();
-            sql.WHERE("STUFF.RANK_ID = #{reqForm.rankName}");
+            sql.WHERE("RANK_BY_STORE.RANK = #{reqForm.rankName}");
         }
 
         // 年齢

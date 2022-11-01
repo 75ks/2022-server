@@ -55,14 +55,7 @@ public class StuffList0001 {
     private String firstNameKana;
 
     /**
-     * Column: RANK_ID
-     * Type: INT
-     * Remark: ランクID
-     */
-    private Integer rankId;
-
-    /**
-     * Table: STUFF
+     * Table: RANK_BY_STORE
      * Column: RANK
      * Type: VARCHAR(255)
      * Remark: ランク
