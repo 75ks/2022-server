@@ -20,17 +20,20 @@ import com.c4c._2022server.utils.EntityUtils;
 public class MenuManagementCreateImpl implements MenuManagementCreateService {
     @Autowired
     EntityUtils entityUtils;
-
     @Autowired
     MenuHeaderMapper menuHeaderMapper;
 
+    /**
+     * 初期表示
+     * @param storeId 店舗ID
+     * @return メニュー情報
+     */
     @Override
     public List<MenuManagementCreateRes> index(int storeId) {
         MenuHeaderExample menuHeaderExample = new MenuHeaderExample();
         menuHeaderExample.createCriteria().andStoreIdEqualTo(storeId);
         // SELECT文を実行し、データを取得する
         List<MenuHeader> menuCreate = menuHeaderMapper.selectByExample(menuHeaderExample);
-
         // Formにデータを詰める
         List<MenuManagementCreateRes> menuFormList = new ArrayList<>();
         for (MenuHeader menu : menuCreate) {
@@ -42,12 +45,16 @@ public class MenuManagementCreateImpl implements MenuManagementCreateService {
         return menuFormList;
     }
 
+    /**
+     * メニュー情報更新
+     * @param storeId 店舗ID
+     * @param reqForm 画面からの入力値
+     */
     @Override
     public void deleteInsert(int storeId, MenuManagementCreateUpdateReq reqForm) {
         MenuHeaderExample menuHeaderExample = new MenuHeaderExample();
         menuHeaderExample.createCriteria().andStoreIdEqualTo(storeId);
         menuHeaderMapper.deleteByExample(menuHeaderExample);
-
         int menuId = 1;
         for (MenuManagementCreate menuManagementCreate : reqForm.getCreateMenu()) {
             // メニューの入力値がnull、または空文字の場合

@@ -26,13 +26,19 @@ import com.c4c._2022server.utils.JWTUtils;
 @RestController
 @RequestMapping("/menuRegister")
 public class MenuManagementCreateController {
-
     @Autowired
     MenuManagementCreateImpl menuManagementCreateImpl;
-
     @Autowired
     MenuHeaderMapper menuHeaderMapper;
+    @Autowired
+    MessageSource messageSource;
 
+    /**
+     * 初期表示
+     * @param jwt トークン
+     * @return メニュー情報
+     * @throws AuthenticationException
+     */
     @GetMapping("/Create")
     public ResponseEntity<List<MenuManagementCreateRes>> index(@RequestHeader("Authorization") String jwt)
             throws AuthenticationException {
@@ -42,9 +48,13 @@ public class MenuManagementCreateController {
         return ResponseEntity.ok(menuFormList);
     }
 
-    @Autowired
-    MessageSource messageSource;
-
+    /**
+     * メニュー情報更新
+     * @param jwt トークン
+     * @param reqForm 画面からの入力値
+     * @return 成功メッセージ
+     * @throws AuthenticationException
+     */
     @PutMapping("/update")
     public ResponseEntity<MenuManagementCreateUpdateRes> update(@RequestHeader("Authorization") String jwt,
                                                                 @RequestBody @Valid MenuManagementCreateUpdateReq reqForm) throws AuthenticationException {
@@ -56,5 +66,4 @@ public class MenuManagementCreateController {
         resForm.setMessages(messageSource.getMessage("success", new String[]{"更新"}, Locale.getDefault()));
         return ResponseEntity.ok(resForm);
     }
-
 }
