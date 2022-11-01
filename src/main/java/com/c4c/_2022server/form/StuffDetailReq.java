@@ -2,37 +2,31 @@ package com.c4c._2022server.form;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 import lombok.Data;
 
 
 @Data
-public class StuffCreateReq {
+public class StuffDetailReq {
     /**
      * 姓
      */
     @NotEmpty(message = "{lastName}{NotEmpty}")
-    @Size(max = 30, message = "{lastName}{Size.less_max}")
     private String lastName;
     /**
      * 名
      */
     @NotEmpty(message = "{firstName}{NotEmpty}")
-    @Size(max = 30, message = "{firstName}{Size.less_max}")
     private String firstName;
     /**
      * セイ
      */
     @NotEmpty(message = "{lastNameKana}{NotEmpty}")
-    @Size(max = 30, message = "{lastNameKana}{Size.less_max}")
     private String lastNameKana;
     /**
      * メイ
      */
     @NotEmpty(message = "{firstNameKana}{NotEmpty}")
-    @Size(max = 30, message = "{firstNameKana}{Size.less_max}")
     private String firstNameKana;
     /**
      * 生年月日
@@ -55,7 +49,6 @@ public class StuffCreateReq {
     /**
      * 郵便番号
      */
-    @Pattern(regexp = "^(\\d{7})?$", message = "{Pattern.postalCode}")
     private String postalCode;
     /**
      * 都道府県
@@ -76,7 +69,6 @@ public class StuffCreateReq {
     /**
      * 電話番号
      */
-    @Pattern(regexp = "^(\\d{11})?$", message = "{Pattern.phoneNumber}")
     private String phoneNumber;
     /**
      * メールアドレス
@@ -86,6 +78,6 @@ public class StuffCreateReq {
     /**
      * パスワード
      */
-    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9.?/-]{5,}$", message = "{Pattern.password}")
+    @NotEmpty(message = "{password}{NotEmpty}")
     private String password;
 }
