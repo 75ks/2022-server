@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.c4c._2022server.entity.Stuff;
 import com.c4c._2022server.entity.StuffExample;
+import com.c4c._2022server.exception.DuplicationException;
 import com.c4c._2022server.form.StuffDetailRegisterReq;
 import com.c4c._2022server.form.StuffDetailRes;
 import com.c4c._2022server.mapper.StuffMapper;
@@ -20,25 +21,32 @@ public class StuffDetailServiceImpl implements StuffDetailService {
     StuffMapper stuffMapper;
     @Autowired
     EntityUtils entityUtils;
-    
+
+    /**
+     * 初期表示
+     * @param storeId 店舗ID
+     * @param stuffId 顧客ID
+     * @return スタッフ詳細情報
+     */
     @Override
     public StuffDetailRes initialize(int storeId, int stuffId) {
-    	// スタッフID・店舗IDに紐づく1件を取得する
-    	StuffExample stuffExample = new StuffExample();
-    	stuffExample.createCriteria().andStoreIdEqualTo(storeId).andStuffIdEqualTo(stuffId);
-    	List<Stuff> stuffList = stuffMapper.selectByExample(stuffExample);
-//    	List<StuffList0002> stuffList = stuffMapper.select0003(storeId, stuffId);
-    	// Formにデータを詰める（レスポンスフォームに移送する）
-    	StuffDetailRes resForm = new StuffDetailRes();
-    	BeanUtils.copyProperties(stuffList.get(0), resForm);
-    	return resForm;
+        // スタッフID・店舗IDに紐づく1件を取得する
+        StuffExample stuffExample = new StuffExample();
+        stuffExample.createCriteria().andStoreIdEqualTo(storeId).andStuffIdEqualTo(stuffId);
+        List<Stuff> stuffList = stuffMapper.selectByExample(stuffExample);
+        // Formにデータを詰める（レスポンスフォームに移送する）
+        StuffDetailRes resForm = new StuffDetailRes();
+        BeanUtils.copyProperties(stuffList.get(0), resForm);
+
+        return resForm;
     }
-    
+
     /**
      * スタッフ情報更新
-     * @param stuffId
-     * @param storeId
-     * @param reqForm
+     * @param stuffId スタッフID
+     * @param storeId 店舗ID
+     * @param reqForm 画面からの入力値
+     * @throws DuplicationException
      */
     @Override
     public void register(int stuffId, int storeId, StuffDetailRegisterReq reqForm) {
@@ -51,34 +59,3 @@ public class StuffDetailServiceImpl implements StuffDetailService {
         stuffMapper.updateByPrimaryKeySelective(stuff);
     }
 }
-
-
-
-//    @Override
-//    public StuffDetailRes initialize(int storeId, int stuffId) {
-//    	// スタッフID・店舗IDに紐づく1件を取得する
-//    	StuffList0002 stuffList0002 = stuffMapper.select0003(storeId, stuffId);
-//        // Formにデータを詰める
-//    	StuffDetailRes resForm = new StuffDetailRes();
-//    	resForm.setStuffId(stuffList0002.getStuffId());
-//    	resForm.setStoreId(stuffList0002.getStoreId());
-//    	resForm.setLastName(stuffList0002.getLastName());
-//    	resForm.setFirstName(stuffList0002.getFirstName());
-//    	resForm.setLastNameKana(stuffList0002.getLastNameKana());
-//    	resForm.setFirstNameKana(stuffList0002.getFirstNameKana());
-//    	resForm.setRank(stuffList0002.getRank());
-//    	resForm.setBirthday(stuffList0002.getBirthday());
-//    	resForm.setAge(stuffList0002.getAge());
-//    	resForm.setGender(stuffList0002.getGender());
-//    	resForm.setPostalCode(stuffList0002.getPostalCode());
-//    	resForm.setPrefectureId(stuffList0002.getPrefectureId());
-//    	resForm.setAddress1(stuffList0002.getAddress1());
-//    	resForm.setAddress2(stuffList0002.getAddress2());
-//    	resForm.setAddress3(stuffList0002.getAddress3());
-//    	resForm.setPhoneNumber(stuffList0002.getPhoneNumber());
-//    	resForm.setEmail(stuffList0002.getEmail());
-//    	resForm.setPassword(stuffList0002.getPassword());
-//        return resForm;
-//    }
-//    
-//}

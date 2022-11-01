@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.c4c._2022server.exception.DuplicationException;
 import com.c4c._2022server.form.StuffDetailRegisterReq;
 import com.c4c._2022server.form.StuffDetailRegisterRes;
 import com.c4c._2022server.form.StuffDetailRes;
@@ -31,9 +32,11 @@ public class StuffDetailController {
     StuffDetailServiceImpl stuffDetailServiceImpl;
 
     /**
-     * スタッフ詳細表示
-     * @param jwt
-     * @return
+     * 初期表示
+     * @param jwt トークン
+     * @param givenStuffId スタッフID
+     * @return スタッフ詳細情報
+     * @throws AuthenticationException
      */
     @GetMapping("/initialize")
     public ResponseEntity<StuffDetailRes> initialize(@RequestHeader("Authorization") String jwt, @RequestParam(name = "stuffId", required = true) Integer givenStuffId) throws AuthenticationException {
@@ -47,10 +50,11 @@ public class StuffDetailController {
     
     /**
      * スタッフ情報更新
-     * @param jwt
-     * @param reqForm
-     * @return
+     * @param jwt トークン
+     * @param reqForm  画面からの入力値
+     * @return 成功メッセージ
      * @throws AuthenticationException
+     * @throws DuplicationException
      */
     @PostMapping("/")
     public ResponseEntity<StuffDetailRegisterRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid StuffDetailRegisterReq reqForm) throws AuthenticationException {
