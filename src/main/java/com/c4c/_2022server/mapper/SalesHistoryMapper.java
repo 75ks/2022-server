@@ -456,15 +456,15 @@ public interface SalesHistoryMapper {
     List<SalesHistory0005> select0005(int storeId, String salesYearMonth);
 
     /**
-     * SQLID: SalesHistory0003
+     * SQLID: SalesHistory0006
      */
     @Select({
         "SELECT",
         "    , SALES_HISTORY.MENU",
         "    , SALES_HISTORY.PRICE",
         "    , SALES_HISTORY.SALES_DATETIME",
-        "    , STUFF.LAST_NAME AS STUFF_LAST_NAME",
-        "    , STUFF.FIRST_NAME AS STUFF_FIRST_NAME",
+        "    , STUFF.LAST_NAME",
+        "    , STUFF.FIRST_NAME",
         "FROM",
         "    SALES_HISTORY",
         "INNER JOIN",
@@ -476,7 +476,7 @@ public interface SalesHistoryMapper {
         "WHERE",
         "    SALES_HISTORY.CUSTOMER_ID = #{customerId}",
         "ORDER BY",
-        "    SALES_HISTORY.RESERVE_DATETIME",
+        "    SALES_HISTORY.SALES_DATETIME",
     })
     @Results(value = {
             @Result(column = "MENU", property = "menu", jdbcType=JdbcType.VARCHAR),
