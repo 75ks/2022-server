@@ -86,6 +86,6 @@ public class StuffCreateReq {
     /**
      * パスワード
      */
-    @NotEmpty(message = "{password}{NotEmpty}")
+    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9.?/-]{5,}$", message = "{Pattern.password}")
     private String password;
 }
