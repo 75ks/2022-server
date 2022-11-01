@@ -31,13 +31,6 @@ public class ReserveHistory0003 {
     private LocalDateTime reserveDatetime;
 
     /**
-     * Column: RESERVE_STATE
-     * Type: INT
-     * Remark: 予約状態
-     */
-    private Integer reserveState;
-
-    /**
      * Table: STUFF
      * Column: LAST_NAME
      * Type: VARCHAR(30)

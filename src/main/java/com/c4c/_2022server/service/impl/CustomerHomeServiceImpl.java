@@ -2,24 +2,17 @@ package com.c4c._2022server.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
-import com.c4c._2022server.entity.Customer;
-import com.c4c._2022server.entity.CustomerExample;
 import com.c4c._2022server.entity.ReserveHistory0003;
-import com.c4c._2022server.exception.DuplicationException;
-import com.c4c._2022server.exception.ExclusiveException;
+import com.c4c._2022server.entity.SalesHistory0006;
 import com.c4c._2022server.form.customer.CustomerHomeInitRes;
-import com.c4c._2022server.form.customer.CustomerProfileInitRes;
-import com.c4c._2022server.form.customer.CustomerProfileUpdateReq;
-import com.c4c._2022server.mapper.CustomerMapper;
 import com.c4c._2022server.mapper.ReserveHistoryMapper;
+import com.c4c._2022server.mapper.SalesHistoryMapper;
 import com.c4c._2022server.service.CustomerHomeService;
-import com.c4c._2022server.service.CustomerProfileService;
 import com.c4c._2022server.utils.EntityUtils;
 
 @Service
@@ -30,6 +23,8 @@ public class CustomerHomeServiceImpl implements CustomerHomeService {
     EntityUtils entityUtils;
     @Autowired
     ReserveHistoryMapper reserveHistoryMapper;
+    @Autowired
+    SalesHistoryMapper salesHistoryMapper;
 
     /**
      * 顧客情報取得
@@ -47,9 +42,21 @@ public class CustomerHomeServiceImpl implements CustomerHomeService {
             resForm.setMenu(reserveHistory0003.getMenu());
             resForm.setPrice(reserveHistory0003.getPrice());
             resForm.setReserveDatetime(reserveHistory0003.getReserveDatetime());
-            resForm.setReserveState(reserveHistory0003.getReserveState());
             resForm.setStuffLastName(reserveHistory0003.getStuffLastName());
             resForm.setStuffFirstName(reserveHistory0003.getStuffFirstName());
+            resFormList.add(resForm);
+        }
+
+     // SELECTを実行し、データを取得する
+        List<SalesHistory0006> salesHistory = salesHistoryMapper.select0006(customerId);
+      //Formにデータを詰める
+        for (SalesHistory0006 salesHistory0006 : salesHistory) {
+            CustomerHomeInitRes resForm = new CustomerHomeInitRes();
+            resForm.setMenu(salesHistory0006.getMenu());
+            resForm.setPrice(salesHistory0006.getPrice());
+            resForm.setReserveDatetime(salesHistory0006.getSalesDatetime());
+            resForm.setStuffLastName(salesHistory0006.getStuffLastName());
+            resForm.setStuffFirstName(salesHistory0006.getStuffFirstName());
             resFormList.add(resForm);
         }
         return resFormList;

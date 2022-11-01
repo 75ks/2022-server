@@ -1,37 +1,35 @@
-package com.c4c._2022server.form.customer;
-
-import lombok.Data;
+package com.c4c._2022server.entity;
 
 import java.time.LocalDateTime;
 
+import lombok.Data;
+
 @Data
-public class CustomerHomeInitRes {
+public class SalesHistory0006 {
+
     /**
-     * Table: MENU_HEADER
-     * Column: MENU
+     * Table: SALES_HISTORY
      * Type: VARCHAR(255)
      * Remark: メニュー
      */
     private String menu;
 
     /**
-     * Table: MENU_DETAIL
-     * Column: PRICE
+     * Table: SALES_HISTORY
      * Type: INT
      * Remark: 料金
      */
     private Integer price;
 
     /**
-     * Column: RESERVE_DATETIME
+     * Table: SALES_HISTORY
      * Type: TIMESTAMP
-     * Remark: 予約日時
+     * Remark: 来店日時
      */
-    private LocalDateTime reserveDatetime;
+    private LocalDateTime salesDatetime;
 
     /**
      * Table: STUFF
-     * Column: LAST_NAME
      * Type: VARCHAR(30)
      * Remark: 姓
      */
@@ -39,7 +37,6 @@ public class CustomerHomeInitRes {
 
     /**
      * Table: STUFF
-     * Column: FIRST_NAME
      * Type: VARCHAR(30)
      * Remark: 名
      */

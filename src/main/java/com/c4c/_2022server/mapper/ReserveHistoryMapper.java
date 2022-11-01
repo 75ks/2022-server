@@ -234,7 +234,6 @@ public interface ReserveHistoryMapper {
         "    RESERVE_HISTORY.RESERVE_DATETIME",
         "    , RESERVE_HISTORY.MENU",
         "    , RESERVE_HISTORY.PRICE",
-        "    , RESERVE_HISTORY.RESERVE_STATE",
         "    , STUFF.LAST_NAME",
         "    , STUFF.FIRST_NAME",
         "FROM",
@@ -246,13 +245,17 @@ public interface ReserveHistoryMapper {
         "    STUFF",
         "    ON STUFF.STUFF_ID = RESERVE_HISTORY.STUFF_ID",
         "WHERE",
-        "    RESERVE_HISTORY.CUSTOMER_ID = #{customerId}"
+        "    RESERVE_HISTORY.CUSTOMER_ID = #{customerId}",
+        "    AND RESERVE_HISTORY.RESERVE_STATE IN (1, 3)",
+        "ORDER BY",
+        "RESERVE_HISTORY.RESERVE_DATETIME",
+        "LIMIT 1"
+
     })
     @Results({
         @Result(column="RESERVE_DATETIME", property="reserveDatetime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="MENU", property="menu", jdbcType=JdbcType.VARCHAR),
         @Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER),
-        @Result(column="RESERVE_STATE", property="reserveState", jdbcType=JdbcType.INTEGER),
         @Result(column="LAST_NAME", property="stuffLastName", jdbcType=JdbcType.VARCHAR),
         @Result(column="FIRST_NAME", property="stuffFirstName", jdbcType=JdbcType.VARCHAR)
     })
