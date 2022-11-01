@@ -62,7 +62,8 @@ public class CustomerDetailController {
     public ResponseEntity<CustomerDetailRegisterRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid CustomerDetailRegisterReq reqForm) throws AuthenticationException, ExclusiveException, DuplicationException {
         JWTUtils instance = JWTUtils.getInstance();
         int storeId = instance.getStoreId(jwt);
-        customerDetailServiceImpl.register(storeId, reqForm);
+        int stuffId = instance.getId(jwt);
+        customerDetailServiceImpl.register(storeId, stuffId, reqForm);
         // メッセージを設定
         CustomerDetailRegisterRes resForm = new CustomerDetailRegisterRes();
         resForm.setMessages(messageSource.getMessage("success", new String[]{"更新"}, Locale.getDefault()));

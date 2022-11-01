@@ -22,5 +22,5 @@ public interface CustomerDetailService {
      * @throws ExclusiveException
      * @throws DuplicationException
      */
-    public void register(int storeId, CustomerDetailRegisterReq reqForm) throws ExclusiveException, DuplicationException;
+    public void register(int storeId, int stuffId, CustomerDetailRegisterReq reqForm) throws ExclusiveException, DuplicationException;
 }

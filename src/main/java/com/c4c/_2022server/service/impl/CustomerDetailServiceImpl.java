@@ -55,7 +55,7 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
      * @throws DuplicationException
      */
     @Override
-    public void register(int storeId, CustomerDetailRegisterReq reqForm) throws ExclusiveException, DuplicationException {
+    public void register(int storeId, int stuffId, CustomerDetailRegisterReq reqForm) throws ExclusiveException, DuplicationException {
         // バージョンチェック
         CustomerExample customerExample = new CustomerExample();
         customerExample.createCriteria()
@@ -81,7 +81,7 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
         // Formにデータを詰める
         BeanUtils.copyProperties(reqForm, customer);
         // UPDATE時の共通設定
-        entityUtils.setColumns4Update(customer, storeId);
+        entityUtils.setColumns4Update(customer, stuffId);
         // UPDATEを実行し、データを登録する
         customerMapper.updateByPrimaryKey(customer);
     }
