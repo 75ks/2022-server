@@ -460,7 +460,7 @@ public interface SalesHistoryMapper {
      */
     @Select({
         "SELECT",
-        "    , SALES_HISTORY.MENU",
+        "     SALES_HISTORY.MENU",
         "    , SALES_HISTORY.PRICE",
         "    , SALES_HISTORY.SALES_DATETIME",
         "    , STUFF.LAST_NAME",
