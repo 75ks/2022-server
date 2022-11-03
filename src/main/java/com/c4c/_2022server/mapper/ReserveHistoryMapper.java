@@ -19,6 +19,7 @@ import org.apache.ibatis.type.JdbcType;
 import com.c4c._2022server.entity.ReserveHistory;
 import com.c4c._2022server.entity.ReserveHistory0001;
 import com.c4c._2022server.entity.ReserveHistory0002;
+import com.c4c._2022server.entity.ReserveHistory0003;
 import com.c4c._2022server.entity.ReserveHistoryExample;
 import com.c4c._2022server.form.ReserveHistoryReq;
 
@@ -183,7 +184,7 @@ public interface ReserveHistoryMapper {
             @Result(column = "CUSTOMER_LAST_NAME_KANA", property = "customerLastNameKana", jdbcType=JdbcType.VARCHAR),
             @Result(column = "CUSTOMER_FIRST_NAME_KANA", property = "customerFirstNameKana", jdbcType=JdbcType.VARCHAR),
             @Result(column = "STUFF_ID", property = "stuffId", jdbcType=JdbcType.INTEGER),
-            @Result(column = "STUFF_LAST_NAME", property = "stuffLastName", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "STUFF_LAST_NAME", property = "", jdbcType=JdbcType.VARCHAR),
             @Result(column = "STUFF_FIRST_NAME", property = "stuffFirstName", jdbcType=JdbcType.VARCHAR),
             @Result(column = "STUFF_LAST_NAME_KANA", property = "stuffLastNameKana", jdbcType=JdbcType.VARCHAR),
             @Result(column = "STUFF_FIRST_NAME_KANA", property = "stuffFirstNameKana", jdbcType=JdbcType.VARCHAR),
@@ -224,4 +225,39 @@ public interface ReserveHistoryMapper {
         @Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER)
     })
     ReserveHistory0002 select0002(int stuffId, int menuId);
+
+    /**
+     * SQLID: ReserveHistory0003
+     */
+    @Select({
+        "SELECT",
+        "    RESERVE_HISTORY.RESERVE_DATETIME",
+        "    , RESERVE_HISTORY.MENU",
+        "    , RESERVE_HISTORY.PRICE",
+        "    , STUFF.LAST_NAME",
+        "    , STUFF.FIRST_NAME",
+        "FROM",
+        "    RESERVE_HISTORY",
+        "INNER JOIN",
+        "    CUSTOMER",
+        "    ON CUSTOMER.CUSTOMER_ID = RESERVE_HISTORY.CUSTOMER_ID",
+        "INNER JOIN",
+        "    STUFF",
+        "    ON STUFF.STUFF_ID = RESERVE_HISTORY.STUFF_ID",
+        "WHERE",
+        "    RESERVE_HISTORY.CUSTOMER_ID = #{customerId}",
+        "    AND RESERVE_HISTORY.RESERVE_STATE IN (1, 3)",
+        "ORDER BY",
+        "RESERVE_HISTORY.RESERVE_DATETIME",
+        "LIMIT 1"
+
+    })
+    @Results({
+        @Result(column="RESERVE_DATETIME", property="reserveDatetime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="MENU", property="menu", jdbcType=JdbcType.VARCHAR),
+        @Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER),
+        @Result(column="LAST_NAME", property="stuffLastName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FIRST_NAME", property="stuffFirstName", jdbcType=JdbcType.VARCHAR)
+    })
+    List<ReserveHistory0003> select0003(int customerId);
 }
