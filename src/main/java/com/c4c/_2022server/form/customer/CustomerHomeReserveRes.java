@@ -1,11 +1,11 @@
-package com.c4c._2022server.entity;
+package com.c4c._2022server.form.customer;
 
 import java.time.LocalDateTime;
 
 import lombok.Data;
 
 @Data
-public class ReserveHistory0003 {
+public class CustomerHomeReserveRes {
     /**
      * Table: RESERVE_HISTORY
      * Column: MENU

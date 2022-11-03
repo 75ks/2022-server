@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 public class SalesHistory0006 {
-
     /**
      * Table: SALES_HISTORY
+     * Column: MENU
      * Type: VARCHAR(255)
      * Remark: メニュー
      */
@@ -16,6 +16,7 @@ public class SalesHistory0006 {
 
     /**
      * Table: SALES_HISTORY
+     * Column: PRICE
      * Type: INT
      * Remark: 料金
      */
@@ -23,6 +24,7 @@ public class SalesHistory0006 {
 
     /**
      * Table: SALES_HISTORY
+     * Column: SALES_DATETIME
      * Type: TIMESTAMP
      * Remark: 来店日時
      */
@@ -30,6 +32,7 @@ public class SalesHistory0006 {
 
     /**
      * Table: STUFF
+     * Column: LAST_NAME
      * Type: VARCHAR(30)
      * Remark: 姓
      */
@@ -37,6 +40,7 @@ public class SalesHistory0006 {
 
     /**
      * Table: STUFF
+     * Column: FIRST_NAME
      * Type: VARCHAR(30)
      * Remark: 名
      */

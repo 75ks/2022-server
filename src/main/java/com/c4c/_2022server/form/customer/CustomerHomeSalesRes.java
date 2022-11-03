@@ -1,13 +1,13 @@
-package com.c4c._2022server.entity;
+package com.c4c._2022server.form.customer;
 
 import java.time.LocalDateTime;
 
 import lombok.Data;
 
 @Data
-public class ReserveHistory0003 {
+public class CustomerHomeSalesRes {
     /**
-     * Table: RESERVE_HISTORY
+     * Table: SALES_HISTORY
      * Column: MENU
      * Type: VARCHAR(255)
      * Remark: メニュー
@@ -15,7 +15,7 @@ public class ReserveHistory0003 {
     private String menu;
 
     /**
-     * Table: RESERVE_HISTORY
+     * Table: SALES_HISTORY
      * Column: PRICE
      * Type: INT
      * Remark: 料金
@@ -23,12 +23,12 @@ public class ReserveHistory0003 {
     private Integer price;
 
     /**
-     * Table: RESERVE_HISTORY
-     * Column: RESERVE_DATETIME
+     * Table: SALES_HISTORY
+     * Column: SALES_DATETIME
      * Type: TIMESTAMP
-     * Remark: 予約日時
+     * Remark: 来店日時
      */
-    private LocalDateTime reserveDatetime;
+    private LocalDateTime salesDatetime;
 
     /**
      * Table: STUFF

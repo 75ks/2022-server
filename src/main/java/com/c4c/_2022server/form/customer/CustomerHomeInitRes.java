@@ -1,47 +1,20 @@
 package com.c4c._2022server.form.customer;
 
-import lombok.Data;
+import java.util.List;
 
-import java.time.LocalDateTime;
+import lombok.Data;
 
 @Data
 public class CustomerHomeInitRes {
     /**
-     * Table: MENU_HEADER
-     * Column: MENU
-     * Type: VARCHAR(255)
-     * Remark: メニュー
+     * Table: RESERVE_HISTORY
+     * Remark: 予約情報
      */
-    private String menu;
+    private CustomerHomeReserveRes customerHomeReserve;
 
     /**
-     * Table: MENU_DETAIL
-     * Column: PRICE
-     * Type: INT
-     * Remark: 料金
+     * Table: SALES_HISTORY
+     * Remark: 来店履歴情報
      */
-    private Integer price;
-
-    /**
-     * Column: RESERVE_DATETIME
-     * Type: TIMESTAMP
-     * Remark: 予約日時
-     */
-    private LocalDateTime reserveDatetime;
-
-    /**
-     * Table: STUFF
-     * Column: LAST_NAME
-     * Type: VARCHAR(30)
-     * Remark: 姓
-     */
-    private String stuffLastName;
-
-    /**
-     * Table: STUFF
-     * Column: FIRST_NAME
-     * Type: VARCHAR(30)
-     * Remark: 名
-     */
-    private String stuffFirstName;
+    private List<CustomerHomeSalesRes> customerHomeSalesList;
 }
