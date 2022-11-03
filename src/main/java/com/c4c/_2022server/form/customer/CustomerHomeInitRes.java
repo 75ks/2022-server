@@ -16,5 +16,5 @@ public class CustomerHomeInitRes {
      * Table: SALES_HISTORY
      * Remark: 来店履歴情報
      */
-    private List<CustomerHomeSalesRes> CustomerHomeSalesListRes;
+    private List<CustomerHomeSalesRes> customerHomeSalesListRes;
 }
