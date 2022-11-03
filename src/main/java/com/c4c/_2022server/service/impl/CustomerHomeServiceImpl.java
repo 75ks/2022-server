@@ -32,7 +32,7 @@ public class CustomerHomeServiceImpl implements CustomerHomeService {
      * @return 予約、来店履歴情報
      */
     @Override
-    public List<CustomerHomeInitRes> index(int customerId) {
+    public CustomerHomeInitRes index(int customerId) {
         // SELECTを実行し、データを取得する
         List<ReserveHistory0003> reserveHistory = reserveHistoryMapper.select0003(customerId);
         // Formにデータを詰める

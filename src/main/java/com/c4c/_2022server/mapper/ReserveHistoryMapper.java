@@ -259,5 +259,5 @@ public interface ReserveHistoryMapper {
         @Result(column="LAST_NAME", property="stuffLastName", jdbcType=JdbcType.VARCHAR),
         @Result(column="FIRST_NAME", property="stuffFirstName", jdbcType=JdbcType.VARCHAR)
     })
-    List<ReserveHistory0003> select0003(int customerId);
+    ReserveHistory0003 select0003(int customerId);
 }

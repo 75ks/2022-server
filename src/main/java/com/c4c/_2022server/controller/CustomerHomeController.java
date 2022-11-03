@@ -1,7 +1,5 @@
 package com.c4c._2022server.controller;
 
-import java.util.List;
-
 import javax.security.sasl.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +29,10 @@ public class CustomerHomeController {
      * @throws AuthenticationException
      */
     @GetMapping("/initialize")
-    public ResponseEntity<List<CustomerHomeInitRes>> index(@RequestHeader("CustomerAuthorization") String jwt) throws AuthenticationException {
+    public ResponseEntity<CustomerHomeInitRes> index(@RequestHeader("CustomerAuthorization") String jwt) throws AuthenticationException {
         JWTUtils instance = JWTUtils.getInstance();
         Integer customerId = instance.getId(jwt);
-        List<CustomerHomeInitRes> resFormList = customerHomeServiceImpl.index(customerId);
-        return ResponseEntity.ok(resFormList);
+        CustomerHomeInitRes resForm = customerHomeServiceImpl.index(customerId);
+        return ResponseEntity.ok(resForm);
     }
 }
