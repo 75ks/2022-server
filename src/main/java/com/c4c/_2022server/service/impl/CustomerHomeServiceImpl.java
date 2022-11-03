@@ -27,15 +27,15 @@ public class CustomerHomeServiceImpl implements CustomerHomeService {
     SalesHistoryMapper salesHistoryMapper;
 
     /**
-     * 顧客情報取得
-     * @param reserveHistory0003Id 顧客ID
-     * @return 顧客詳細情報
+     * 予約、来店履歴情報取得
+     * @param customerId 顧客ID
+     * @return 予約、来店履歴情報
      */
     @Override
     public List<CustomerHomeInitRes> index(int customerId) {
         // SELECTを実行し、データを取得する
         List<ReserveHistory0003> reserveHistory = reserveHistoryMapper.select0003(customerId);
-        //Formにデータを詰める
+        // Formにデータを詰める
         List<CustomerHomeInitRes> resFormList = new ArrayList<>();
         for (ReserveHistory0003 reserveHistory0003 : reserveHistory) {
             CustomerHomeInitRes resForm = new CustomerHomeInitRes();
@@ -47,9 +47,9 @@ public class CustomerHomeServiceImpl implements CustomerHomeService {
             resFormList.add(resForm);
         }
 
-     // SELECTを実行し、データを取得する
+        // SELECTを実行し、データを取得する
         List<SalesHistory0006> salesHistory = salesHistoryMapper.select0006(customerId);
-      //Formにデータを詰める
+        // Formにデータを詰める
         for (SalesHistory0006 salesHistory0006 : salesHistory) {
             CustomerHomeInitRes resForm = new CustomerHomeInitRes();
             resForm.setMenu(salesHistory0006.getMenu());
