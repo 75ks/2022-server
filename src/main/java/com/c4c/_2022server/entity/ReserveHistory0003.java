@@ -6,9 +6,8 @@ import lombok.Data;
 
 @Data
 public class ReserveHistory0003 {
-
     /**
-     * Table: MENU_HEADER
+     * Table: RESERVE_HISTORY
      * Column: MENU
      * Type: VARCHAR(255)
      * Remark: メニュー
@@ -16,7 +15,7 @@ public class ReserveHistory0003 {
     private String menu;
 
     /**
-     * Table: MENU_DETAIL
+     * Table: RESERVE_HISTORY
      * Column: PRICE
      * Type: INT
      * Remark: 料金
@@ -24,6 +23,7 @@ public class ReserveHistory0003 {
     private Integer price;
 
     /**
+     * Table: RESERVE_HISTORY
      * Column: RESERVE_DATETIME
      * Type: TIMESTAMP
      * Remark: 予約日時
