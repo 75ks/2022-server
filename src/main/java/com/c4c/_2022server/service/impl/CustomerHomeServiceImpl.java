@@ -41,7 +41,7 @@ public class CustomerHomeServiceImpl implements CustomerHomeService {
         reserveResForm.setReserveDatetime(reserveHistory.getReserveDatetime());
         reserveResForm.setStuffLastName(reserveHistory.getStuffLastName());
         reserveResForm.setStuffFirstName(reserveHistory.getStuffFirstName());
-        resForm.setCustomerHomeReserveRes(reserveResForm);
+        resForm.setCustomerHomeReserve(reserveResForm);
 
         // SELECTを実行し、来店履歴データを取得する
         List<SalesHistory0006> salesHistoryList = salesHistoryMapper.select0006(customerId);
@@ -56,7 +56,7 @@ public class CustomerHomeServiceImpl implements CustomerHomeService {
             salesResForm.setStuffFirstName(salesHistory0006.getStuffFirstName());
             salesResFormList.add(salesResForm);
         }
-        resForm.setCustomerHomeSalesListRes(salesResFormList);
+        resForm.setCustomerHomeSalesList(salesResFormList);
 
         return resForm;
     }

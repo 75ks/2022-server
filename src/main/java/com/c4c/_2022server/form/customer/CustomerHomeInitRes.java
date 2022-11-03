@@ -10,11 +10,11 @@ public class CustomerHomeInitRes {
      * Table: RESERVE_HISTORY
      * Remark: 予約情報
      */
-    private CustomerHomeReserveRes customerHomeReserveRes;
+    private CustomerHomeReserveRes customerHomeReserve;
 
     /**
      * Table: SALES_HISTORY
      * Remark: 来店履歴情報
      */
-    private List<CustomerHomeSalesRes> customerHomeSalesListRes;
+    private List<CustomerHomeSalesRes> customerHomeSalesList;
 }
