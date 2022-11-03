@@ -19,9 +19,7 @@ public class CustomerListServiceImpl implements CustomerListService {
 
     /**
      * 顧客一覧取得
-     * @param storeId 店舗ID
-     * @param reqForm 画面からの入力値
-     * @return 顧客情報一覧
+     * @return customerFormList
      */
     @Override
     public List<CustomerListFormRes> index(int storeId, CustomerListFormReq reqForm) {
@@ -29,16 +27,17 @@ public class CustomerListServiceImpl implements CustomerListService {
         List<Customer0002> customerList = customerMapper.select0002(storeId, reqForm);
         // Formにデータを詰める
         List<CustomerListFormRes> customerFormList = new ArrayList<>();
-        for (Customer0002 customer0002 : customerList) {
-            CustomerListFormRes customerForm = new CustomerListFormRes();
-            customerForm.setCustomerId(customer0002.getCustomerId());
-            customerForm.setLastName(customer0002.getLastName());
-            customerForm.setFirstName(customer0002.getFirstName());
-            customerForm.setLastNameKana(customer0002.getLastNameKana());
-            customerForm.setFirstNameKana(customer0002.getFirstNameKana());
-            customerForm.setAge(customer0002.getAge());
-            customerForm.setGender(customer0002.getGender());
-            customerFormList.add(customerForm);
+        for (Customer0002 customerList0001 : customerList) {
+        	CustomerListFormRes customerForm = new CustomerListFormRes();
+        	customerForm.setCustomerId(customerList0001.getCustomerId());
+        	customerForm.setLastName(customerList0001.getLastName());
+        	customerForm.setFirstName(customerList0001.getFirstName());
+        	customerForm.setLastNameKana(customerList0001.getLastNameKana());
+        	customerForm.setFirstNameKana(customerList0001.getFirstNameKana());
+        	customerForm.setAge(customerList0001.getAge());
+        	customerForm.setGender(customerList0001.getGender());
+        	customerFormList.add(customerForm);
+
         }
         return customerFormList;
     }

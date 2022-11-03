@@ -22,6 +22,7 @@ import com.c4c._2022server.entity.SalesHistory0002;
 import com.c4c._2022server.entity.SalesHistory0003;
 import com.c4c._2022server.entity.SalesHistory0004;
 import com.c4c._2022server.entity.SalesHistory0005;
+import com.c4c._2022server.entity.SalesHistory0006;
 import com.c4c._2022server.entity.SalesHistoryExample;
 import com.c4c._2022server.form.SalesTotalChartReq;
 
@@ -453,4 +454,36 @@ public interface SalesHistoryMapper {
             @Result(column = "NUMBER_OF_ORDERS", property = "numberOfOrders", jdbcType=JdbcType.INTEGER),
     })
     List<SalesHistory0005> select0005(int storeId, String salesYearMonth);
+
+    /**
+     * SQLID: SalesHistory0006
+     */
+    @Select({
+        "SELECT",
+        "     SALES_HISTORY.MENU",
+        "    , SALES_HISTORY.PRICE",
+        "    , SALES_HISTORY.SALES_DATETIME",
+        "    , STUFF.LAST_NAME",
+        "    , STUFF.FIRST_NAME",
+        "FROM",
+        "    SALES_HISTORY",
+        "INNER JOIN",
+        "    CUSTOMER",
+        "    ON CUSTOMER.CUSTOMER_ID = SALES_HISTORY.CUSTOMER_ID",
+        "INNER JOIN",
+        "    STUFF",
+        "    ON STUFF.STUFF_ID = SALES_HISTORY.STUFF_ID",
+        "WHERE",
+        "    SALES_HISTORY.CUSTOMER_ID = #{customerId}",
+        "ORDER BY",
+        "    SALES_HISTORY.SALES_DATETIME",
+    })
+    @Results(value = {
+            @Result(column = "MENU", property = "menu", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "PRICE", property = "price", jdbcType=JdbcType.INTEGER),
+            @Result(column = "SALES_DATETIME", property = "salesDatetime", jdbcType=JdbcType.TIMESTAMP),
+            @Result(column = "LAST_NAME", property = "stuffLastName", jdbcType=JdbcType.VARCHAR),
+            @Result(column = "FIRST_NAME", property = "stuffFirstName", jdbcType=JdbcType.VARCHAR),
+    })
+    List<SalesHistory0006> select0006(int customerId);
 }
