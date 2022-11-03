@@ -1,13 +1,12 @@
 package com.c4c._2022server.form;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.Data;
 
 @Data
-public class StuffListFormRes {
-	/**
-	 * Table: STUFF
+public class StuffDetailRes {
+    /**
      * Column: STUFF_ID
      * Type: INT
      * Remark: スタッフID
@@ -15,7 +14,6 @@ public class StuffListFormRes {
     private Integer stuffId;
 
     /**
-     * Table: STUFF
      * Column: STORE_ID
      * Type: INT
      * Remark: 店舗ID
@@ -23,7 +21,6 @@ public class StuffListFormRes {
     private Integer storeId;
 
     /**
-     * Table: STUFF
      * Column: LAST_NAME
      * Type: VARCHAR(30)
      * Remark: 姓
@@ -31,7 +28,6 @@ public class StuffListFormRes {
     private String lastName;
 
     /**
-     * Table: STUFF
      * Column: FIRST_NAME
      * Type: VARCHAR(30)
      * Remark: 名
@@ -39,7 +35,6 @@ public class StuffListFormRes {
     private String firstName;
 
     /**
-     * Table: STUFF
      * Column: LAST_NAME_KANA
      * Type: VARCHAR(30)
      * Remark: セイ
@@ -47,7 +42,6 @@ public class StuffListFormRes {
     private String lastNameKana;
 
     /**
-     * Table: STUFF
      * Column: FIRST_NAME_KANA
      * Type: VARCHAR(30)
      * Remark: メイ
@@ -55,23 +49,20 @@ public class StuffListFormRes {
     private String firstNameKana;
 
     /**
-     * Table: RANK_BY_STORE
-     * Column: RANK
-     * Type: VARCHAR(255)
-     * Remark: ランク
+     * Column: RANK_ID
+     * Type: INT
+     * Remark: ランクID
      */
-    private String rank;
+    private Integer rankId;
 
     /**
-     * Table: STUFF
      * Column: BIRTHDAY
      * Type: DATE
      * Remark: 生年月日
      */
-    private Date birthday;
+    private LocalDate birthday;
 
     /**
-     * Table: STUFF
      * Column: AGE
      * Type: INT
      * Remark: 年齢
@@ -79,10 +70,58 @@ public class StuffListFormRes {
     private Integer age;
 
     /**
-     * Table: STUFF
      * Column: GENDER
      * Type: INT
      * Remark: 性別
      */
     private Integer gender;
+
+    /**
+     * Column: POSTAL_CODE
+     * Type: VARCHAR(7)
+     * Remark: 郵便番号
+     */
+    private String postalCode;
+
+    /**
+     * Column: PREFECTURE_ID
+     * Type: INT
+     * Remark: 都道府県
+     */
+    private Integer prefectureId;
+
+    /**
+     * Column: ADDRESS1
+     * Type: VARCHAR(45)
+     * Remark: 住所1
+     */
+    private String address1;
+
+    /**
+     * Column: ADDRESS2
+     * Type: VARCHAR(45)
+     * Remark: 住所2
+     */
+    private String address2;
+
+    /**
+     * Column: ADDRESS3
+     * Type: VARCHAR(45)
+     * Remark: 住所3
+     */
+    private String address3;
+
+    /**
+     * Column: PHONE_NUMBER
+     * Type: VARCHAR(11)
+     * Remark: 電話番号
+     */
+    private String phoneNumber;
+
+    /**
+     * Column: EMAIL
+     * Type: VARCHAR(255)
+     * Remark: メールアドレス
+     */
+    private String email;
 }
