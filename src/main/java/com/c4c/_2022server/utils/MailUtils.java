@@ -42,7 +42,7 @@ public class MailUtils {
      * @return insertMessage
      */
     private String createMailTemplate(Customer customer) {
-        String link = CommonUtils.DOMAIN + ":3000/customerLogin";
+        String link = CommonUtils.DOMAIN + ":3000/customer/login";
                 String insertMessage =
                   "<html>"
                 + "   <body>"
@@ -61,6 +61,6 @@ public class MailUtils {
                 + "   </body>"
                 + "</html>";
 
-        return insertMessage.toString();
+        return insertMessage;
     }
 }
