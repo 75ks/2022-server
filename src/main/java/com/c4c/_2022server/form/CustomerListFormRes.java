@@ -1,6 +1,7 @@
 package com.c4c._2022server.form;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import lombok.Data;
 
@@ -52,7 +53,7 @@ public class CustomerListFormRes {
      * Type: DATE
      * Remark: 生年月日
      */
-    private String birthday;
+    private Date birthday;
 
     /**
      * Table: CUSTOMER

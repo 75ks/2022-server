@@ -70,4 +70,7 @@ public class CustomerDetailReq {
      */
     @NotEmpty(message = "{email}{NotEmpty}")
     private String email;
+    
+    /** 排他制御カラム */
+    private Integer versionExKey;
 }

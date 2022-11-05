@@ -97,4 +97,7 @@ public class CustomerDetailRegisterReq {
      */
     @NotEmpty(message = "{email}{NotEmpty}")
     private String email;
+    
+    /** 排他制御カラム */
+    private Integer versionExKey;
 }

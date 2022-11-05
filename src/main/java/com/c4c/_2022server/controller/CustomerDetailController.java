@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.c4c._2022server.exception.DuplicationException;
+import com.c4c._2022server.exception.ExclusiveException;
 import com.c4c._2022server.form.CustomerDetailRegisterReq;
 import com.c4c._2022server.form.CustomerDetailRegisterRes;
 import com.c4c._2022server.form.CustomerDetailRes;
@@ -54,14 +55,15 @@ public class CustomerDetailController {
      * @param reqForm 画面からの入力値
      * @return 成功メッセージ
      * @throws AuthenticationException
+     * @throws ExclusiveException
      * @throws DuplicationException
      */
     @PostMapping("/")
-    public ResponseEntity<CustomerDetailRegisterRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid CustomerDetailRegisterReq reqForm) throws AuthenticationException, DuplicationException {
+    public ResponseEntity<CustomerDetailRegisterRes> register(@RequestHeader("Authorization") String jwt, @RequestBody @Valid CustomerDetailRegisterReq reqForm) throws AuthenticationException, ExclusiveException, DuplicationException {
         JWTUtils instance = JWTUtils.getInstance();
-        int stuffId = instance.getId(jwt);
         int storeId = instance.getStoreId(jwt);
-        customerDetailServiceImpl.register(stuffId, storeId, reqForm);
+        int stuffId = instance.getId(jwt);
+        customerDetailServiceImpl.register(storeId, stuffId, reqForm);
         // メッセージを設定
         CustomerDetailRegisterRes resForm = new CustomerDetailRegisterRes();
         resForm.setMessages(messageSource.getMessage("success", new String[]{"更新"}, Locale.getDefault()));

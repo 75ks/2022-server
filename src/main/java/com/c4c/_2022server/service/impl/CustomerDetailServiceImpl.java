@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.c4c._2022server.entity.Customer;
 import com.c4c._2022server.entity.CustomerExample;
 import com.c4c._2022server.exception.DuplicationException;
+import com.c4c._2022server.exception.ExclusiveException;
 import com.c4c._2022server.form.CustomerDetailRegisterReq;
 import com.c4c._2022server.form.CustomerDetailRes;
 import com.c4c._2022server.mapper.CustomerMapper;
@@ -47,22 +48,31 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
 
     /**
      * 顧客情報更新
-     * @param stuffId スタッフID
      * @param storeid 店舗ID
+     * @param stuffId スタッフID
      * @param reqForm 画面からの入力値
+     * @throws ExclusiveException
      * @throws DuplicationException
      */
     @Override
-    public void register(int stuffId, int storeId, CustomerDetailRegisterReq reqForm) throws DuplicationException {
-        // 更新対象の顧客情報を取得
+    public void register(int storeId, int stuffId, CustomerDetailRegisterReq reqForm) throws ExclusiveException, DuplicationException {
+        // バージョンチェック
         CustomerExample customerExample = new CustomerExample();
         customerExample.createCriteria()
-                .andCustomerIdEqualTo(reqForm.getCustomerId()); // 顧客ID
+                .andCustomerIdEqualTo(reqForm.getCustomerId()) // 顧客ID
+                .andStoreIdEqualTo(storeId) // 店舗ID
+                .andVersionExKeyEqualTo(reqForm.getVersionExKey()); // 排他制御カラム
         Customer customer = customerMapper.selectByExample(customerExample) // 検索を行う
                 .stream() // streamに変換する
                 .findFirst() // 先頭の1件を取得する
                 .orElse(null); // 先頭の1件が取得できない場合は、nullを返す
-        
+
+        // 検索結果が取得できなかった場合
+        if (customer == null) {
+            // ExclusiveExceptionをスローする
+            throw new ExclusiveException(messageSource.getMessage("error.exclusive", new String[]{}, Locale.getDefault()));
+        }
+
         // メールアドレスが登録済み かつ 別顧客のメールアドレスかチェック
         Customer checkCustomer = customerMapper.select0001(reqForm.getEmail());
         if (checkCustomer != null && !(checkCustomer.getEmail().equals(customer.getEmail()))) {
@@ -73,6 +83,6 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
         // UPDATE時の共通設定
         entityUtils.setColumns4Update(customer, stuffId);
         // UPDATEを実行し、データを登録する
-        customerMapper.updateByPrimaryKeySelective(customer);
+        customerMapper.updateByPrimaryKey(customer);
     }
 }
