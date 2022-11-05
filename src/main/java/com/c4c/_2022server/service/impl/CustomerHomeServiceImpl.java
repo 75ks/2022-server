@@ -36,11 +36,13 @@ public class CustomerHomeServiceImpl implements CustomerHomeService {
         ReserveHistory0003 reserveHistory = reserveHistoryMapper.select0003(customerId);
         // Formにデータを詰める
         CustomerHomeReserveRes reserveResForm = new CustomerHomeReserveRes();
-        reserveResForm.setMenu(reserveHistory.getMenu());
-        reserveResForm.setPrice(reserveHistory.getPrice());
-        reserveResForm.setReserveDatetime(reserveHistory.getReserveDatetime());
-        reserveResForm.setStuffLastName(reserveHistory.getStuffLastName());
-        reserveResForm.setStuffFirstName(reserveHistory.getStuffFirstName());
+        if (reserveHistory != null) {
+            reserveResForm.setMenu(reserveHistory.getMenu());
+            reserveResForm.setPrice(reserveHistory.getPrice());
+            reserveResForm.setReserveDatetime(reserveHistory.getReserveDatetime());
+            reserveResForm.setStuffLastName(reserveHistory.getStuffLastName());
+            reserveResForm.setStuffFirstName(reserveHistory.getStuffFirstName());
+        }
         resForm.setCustomerHomeReserve(reserveResForm);
 
         // SELECTを実行し、来店履歴データを取得する
